@@ -15,12 +15,4 @@ public:
         std::mt19937 g(rd());
         std::shuffle(this->begin(), this->end(), g);
     }
-    void insert(Ptr card){
-        this->push_back(std::move(card));
-    }
-    Ptr pop(){
-        auto card = std::move(this->back());
-        this->pop_back();
-        return card;
-    }
 };

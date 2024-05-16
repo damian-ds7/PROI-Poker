@@ -1,14 +1,46 @@
-//
-// Created by kamil on 16.05.2024.
-//
+#pragma once
 
-#ifndef INC_24L_PROI_PROJECT_2_DSOUZA_DAMIAN_MARSZALEK_KAMIL_SUSKI_MICHAL_CARD_H
-#define INC_24L_PROI_PROJECT_2_DSOUZA_DAMIAN_MARSZALEK_KAMIL_SUSKI_MICHAL_CARD_H
-
-
-class Card {
-
+enum class Suit{
+    Spades,
+    Hearts,
+    Diamonds,
+    Clubs
 };
 
+enum class Value{
+    Two = 2,
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    Ten,
+    Jack,
+    Queen,
+    King,
+    Ace
+};
 
-#endif //INC_24L_PROI_PROJECT_2_DSOUZA_DAMIAN_MARSZALEK_KAMIL_SUSKI_MICHAL_CARD_H
+class Card {
+    Suit m_suit;
+    Value m_value;
+public:
+    [[nodiscard]] Suit suit() const noexcept;
+    [[nodiscard]] Value value() const noexcept;
+    Card(Suit suit, Value value);
+    ~Card() = default;
+    bool operator==(const Card& other) const noexcept;
+    bool operator!=(const Card& other) const noexcept;
+    bool operator<(const Card& other) const noexcept;
+    bool operator>(const Card& other) const noexcept;
+    bool operator<=(const Card& other) const noexcept;
+    bool operator>=(const Card& other) const noexcept;
+    bool operator==(const Value& other) const noexcept;
+    bool operator!=(const Value& other) const noexcept;
+    bool operator<(const Value& other) const noexcept;
+    bool operator>(const Value& other) const noexcept;
+    bool operator<=(const Value& other) const noexcept;
+    bool operator>=(const Value& other) const noexcept;
+};

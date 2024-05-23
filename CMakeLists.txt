@@ -4,7 +4,7 @@ project(Poker)
 set(CMAKE_CXX_STANDARD 20)
 
 include_directories(PokerLib)
-set(SOURCE_FILES PokerLib/Card.cpp PokerLib/Card.h PokerLib/Deck.h PokerLib/Deck.cpp)
+set(SOURCE_FILES PokerLib/Card.cpp PokerLib/Card.h PokerLib/CardCollection.h PokerLib/Deck.h PokerLib/Hand.h)
 set(TEST_FILES PokerTest/CardTest.cpp PokerTest/DeckTest.cpp)
 include(FetchContent)
 FetchContent_Declare(

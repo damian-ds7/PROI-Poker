@@ -63,14 +63,14 @@ TEST(PlayerTest, SetDealer) {
 
 TEST(PlayerTest, AddCard) {
     Player player("Player", 1000, 0);
-    player.add_card(std::make_unique<Card>(Suit::Hearts, Value::Ace));
+    player.add_card(std::move(std::make_unique<Card>(Suit::Hearts, Value::Ace)));
     auto card = player.clear_hand()->remove_card();
     EXPECT_EQ(card->value(), Value::Ace);
 }
 
 TEST(PlayerTest, PopCard) {
     Player player("Player", 1000, 0);
-    player.add_card(std::make_unique<Card>(Suit::Hearts, Value::Ace));
+    player.add_card(std::move(std::make_unique<Card>(Suit::Hearts, Value::Ace)));
     auto card = player.clear_hand()->remove_card();
     EXPECT_EQ(card->value(), Value::Ace);
     EXPECT_EQ(player.clear_hand()->size(), 0);

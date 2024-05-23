@@ -26,9 +26,11 @@ enum class Value{
 class Card {
     Suit m_suit;
     Value m_value;
+    unsigned int index;
 public:
     [[nodiscard]] Suit suit() const noexcept;
     [[nodiscard]] Value value() const noexcept;
+    [[nodiscard]] unsigned int card_index() const noexcept;
     Card(Suit suit, Value value);
     ~Card() = default;
     bool operator==(const Card& other) const noexcept;

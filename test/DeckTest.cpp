@@ -2,7 +2,7 @@
 #include "../src/Card/Card.h"
 #include "gtest/gtest.h"
 #include <memory>
-#include "../utils/CardsTypedef.h"
+#include "CardsTypedef.h"
 
 
 

@@ -1,9 +1,7 @@
 #include "Player.h"
 
-Player::Player(std::string name, unsigned int money, unsigned int bet, bool folded,
-               bool all_in, bool big_blind, bool small_blind, bool dealer) :
-    m_name(std::move(name)), m_money(money), m_bet(bet), m_folded(folded),
-    m_all_in(all_in), m_big_blind(big_blind), m_small_blind(small_blind), m_dealer(dealer) {};
+Player::Player(std::string name, unsigned int money, unsigned int bet) :
+    m_name(std::move(name)), m_money(money), m_bet(bet) {};
 
 std::string Player::name() const noexcept {
     return m_name;
@@ -70,9 +68,9 @@ void Player::set_dealer(bool dealer) {
 }
 
 void Player::add_card(std::unique_ptr<Card>&& card) {
-    m_hand.add_card(std::move(card));
+    m_hand.get()->add_card(std::move(card));
 }
 
-std::unique_ptr<Card> Player::pop_card() {
-    return m_hand.remove_card();
+Cards&& Player::clear_hand() noexcept {
+    return std::move(m_hand);
 }

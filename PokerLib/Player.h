@@ -3,20 +3,20 @@
 #include "CardCollection.h"
 #include <memory>
 #include "Hand.h"
+#include "constants.h"
 
 class Player {
     std::string m_name;
     unsigned int m_money;
     unsigned int m_bet;
-    bool m_folded;
-    bool m_all_in;
-    bool m_big_blind;
-    bool m_small_blind;
-    bool m_dealer;
-    Hand<std::unique_ptr<Card>> m_hand;
+    bool m_folded = false;
+    bool m_all_in = false;
+    bool m_big_blind = false;
+    bool m_small_blind = false;
+    bool m_dealer = false;
+    Cards m_hand;
 public:
-    Player(std::string name, unsigned int money, unsigned int bet, bool folded,
-           bool all_in, bool big_blind, bool small_blind, bool dealer);
+    Player(std::string name, unsigned int money, unsigned int bet);
     virtual ~Player() = default;
     [[nodiscard]] virtual std::string name() const noexcept;
     [[nodiscard]] virtual unsigned int money() const noexcept;
@@ -35,6 +35,6 @@ public:
     virtual void set_small_blind(bool small_blind);
     virtual void set_dealer(bool dealer);
     virtual void add_card(std::unique_ptr<Card>&& card);
-    virtual std::unique_ptr<Card> pop_card();
+    Cards&& clear_hand() noexcept;
 };
 

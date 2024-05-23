@@ -2,8 +2,9 @@
 #include "Card.h"
 #include "gtest/gtest.h"
 #include <memory>
+#include "constants.h"
 
-typedef std::unique_ptr<CardCollection<std::unique_ptr<Card>>> Cards;
+
 
 TEST(DeckTest, DeckCreate) {
     Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>();

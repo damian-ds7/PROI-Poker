@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
-#include "../CardCollection/CardCollection.h"
+#include "../../CardCollection/src/CardCollection.h"
 #include <memory>
-#include "../Hand/Hand.h"
-#include "../../utils/CardsTypedef.h"
+#include "../../Hand/src/Hand.h"
+#include "../../../utils/CardsTypedef.h"
 
 class Player {
     std::string m_name;

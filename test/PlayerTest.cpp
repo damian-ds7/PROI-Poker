@@ -1,4 +1,4 @@
-#include "../src/Player/Player.h"
+#include "../src/Player/src/Player.h"
 #include "gtest/gtest.h"
 
 TEST(PlayerTest, Constructor) {

@@ -14,7 +14,7 @@ class Player {
     bool m_big_blind = false;
     bool m_small_blind = false;
     bool m_dealer = false;
-    Cards m_hand;
+    Cards m_hand = std::make_unique<Hand<std::unique_ptr<Card>>>();
 public:
     Player(std::string name, unsigned int money, unsigned int bet);
     virtual ~Player() = default;

@@ -68,7 +68,7 @@ void Player::set_dealer(bool dealer) {
 }
 
 void Player::add_card(std::unique_ptr<Card>&& card) {
-    m_hand.get()->add_card(std::move(card));
+    m_hand->add_card(std::move(card));
 }
 
 Cards&& Player::clear_hand() noexcept {

@@ -8,7 +8,7 @@ enum class Suit{
 };
 
 enum class Value{
-    Two = 2,
+    Two,
     Three,
     Four,
     Five,

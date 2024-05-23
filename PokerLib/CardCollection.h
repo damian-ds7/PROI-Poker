@@ -18,10 +18,6 @@ public:
         std::deque<Ptr>::push_back(std::move(card));
     }
 
-    virtual void add_card(const Ptr& card) {
-        std::deque<Ptr>::push_back(card);
-    }
-
     virtual Ptr remove_card() {
         Ptr card = std::move(std::deque<Ptr>::front());
         std::deque<Ptr>::pop_front();

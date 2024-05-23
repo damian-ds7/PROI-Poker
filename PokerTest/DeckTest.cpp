@@ -1,52 +1,43 @@
-#include "CardCollection.h"
+#include "Deck.h"
 #include "Card.h"
 #include "gtest/gtest.h"
 #include <memory>
 
+typedef std::unique_ptr<CardCollection<std::unique_ptr<Card>>> Cards;
+
 TEST(DeckTest, DeckCreate) {
-    Deck<std::vector, std::unique_ptr<Card>> deck;
-    EXPECT_EQ(deck.size(), 0);
+    Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>();
+    EXPECT_EQ(deck->size(), 0);
 }
 
-TEST(DeckTest, DeckPush) {
-    Deck<std::vector, std::unique_ptr<Card>> deck;
-    deck.push_back(std::move(std::make_unique<Card>(Suit::Hearts, Value::Ace)));
-    EXPECT_EQ(deck.size(), 1);
+TEST(DeckTest, DeckAddCard) {
+    Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>();
+    deck->add_card(std::move(std::make_unique<Card>(Suit::Hearts, Value::Ace)));
+    EXPECT_EQ(deck->size(), 1);
 }
 
-TEST(DeckTest, DeckPop) {
-    Deck<std::vector, std::unique_ptr<Card>> deck;
-    deck.push_back(std::move(std::make_unique<Card>(Suit::Hearts, Value::Ace)));
-    auto card = std::move(deck.back());
-    deck.pop_back();
-    EXPECT_EQ(deck.size(), 0);
+TEST(DeckTest, DeckRemoveCard) {
+    Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>();
+    deck->add_card(std::move(std::make_unique<Card>(Suit::Hearts, Value::Ace)));
+    auto card = deck->remove_card();
+    EXPECT_EQ(deck->size(), 0);
     EXPECT_EQ(card->value(), Value::Ace);
 }
 
 TEST(DeckTest, DeckSize){
-    Deck<std::vector, std::unique_ptr<Card>> deck;
-    EXPECT_EQ(deck.size(), 0);
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Ace));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Two));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Three));
-    EXPECT_EQ(deck.size(), 3);
+    Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>();
+    EXPECT_EQ(deck->size(), 0);
+    deck->add_card(std::make_unique<Card>(Suit::Hearts, Value::Ace));
+    deck->add_card(std::make_unique<Card>(Suit::Hearts, Value::Two));
+    deck->add_card(std::make_unique<Card>(Suit::Hearts, Value::Three));
+    EXPECT_EQ(deck->size(), 3);
 }
 
 TEST(DeckTest, DeckShuffle){
-    Deck<std::vector, std::unique_ptr<Card>> deck;
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Ace));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Two));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Three));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Four));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Five));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Six));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Seven));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Eight));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Nine));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Ten));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Jack));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::Queen));
-    deck.push_back(std::make_unique<Card>(Suit::Hearts, Value::King));
-    deck.shuffle();
-    EXPECT_EQ(deck.size(), 13);
+    Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>();
+    for (int i = 2; i <= 14; ++i) {
+        deck->add_card(std::make_unique<Card>(Suit::Hearts, static_cast<Value>(i)));
+    }
+    dynamic_cast<Deck<std::unique_ptr<Card>>*>(deck.get())->shuffle();
+    EXPECT_EQ(deck->size(), 13);
 }

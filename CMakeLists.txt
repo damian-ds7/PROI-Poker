@@ -4,9 +4,10 @@ project(Poker)
 set(CMAKE_CXX_STANDARD 20)
 
 include_directories(PokerLib)
-set(SOURCE_FILES PokerLib/Card.cpp PokerLib/Card.h PokerLib/CardCollection.h PokerLib/Deck.h PokerLib/Hand.h
-PokerLib/Player.h PokerLib/Player.cpp PokerLib/constants.h)
-set(TEST_FILES PokerTest/CardTest.cpp PokerTest/DeckTest.cpp PokerTest/PlayerTest.cpp)
+set(SOURCE_FILES src/Card/Card.cpp src/Card/Card.h src/CardCollection/CardCollection.h src/Deck/Deck.h src/Hand/Hand.h
+        src/Player/Player.h src/Player/Player.cpp utils/CardsTypedef.h
+        utils/Suit.h utils/Value.h)
+set(TEST_FILES test/CardTest.cpp test/DeckTest.cpp test/PlayerTest.cpp)
 include(FetchContent)
 FetchContent_Declare(
         googletest

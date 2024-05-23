@@ -1,8 +1,8 @@
-#include "Deck.h"
-#include "Card.h"
+#include "../src/Deck/Deck.h"
+#include "../src/Card/Card.h"
 #include "gtest/gtest.h"
 #include <memory>
-#include "constants.h"
+#include "../utils/CardsTypedef.h"
 
 
 

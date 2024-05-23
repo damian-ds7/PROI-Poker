@@ -1,27 +1,6 @@
 #pragma once
-
-enum class Suit{
-    Spades,
-    Hearts,
-    Clubs,
-    Diamonds,
-};
-
-enum class Value{
-    Two,
-    Three,
-    Four,
-    Five,
-    Six,
-    Seven,
-    Eight,
-    Nine,
-    Ten,
-    Jack,
-    Queen,
-    King,
-    Ace
-};
+#include "../../utils/Suit.h"
+#include "../../utils/Value.h"
 
 class Card {
     Suit m_suit;

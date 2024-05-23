@@ -72,3 +72,12 @@ EXPECT_NE(card1, card21);
 EXPECT_NE(card1, card23);
 EXPECT_NE(card1, card25);
 }
+
+TEST(CardTest, CardIndex) {
+    for (int i = 0; i < 13; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            Card card(static_cast<Suit>(j), static_cast<Value>(i));
+            EXPECT_EQ(card.card_index(), 4 * i + j);
+        }
+    }
+}

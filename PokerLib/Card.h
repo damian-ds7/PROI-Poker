@@ -3,8 +3,8 @@
 enum class Suit{
     Spades,
     Hearts,
+    Clubs,
     Diamonds,
-    Clubs
 };
 
 enum class Value{

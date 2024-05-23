@@ -1,5 +1,5 @@
 #pragma once
-#include "../../CardCollection/src/CardCollection.h"
+#include "CardCollection.h"
 
 template <typename Ptr>
 class Hand : public CardCollection<Ptr> {

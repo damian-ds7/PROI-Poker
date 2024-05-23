@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <deque>
-#include "../../Card/src/Card.h"
+#include "Card.h"
 
 template <typename Ptr>
 class CardCollection : public std::deque<Ptr>{

@@ -1,6 +1,6 @@
 #pragma once
-#include "../../../utils/Suit.h"
-#include "../../../utils/Value.h"
+#include "Suit.h"
+#include "Value.h"
 
 class Card {
     Suit m_suit;

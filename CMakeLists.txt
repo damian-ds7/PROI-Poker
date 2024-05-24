@@ -13,9 +13,10 @@ file(GLOB COLLECTION_FILES src/CardCollection/*.h src/CardCollection/*.cpp
         src/Deck/*.h src/Deck/*.cpp src/Hand/*.h src/Hand/*.cpp)
 file(GLOB PLAYER_FILES src/Player/*.h src/Player/*.cpp)
 file(GLOB UTILS_FILES utils/*.h utils/*.cpp)
+file(GLOB EVALUATOR_FILES utils/omp/*.h utils/omp/*.cpp utils/omp/*.hxx)
 file(GLOB TEST_FILES test/*.cpp)
 
-set(SOURCE_FILES ${CARD_FILES} ${COLLECTION_FILES} ${PLAYER_FILES} ${UTILS_FILES})
+set(SOURCE_FILES ${CARD_FILES} ${COLLECTION_FILES} ${PLAYER_FILES} ${UTILS_FILES} ${EVALUATOR_FILES})
 
 include(FetchContent)
 FetchContent_Declare(

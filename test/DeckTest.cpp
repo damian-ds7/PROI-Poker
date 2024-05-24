@@ -1,5 +1,5 @@
-#include "../src/Deck/Deck.h"
-#include "../src/Card/Card.h"
+#include "Deck.h"
+#include "Card.h"
 #include "gtest/gtest.h"
 #include <memory>
 #include "CardsTypedef.h"

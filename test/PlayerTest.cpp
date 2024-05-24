@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "gtest/gtest.h"
 #include "Card.h"
+#include "HandEvaluator.h"
 
 TEST(PlayerTest, Constructor) {
     Player player("Player", 1000, 0);

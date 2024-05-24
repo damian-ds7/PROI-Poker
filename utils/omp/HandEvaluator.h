@@ -3,9 +3,10 @@
 
 #include "Util.h"
 #include "Constants.h"
-#include "Hand.h"
+#include "omp_Hand.h"
 #include <cstdint>
 #include <cassert>
+#include <memory>
 
 namespace omp {
 
@@ -18,6 +19,7 @@ public:
     // Returns the rank of a hand as a 16-bit integer. Higher value is better. Can also rank hands with less than 5
     // cards. A missing card is considered the worst kicker, e.g. K < KQJT8 < A < AK < KKAQJ < AA < AA2 < AA4 < AA432.
     // Hand category can be extracted by dividing the value by 4096. 1=highcard, 2=pair, etc.
+
     template<bool tFlushPossible = true>
     OMP_FORCE_INLINE uint16_t evaluate(const Hand& hand) const
     {

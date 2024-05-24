@@ -11,7 +11,7 @@
     #include <xmmintrin.h> // SSE1
     #include <emmintrin.h> // SSE2
     #if OMP_SSE4
-        #include <smmintrin.h> // SSE4.1
+        #include <smmintrin.card_eval> // SSE4.1
     #endif
 #endif
 

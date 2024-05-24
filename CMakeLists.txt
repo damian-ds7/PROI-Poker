@@ -38,5 +38,5 @@ target_link_libraries(HandTest PUBLIC gtest_main)
 add_executable(DeckTest ${COLLECTION_FILES} ${CARD_FILES} ${UTILS_FILES} test/DeckTest.cpp)
 target_link_libraries(DeckTest PUBLIC gtest_main)
 
-add_executable(PlayerTest ${SOURCE_FILES} test/PlayerTest.cpp)
+add_executable(PlayerTest ${SOURCE_FILES} ${EVALUATOR_FILES} test/PlayerTest.cpp)
 target_link_libraries(PlayerTest PUBLIC gtest_main)

@@ -16,7 +16,7 @@ class Player {
     bool m_small_blind = false;
     bool m_dealer = false;
     Cards m_hand = std::make_unique<Hand<std::unique_ptr<Card>>>();
-    omp::Hand h = omp::Hand::empty();
+    omp::Hand card_eval = omp::Hand::empty();
 public:
     Player(std::string name, unsigned int money, unsigned int bet);
     virtual ~Player() = default;
@@ -28,7 +28,7 @@ public:
     [[nodiscard]] virtual bool big_blind() const noexcept;
     [[nodiscard]] virtual bool small_blind() const noexcept;
     [[nodiscard]] virtual bool dealer() const noexcept;
-    [[nodiscard]] virtual omp::Hand get_hand_strength() const noexcept;
+    [[nodiscard]] unsigned int evaluate() const noexcept;
     virtual void set_name(std::string name);
     virtual void set_money(unsigned int money);
     virtual void set_bet(unsigned int bet);
@@ -40,5 +40,7 @@ public:
     virtual void add_card(std::unique_ptr<Card>&& card);
     virtual void add_table_card(unsigned int index);
     Cards&& clear_hand() noexcept;
+protected:
+    static omp::HandEvaluator eval;
 };
 

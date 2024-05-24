@@ -35,8 +35,8 @@ bool Player::dealer() const noexcept {
     return m_dealer;
 }
 
-omp::Hand Player::get_hand_strength() const noexcept {
-    return h;
+unsigned int Player::evaluate() const noexcept {
+    return eval.evaluate(card_eval);
 }
 
 void Player::set_name(std::string name) {
@@ -72,14 +72,16 @@ void Player::set_dealer(bool dealer) {
 }
 
 void Player::add_card(std::unique_ptr<Card>&& card) {
-    h += omp::Hand(card->card_index());
+    card_eval += omp::Hand(card->card_index());
     m_hand->add_card(std::move(card));
 }
 
 void Player::add_table_card(unsigned int index) {
-    h += omp::Hand(index);
+    card_eval += omp::Hand(index);
 }
 
 Cards&& Player::clear_hand() noexcept {
     return std::move(m_hand);
 }
+
+omp::HandEvaluator Player::eval;

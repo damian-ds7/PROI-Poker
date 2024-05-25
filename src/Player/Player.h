@@ -17,6 +17,7 @@ class Player {
     bool m_dealer = false;
     Cards m_hand = std::make_unique<Hand<std::unique_ptr<Card>>>();
     omp::Hand card_eval = omp::Hand::empty();
+    virtual void make_helper(unsigned money);
 public:
     Player(std::string name, unsigned int money, unsigned int bet);
     virtual ~Player() = default;
@@ -39,6 +40,12 @@ public:
     virtual void set_dealer(bool dealer);
     virtual void add_card(std::unique_ptr<Card>&& card);
     virtual void add_table_card(unsigned int index);
+    virtual void make_bet(unsigned bet);
+    virtual void make_raise(unsigned raise);
+    virtual void make_call(unsigned call);
+    virtual void make_fold();
+    virtual void make_all_in();
+    virtual void make_check();
     Cards&& clear_hand() noexcept;
 protected:
     static omp::HandEvaluator eval;

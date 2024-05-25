@@ -78,3 +78,44 @@ TEST(PlayerTest, PopCard) {
     EXPECT_EQ(player.clear_hand()->size(), 0);
     EXPECT_EQ(card->suit(), Suit::Hearts);
 }
+
+TEST(PlayerTest, MakeBet) {
+    Player player("Player", 1000, 0);
+    player.make_bet(100);
+    EXPECT_EQ(player.bet(), 100);
+    EXPECT_EQ(player.money(), 900);
+}
+
+TEST(PlayerTest, MakeRaise) {
+    Player player("Player", 1000, 0);
+    player.make_raise(100);
+    EXPECT_EQ(player.bet(), 100);
+    EXPECT_EQ(player.money(), 900);
+}
+
+TEST(PlayerTest, MakeCall) {
+    Player player("Player", 1000, 0);
+    player.make_call(100);
+    EXPECT_EQ(player.bet(), 100);
+    EXPECT_EQ(player.money(), 900);
+}
+
+TEST(PlayerTest, MakeFold) {
+    Player player("Player", 1000, 0);
+    player.make_fold();
+    EXPECT_EQ(player.folded(), true);
+}
+
+TEST(PlayerTest, MakeAllIn) {
+    Player player("Player", 1000, 0);
+    player.make_all_in();
+    EXPECT_EQ(player.all_in(), true);
+    EXPECT_EQ(player.money(), 0);
+    EXPECT_EQ(player.bet(), 1000);
+}
+
+TEST(PlayerTest, MakeCheck) {
+    Player player("Player", 1000, 0);
+    player.make_check();
+    EXPECT_EQ(player.bet(), 0);
+}

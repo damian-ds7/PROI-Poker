@@ -7,6 +7,7 @@
 #include "HandEvaluator.h"
 
 class Player {
+protected:
     std::string m_name;
     unsigned int m_money;
     unsigned int m_bet;

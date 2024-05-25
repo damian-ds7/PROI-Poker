@@ -81,3 +81,15 @@ TEST(CardTest, CardIndex) {
         }
     }
 }
+
+TEST(CardTest, CardToString) {
+    Card card1(Suit::Spades, Value::Ace);
+    Card card2(Suit::Hearts, Value::Three);
+    Card card3(Suit::Diamonds, Value::Queen);
+    Card card4(Suit::Clubs, Value::Ten);
+
+    EXPECT_EQ(card1.to_string(), "As");
+    EXPECT_EQ(card2.to_string(), "3h");
+    EXPECT_EQ(card3.to_string(), "Qd");
+    EXPECT_EQ(card4.to_string(), "10c");
+}

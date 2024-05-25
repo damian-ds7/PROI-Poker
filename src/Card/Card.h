@@ -1,6 +1,7 @@
 #pragma once
 #include "Suit.h"
 #include "Value.h"
+#include <string>
 
 class Card {
     Suit m_suit;
@@ -24,4 +25,5 @@ public:
     bool operator>(const Value& other) const noexcept;
     bool operator<=(const Value& other) const noexcept;
     bool operator>=(const Value& other) const noexcept;
+    std::string to_string() const noexcept;
 };

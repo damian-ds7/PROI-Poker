@@ -42,6 +42,26 @@ public:
     // Returns a 64-bit bitmask of cards from a string like "2c8hAh".
     static uint64_t getCardMask(const std::string& text);
 
+    // Debug purpuses
+    bool operator==(const CardRange& other) const{
+        return mCombinations == other.mCombinations;
+    };
+
+    // Debug purpuses
+    bool operator!=(const CardRange& other) const{
+        return mCombinations != other.mCombinations;
+    };
+
+    // Debug purpuses
+    bool operator==(const std::string &text) const{
+        return *this == CardRange(text);
+    };
+
+    // Debug purpuses
+    bool operator!=(const std::string &text) const{
+        return *this != CardRange(text);
+    };
+
 private:
     bool parseHand(const char*&p);
     bool parseRank(const char*&p, unsigned& rank);
@@ -54,6 +74,7 @@ private:
     void removeDuplicates();
     static unsigned charToRank(char c);
     static unsigned charToSuit(char c);
+
 
     std::vector<std::array<uint8_t,2>> mCombinations;
 };

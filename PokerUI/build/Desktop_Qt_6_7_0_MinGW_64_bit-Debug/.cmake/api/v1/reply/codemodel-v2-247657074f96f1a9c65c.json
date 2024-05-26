@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-24c04c488780a7f3552f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "PokerUI",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "PokerUI::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PokerUI-Debug-845a4899b5505d2157bf.json",
+					"name" : "PokerUI",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PokerUI_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PokerUI_autogen-Debug-6210360cbe95202e3205.json",
+					"name" : "PokerUI_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PokerUI_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PokerUI_autogen_timestamp_deps-Debug-b8742b2bd6049ada95df.json",
+					"name" : "PokerUI_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug",
+		"source" : "C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

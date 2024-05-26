@@ -1,0 +1,19 @@
+{
+	"BUILD_DIR" : "C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen",
+	"CMAKE_BINARY_DIR" : "C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI",
+	"CMAKE_SOURCE_DIR" : "C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI",
+	"INCLUDE_DIR" : "C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/include",
+	"INPUTS" : [],
+	"LOCK_FILE" : "C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/PokerUI_autogen.dir/AutoRcc_background_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "--no-zstd", "-name", "background" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_background.cpp",
+	"RCC_EXECUTABLE" : "C:/Qt/6.7.0/mingw_64/./bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/PokerUI_autogen.dir/AutoRcc_background_EWIEGA46WW_Used.txt",
+	"SOURCE" : "C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/background.qrc",
+	"VERBOSITY" : 0
+}

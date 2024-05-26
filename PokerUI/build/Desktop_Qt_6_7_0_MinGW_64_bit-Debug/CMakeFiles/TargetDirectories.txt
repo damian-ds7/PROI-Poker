@@ -1,0 +1,9 @@
+C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/PokerUI.dir
+C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/list_install_components.dir
+C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/install.dir
+C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/install/local.dir
+C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/install/strip.dir
+C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/PokerUI_autogen_timestamp_deps.dir
+C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/PokerUI_autogen.dir

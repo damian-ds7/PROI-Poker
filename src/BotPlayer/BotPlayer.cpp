@@ -34,7 +34,7 @@ std::vector<omp::CardRange> BotPlayer::get_bot_hand(int num_of_players) const no
 }
 
 void BotPlayer::calc_equity(const std::string& board_cards, int num_of_players){
-    uint64_t board = omp::CardRange::getCardMask(board_cards);
+    uint64_t board =(board_cards == "0") ? 0 : omp::CardRange::getCardMask(board_cards);
     calc.start(get_bot_hand(num_of_players), board);
     calc.wait();
     auto r = calc.getResults();

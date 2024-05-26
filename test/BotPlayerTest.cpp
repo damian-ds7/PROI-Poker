@@ -103,3 +103,25 @@ TEST(BotPlayerTest, BotPlayerMakeDecisionRaise){
     bot.make_decision(100, 2);
     EXPECT_GT(bot.bet(), 100);
 }
+
+TEST(BotPlayerTest, BotPlayerMakeDecisionRaiseNotEnoughMoney){
+    BotPlayer bot("Bot", 100, 0);
+    bot.set_equity(0.6);
+    bot.make_decision(100, 2);
+    EXPECT_EQ(bot.bet(), 100);
+}
+
+TEST(BotPlayerTest, BotPlayerMakeDecisionCallNotEnoughMoney){
+    BotPlayer bot("Bot", 100, 0);
+    bot.set_equity(0.4);
+    bot.make_decision(100, 2);
+    EXPECT_EQ(bot.bet(), 100);
+}
+
+TEST(BotPlayerTest, BotPlayerMakeDecisionCheck){
+    BotPlayer bot("Bot", 1000, 0);
+    bot.set_equity(0.3);
+    bot.make_decision(0, 2);
+    EXPECT_EQ(bot.bet(), 0);
+}
+

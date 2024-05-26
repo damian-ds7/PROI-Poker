@@ -38,5 +38,23 @@ void BotPlayer::calc_equity(const std::string& board_cards, int num_of_players){
     calc.start(get_bot_hand(num_of_players), board);
     calc.wait();
     auto r = calc.getResults();
-    m_equity = r.equity[0];
+    set_equity(r.equity[0]);
+}
+
+void BotPlayer::make_decision(unsigned int biggest_bet, int num_of_players){
+    if (equity() > 1.0 / static_cast<double>(num_of_players)) {
+        if (money() <= biggest_bet) {
+            make_all_in();
+        } else {
+            make_raise(biggest_bet + (money() - biggest_bet) * equity());
+        }
+    } else if (equity() < 0.5 / static_cast<double>(num_of_players)) {
+        make_fold();
+    } else {
+        if (money() <= biggest_bet) {
+            make_all_in();
+        } else {
+            make_call(biggest_bet);
+        }
+    }
 }

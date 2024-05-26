@@ -82,3 +82,24 @@ TEST(BotPlayerTest, BotPlayerCalcEquityPreFlop){
     bot.calc_equity("0", 2);
     EXPECT_GT(bot.equity(), 0.0);
 }
+
+TEST(BotPlayerTest, BotPlayerMakeDecisionFold){
+    BotPlayer bot("Bot", 1000, 0);
+    bot.set_equity(0.2);
+    bot.make_decision(100, 2);
+    EXPECT_TRUE(bot.folded());
+}
+
+TEST(BotPlayerTest, BotPlayerMakeDecisionCall){
+    BotPlayer bot("Bot", 1000, 0);
+    bot.set_equity(0.4);
+    bot.make_decision(100, 2);
+    EXPECT_EQ(bot.bet(), 100);
+}
+
+TEST(BotPlayerTest, BotPlayerMakeDecisionRaise){
+    BotPlayer bot("Bot", 1000, 0);
+    bot.set_equity(0.6);
+    bot.make_decision(100, 2);
+    EXPECT_GT(bot.bet(), 100);
+}

@@ -15,7 +15,7 @@ public:
     [[nodiscard]] std::vector<omp::CardRange> get_bot_hand(int num_of_players) const noexcept;
     omp::EquityCalculator calc;
     void calc_equity(const std::string& board_cards, int num_of_players);
-    void make_decision();
+    void make_decision(unsigned int biggest_bet, int num_of_players);
     //[[nodiscard]] std::vector<string> get_table_hand() const noexcept;
 };
 

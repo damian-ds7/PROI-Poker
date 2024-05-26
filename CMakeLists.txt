@@ -3,7 +3,7 @@ project(Poker)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories(src/Card src/CardCollection src/Deck src/Hand src/Player utils/omp utils/MonteCarloPoker utils src/BotPlayer)
+include_directories(src/Card src/CardCollection src/Deck src/Hand src/Player utils/omp utils/MonteCarloPoker utils src/BotPlayer utils/libdivide)
 set(SOURCE_FILES src/Card/Card.cpp src/Card/Card.h src/CardCollection/CardCollection.h src/Deck/Deck.h src/Hand/Hand.h
         src/Player/Player.h src/Player/Player.cpp utils/CardsTypedef.h
         utils/Suit.h utils/Value.h)
@@ -14,6 +14,7 @@ file(GLOB COLLECTION_FILES src/CardCollection/*.h src/CardCollection/*.cpp
 file(GLOB PLAYER_FILES src/Player/*.h src/Player/*.cpp)
 file(GLOB UTILS_FILES utils/*.h utils/*.cpp)
 file(GLOB EVALUATOR_FILES utils/omp/*.h utils/omp/*.cpp utils/omp/*.hxx)
+file(GLOB EQUITY_CALC_FILES utils/libdivide/*.h ${EVALUATOR_FILES})
 file(GLOB TEST_FILES test/*.cpp)
 file(GLOB BOT_FILES src/BotPlayer/*.h src/BotPlayer/*.cpp)
 
@@ -43,5 +44,5 @@ target_link_libraries(DeckTest PUBLIC gtest_main)
 add_executable(PlayerTest ${SOURCE_FILES} ${EVALUATOR_FILES} test/PlayerTest.cpp)
 target_link_libraries(PlayerTest PUBLIC gtest_main)
 
-add_executable(BotPlayerTest ${SOURCE_FILES} ${BOT_FILES} ${UTILS_FILES} test/BotPlayerTest.cpp)
+add_executable(BotPlayerTest ${SOURCE_FILES} ${BOT_FILES} ${UTILS_FILES} ${EQUITY_CALC} test/BotPlayerTest.cpp)
 target_link_libraries(BotPlayerTest PUBLIC gtest_main)

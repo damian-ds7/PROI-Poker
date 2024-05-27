@@ -83,6 +83,36 @@ TEST(BotPlayerTest, BotPlayerCalcEquityPreFlop){
     EXPECT_GT(bot.equity(), 0.0);
 }
 
+TEST(BotPlayerTest, BotPlayerCalcEquityFlop){
+    BotPlayer bot("Bot", 1000, 0);
+    std::unique_ptr<Card> card1 = std::make_unique<Card>(Suit::Spades, Value::Ace);
+    std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::King);
+    bot.add_card(std::move(card1));
+    bot.add_card(std::move(card2));
+    bot.calc_equity("2s3s4s", 2);
+    EXPECT_GT(bot.equity(), 0.0);
+}
+
+TEST(BotPlayerTest, BotPlayerCalcEquityTurn){
+    BotPlayer bot("Bot", 1000, 0);
+    std::unique_ptr<Card> card1 = std::make_unique<Card>(Suit::Spades, Value::Ace);
+    std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::King);
+    bot.add_card(std::move(card1));
+    bot.add_card(std::move(card2));
+    bot.calc_equity("2s3s4s5s", 2);
+    EXPECT_GT(bot.equity(), 0.0);
+}
+
+TEST(BotPlayerTest, BotPlayerCalcEquityRiver){
+    BotPlayer bot("Bot", 1000, 0);
+    std::unique_ptr<Card> card1 = std::make_unique<Card>(Suit::Spades, Value::Ace);
+    std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::King);
+    bot.add_card(std::move(card1));
+    bot.add_card(std::move(card2));
+    bot.calc_equity("2s3s4s5s6s", 2);
+    EXPECT_GT(bot.equity(), 0.0);
+}
+
 TEST(BotPlayerTest, BotPlayerMakeDecisionFold){
     BotPlayer bot("Bot", 1000, 0);
     bot.set_equity(0.2);

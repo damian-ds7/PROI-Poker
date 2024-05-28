@@ -118,7 +118,7 @@ TEST(PlayerTest, MakeCheck) {
     Player player("Player", 1000, 0);
     player.make_check();
     EXPECT_EQ(player.bet(), 0);
-
+}
 
 typedef std::unique_ptr<Player> PlayerPtr;
 

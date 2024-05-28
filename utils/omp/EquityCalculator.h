@@ -75,7 +75,7 @@ public:
     bool start(const std::vector<CardRange>& handRanges, uint64_t boardCards = 0, uint64_t deadCards = 0,
                bool enumerateAll = false, double stdevTarget = 5e-5,
                std::function<void(const Results&)> callback = nullptr,
-               double updateInterval = 0.2, unsigned threadCount = 0);
+               double updateInterval = 0.2, unsigned threadCount = 4);
 
     // Force current calculation to stop before it's ready. Still must call wait()!
     void stop()

@@ -680,5 +680,4 @@ TEST(PlayerTest, EvaluateDifferentHighCardEqualSecondKicker) {
     ASSERT_TRUE(p1 == p2);
     ASSERT_EQ(p1 / 4096, 1);
     ASSERT_EQ(p2 / 4096, 1);
->>>>>>> test/PlayerTest.cpp
 }

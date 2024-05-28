@@ -7,6 +7,11 @@ std::string Player::name() const noexcept {
     return m_name;
 }
 
+void Player::make_helper(unsigned money) {
+    m_money -= money;
+    m_bet += money;
+}
+
 unsigned int Player::money() const noexcept {
     return m_money;
 }
@@ -78,6 +83,31 @@ void Player::add_card(std::unique_ptr<Card>&& card) {
 
 void Player::add_table_card(unsigned int index) {
     card_eval += omp::Hand(index);
+}
+
+void Player::make_bet(unsigned bet) {
+    make_helper(bet);
+}
+
+void Player::make_raise(unsigned raise) {
+   make_helper(raise);
+}
+
+void Player::make_call(unsigned call) {
+    make_helper(call);
+}
+
+void Player::make_fold() {
+    m_folded = true;
+}
+
+void Player::make_all_in() {
+    m_all_in = true;
+    make_helper(m_money);
+}
+
+void Player::make_check() {
+    // Do nothing.
 }
 
 Cards&& Player::clear_hand() noexcept {

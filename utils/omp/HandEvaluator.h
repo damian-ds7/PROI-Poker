@@ -65,7 +65,7 @@ private:
 
     // Minimum number of cards required for evaluating a hand. Can be set to higher value to decrease lookup
     // table size (requires hash recalculation).
-    static const unsigned MIN_CARDS = 0;
+    static const unsigned MIN_CARDS = 5;
 
     // Lookup tables
     static const unsigned MAX_KEY;

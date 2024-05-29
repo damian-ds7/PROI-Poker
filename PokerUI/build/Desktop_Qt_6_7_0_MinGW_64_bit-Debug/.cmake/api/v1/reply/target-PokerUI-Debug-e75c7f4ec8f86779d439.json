@@ -24,14 +24,7 @@
 			"find_package",
 			"find_dependency",
 			"_qt_internal_find_qt_dependencies",
-			"target_sources",
-			"__qt_propagate_generated_resource",
-			"_qt_internal_process_resource",
-			"qt6_add_resources",
-			"qt_add_resources",
-			"_qt_internal_expose_deferred_files_to_ide",
-			"qt6_finalize_target",
-			"qt_finalize_executable"
+			"target_compile_options"
 		],
 		"files" : 
 		[
@@ -59,7 +52,7 @@
 			{
 				"command" : 3,
 				"file" : 1,
-				"line" : 23,
+				"line" : 28,
 				"parent" : 0
 			},
 			{
@@ -95,7 +88,7 @@
 			{
 				"command" : 8,
 				"file" : 1,
-				"line" : 13,
+				"line" : 17,
 				"parent" : 0
 			},
 			{
@@ -269,58 +262,10 @@
 				"parent" : 38
 			},
 			{
-				"command" : 15,
-				"file" : 1,
-				"line" : 28,
-				"parent" : 0
-			},
-			{
-				"command" : 14,
-				"file" : 0,
-				"line" : 389,
-				"parent" : 40
-			},
-			{
-				"command" : 13,
-				"file" : 0,
-				"line" : 337,
-				"parent" : 41
-			},
-			{
-				"command" : 12,
-				"file" : 0,
-				"line" : 2390,
-				"parent" : 42
-			},
-			{
 				"command" : 11,
-				"file" : 0,
-				"line" : 2004,
-				"parent" : 43
-			},
-			{
-				"command" : 18,
 				"file" : 1,
-				"line" : 75,
+				"line" : 74,
 				"parent" : 0
-			},
-			{
-				"command" : 17,
-				"file" : 0,
-				"line" : 877,
-				"parent" : 45
-			},
-			{
-				"command" : 16,
-				"file" : 0,
-				"line" : 768,
-				"parent" : 46
-			},
-			{
-				"command" : 11,
-				"file" : 0,
-				"line" : 2117,
-				"parent" : 47
 			}
 		]
 	},
@@ -331,6 +276,14 @@
 			[
 				{
 					"fragment" : "-DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 40,
+					"fragment" : "/Zc:__cplusplus"
+				},
+				{
+					"backtrace" : 40,
+					"fragment" : "-permissive-"
 				}
 			],
 			"defines" : 
@@ -427,8 +380,7 @@
 				0,
 				1,
 				2,
-				6,
-				11
+				8
 			]
 		}
 	],
@@ -552,8 +504,7 @@
 				0,
 				1,
 				2,
-				6,
-				11
+				8
 			]
 		},
 		{
@@ -561,7 +512,7 @@
 			"sourceIndexes" : 
 			[
 				3,
-				9
+				6
 			]
 		},
 		{
@@ -570,24 +521,15 @@
 			[
 				4,
 				5,
-				7,
-				10
-			]
-		},
-		{
-			"name" : "Resources",
-			"sourceIndexes" : 
-			[
-				8
+				7
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				12,
-				13,
-				14
+				9,
+				10
 			]
 		}
 	],
@@ -628,24 +570,6 @@
 			"sourceGroupIndex" : 2
 		},
 		{
-			"backtrace" : 44,
-			"compileGroupIndex" : 0,
-			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_PREFIX.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 48,
-			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/PREFIX.qrc",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 48,
-			"path" : "background/background_table.png",
-			"sourceGroupIndex" : 3
-		},
-		{
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/include/ui_mainwindow.h",
@@ -667,20 +591,14 @@
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_PREFIX.cpp.rule",
-			"sourceGroupIndex" : 4
-		},
-		{
-			"backtrace" : 0,
-			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/timestamp.rule",
-			"sourceGroupIndex" : 4
+			"sourceGroupIndex" : 3
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/EWIEGA46WW/qrc_background.cpp.rule",
-			"sourceGroupIndex" : 4
+			"sourceGroupIndex" : 3
 		}
 	],
 	"type" : "EXECUTABLE"

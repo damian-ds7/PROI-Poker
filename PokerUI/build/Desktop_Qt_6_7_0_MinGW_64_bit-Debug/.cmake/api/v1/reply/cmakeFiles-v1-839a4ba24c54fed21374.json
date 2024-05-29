@@ -1029,10 +1029,6 @@
 			"path" : "C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6Widgets/Qt6QModernWindowsStylePluginAdditionalTargetInfo.cmake"
 		},
 		{
-			"isExternal" : true,
-			"path" : "C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigureFileTemplate.in"
-		},
-		{
 			"isCMake" : true,
 			"isExternal" : true,
 			"path" : "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/GNUInstallDirs.cmake"

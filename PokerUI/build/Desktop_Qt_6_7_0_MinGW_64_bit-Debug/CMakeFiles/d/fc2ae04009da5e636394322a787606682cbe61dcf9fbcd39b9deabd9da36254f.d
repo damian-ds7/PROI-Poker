@@ -177,6 +177,7 @@ PokerUI_autogen/timestamp: \
   C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigExtras.cmake \
   C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigVersion.cmake \
   C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigVersionImpl.cmake \
+  C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigureFileTemplate.in \
   C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6Core/Qt6CoreDependencies.cmake \
   C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6Core/Qt6CoreMacros.cmake \
   C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6Core/Qt6CoreTargets-relwithdebinfo.cmake \

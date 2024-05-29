@@ -1,12 +1,16 @@
 # ninja log v5
-13	239	7384208061120271	PokerUI_autogen/timestamp	519cffa93313ff6
-13	239	7384208061120271	PokerUI_autogen/mocs_compilation.cpp	519cffa93313ff6
-13	239	7384208061120271	C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/mocs_compilation.cpp	519cffa93313ff6
-13	239	7384208061120271	C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/timestamp	519cffa93313ff6
-2733	2962	7384208088273895	PokerUI.exe	2df3ea41dacd2fa9
-348	436	7384208063108057	CMakeFiles/PokerUI.dir/PokerUI_autogen/EWIEGA46WW/qrc_background.cpp.obj	5abc12639720bb5a
+10	230	7384433376309406	C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/mocs_compilation.cpp	519cffa93313ff6
+10	230	7384433376309406	PokerUI_autogen/mocs_compilation.cpp	519cffa93313ff6
+10	230	7384433376309406	PokerUI_autogen/timestamp	519cffa93313ff6
+2636	2873	7384433402658767	PokerUI.exe	422c9578729fade1
+10	230	7384433376309406	C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/timestamp	519cffa93313ff6
+330	490	7384300727296215	CMakeFiles/PokerUI.dir/PokerUI_autogen/EWIEGA46WW/qrc_background.cpp.obj	5abc12639720bb5a
 923	3127	7384185263945809	CMakeFiles/PokerUI.dir/PokerUI_autogen/mocs_compilation.cpp.obj	83398bc66e6dc3b5
-345	2732	7384208086074169	CMakeFiles/PokerUI.dir/mainwindow.cpp.obj	cfb26c6fcf171a3c
+251	2635	7384433400375984	CMakeFiles/PokerUI.dir/mainwindow.cpp.obj	cfb26c6fcf171a3c
 942	3218	7384185264866409	CMakeFiles/PokerUI.dir/main.cpp.obj	9eaa0712da910a1e
-260	345	7384208062137376	PokerUI_autogen/EWIEGA46WW/qrc_background.cpp	c24a685285630db3
-260	345	7384208062137376	C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/EWIEGA46WW/qrc_background.cpp	c24a685285630db3
+259	330	7384300725641027	PokerUI_autogen/EWIEGA46WW/qrc_background.cpp	c24a685285630db3
+259	330	7384300725641027	C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/EWIEGA46WW/qrc_background.cpp	c24a685285630db3
+233	294	7384298760414882	.rcc/qrc_PREFIX.cpp	3bae56f9cc3a4197
+6	675	7384300705888071	build.ninja	a9f5b8b73bd54268
+233	294	7384298760414882	C:/Users/susek/source/repos/24L-PROI-PROJECT-2-DSouza-Damian-Marszalek-Kamil-Suski-Michal/PokerUI/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_PREFIX.cpp	3bae56f9cc3a4197
+298	530	7384298762785917	CMakeFiles/PokerUI.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_PREFIX.cpp.obj	308a90d79906b308

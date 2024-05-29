@@ -23,7 +23,15 @@
 			"include",
 			"find_package",
 			"find_dependency",
-			"_qt_internal_find_qt_dependencies"
+			"_qt_internal_find_qt_dependencies",
+			"target_sources",
+			"__qt_propagate_generated_resource",
+			"_qt_internal_process_resource",
+			"qt6_add_resources",
+			"qt_add_resources",
+			"_qt_internal_expose_deferred_files_to_ide",
+			"qt6_finalize_target",
+			"qt_finalize_executable"
 		],
 		"files" : 
 		[
@@ -75,13 +83,13 @@
 			{
 				"command" : 4,
 				"file" : 1,
-				"line" : 63,
+				"line" : 68,
 				"parent" : 0
 			},
 			{
 				"command" : 5,
 				"file" : 1,
-				"line" : 46,
+				"line" : 51,
 				"parent" : 0
 			},
 			{
@@ -259,6 +267,60 @@
 				"file" : 13,
 				"line" : 61,
 				"parent" : 38
+			},
+			{
+				"command" : 15,
+				"file" : 1,
+				"line" : 28,
+				"parent" : 0
+			},
+			{
+				"command" : 14,
+				"file" : 0,
+				"line" : 389,
+				"parent" : 40
+			},
+			{
+				"command" : 13,
+				"file" : 0,
+				"line" : 337,
+				"parent" : 41
+			},
+			{
+				"command" : 12,
+				"file" : 0,
+				"line" : 2390,
+				"parent" : 42
+			},
+			{
+				"command" : 11,
+				"file" : 0,
+				"line" : 2004,
+				"parent" : 43
+			},
+			{
+				"command" : 18,
+				"file" : 1,
+				"line" : 75,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 0,
+				"line" : 877,
+				"parent" : 45
+			},
+			{
+				"command" : 16,
+				"file" : 0,
+				"line" : 768,
+				"parent" : 46
+			},
+			{
+				"command" : 11,
+				"file" : 0,
+				"line" : 2117,
+				"parent" : 47
 			}
 		]
 	},
@@ -363,20 +425,21 @@
 			"sourceIndexes" : 
 			[
 				0,
+				1,
 				2,
-				3,
-				8
+				6,
+				11
 			]
 		}
 	],
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 0,
-			"id" : "PokerUI_autogen::@6890427a1f51a3e7e1df"
+			"id" : "PokerUI_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		},
 		{
-			"id" : "PokerUI_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+			"backtrace" : 0,
+			"id" : "PokerUI_autogen::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "PokerUI::@6890427a1f51a3e7e1df",
@@ -487,34 +550,44 @@
 			"sourceIndexes" : 
 			[
 				0,
-				2,
-				3,
-				8
-			]
-		},
-		{
-			"name" : "",
-			"sourceIndexes" : 
-			[
 				1,
-				5,
-				7
+				2,
+				6,
+				11
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
+				3,
+				9
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
 				4,
-				6
+				5,
+				7,
+				10
+			]
+		},
+		{
+			"name" : "Resources",
+			"sourceIndexes" : 
+			[
+				8
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				9,
-				10
+				12,
+				13,
+				14
 			]
 		}
 	],
@@ -526,11 +599,6 @@
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/mocs_compilation.cpp",
 			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 4,
-			"path" : "background.qrc",
-			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
@@ -547,24 +615,47 @@
 		{
 			"backtrace" : 4,
 			"path" : "mainwindow.h",
-			"sourceGroupIndex" : 2
+			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"path" : "mainwindow.ui",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 4,
+			"path" : "background.qrc",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 44,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_PREFIX.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 48,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/PREFIX.qrc",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 48,
+			"path" : "background/background_table.png",
+			"sourceGroupIndex" : 3
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/include/ui_mainwindow.h",
-			"sourceGroupIndex" : 2
+			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/timestamp",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 0,
@@ -576,14 +667,20 @@
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_PREFIX.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/timestamp.rule",
-			"sourceGroupIndex" : 3
+			"sourceGroupIndex" : 4
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PokerUI_autogen/EWIEGA46WW/qrc_background.cpp.rule",
-			"sourceGroupIndex" : 3
+			"sourceGroupIndex" : 4
 		}
 	],
 	"type" : "EXECUTABLE"

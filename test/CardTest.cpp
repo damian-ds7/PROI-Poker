@@ -72,3 +72,24 @@ EXPECT_NE(card1, card21);
 EXPECT_NE(card1, card23);
 EXPECT_NE(card1, card25);
 }
+
+TEST(CardTest, CardIndex) {
+    for (int i = 0; i < 13; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            Card card(static_cast<Suit>(j), static_cast<Value>(i));
+            EXPECT_EQ(card.card_index(), 4 * i + j);
+        }
+    }
+}
+
+TEST(CardTest, CardToString) {
+    Card card1(Suit::Spades, Value::Ace);
+    Card card2(Suit::Hearts, Value::Three);
+    Card card3(Suit::Diamonds, Value::Queen);
+    Card card4(Suit::Clubs, Value::Ten);
+
+    EXPECT_EQ(card1.to_string(), "As");
+    EXPECT_EQ(card2.to_string(), "3h");
+    EXPECT_EQ(card3.to_string(), "Qd");
+    EXPECT_EQ(card4.to_string(), "10c");
+}

@@ -11,7 +11,7 @@
 			</rect>
 		</property>
 		<property name="windowTitle">
-			<string>Widget</string>
+			<string>Poker</string>
 		</property>
 		<property name="styleSheet">
 			<string notr="true">background-color: rgb(0, 120, 0);</string>

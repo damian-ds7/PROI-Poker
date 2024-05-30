@@ -43,7 +43,14 @@ void BotPlayer::calc_equity(const std::string& board_cards, int num_of_players){
     set_equity(r.equity[0]);
 }
 
-void BotPlayer::make_decision(unsigned int money_to_bet, int num_of_players){
+void BotPlayer::make_decision(unsigned int money_to_bet, int num_of_players, bool small_blind, bool big_blind){
+    if (small_blind) {
+        make_bet(money()/10);
+        return;
+    } else if (big_blind) {
+        make_bet(money_to_bet * 2);
+        return;
+    } else
     if (money_to_bet == 0 && equity() < 0.4) {
         make_check();
     } else if (equity() > 1.0 / static_cast<double>(num_of_players)) {

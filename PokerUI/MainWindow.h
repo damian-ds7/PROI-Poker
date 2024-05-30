@@ -7,6 +7,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
+#include <QTransform>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -29,7 +30,7 @@ private:
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);
     //void createButtons();
-    //void createOpponentCards(const short opponents);
+    void createOpponentCards(MainWindow* ptr, const short opponents);
 
 
 
@@ -39,6 +40,17 @@ private:
     QLabel TableCard2;
     QLabel TableCard3;
     QLabel TableCardBack;
+    QLabel Opponent1Card1;
+    QLabel Opponent1Card2;
+    QLabel Opponent2Card1;
+    QLabel Opponent2Card2;
+    QLabel Opponent3Card1;
+    QLabel Opponent3Card2;
+    QLabel Opponent4Card1;
+    QLabel Opponent4Card2;
+    QLabel Opponent5Card1;
+    QLabel Opponent5Card2;
+
     Ui::Widget* ui;
 };
 #endif // WIDGET_H

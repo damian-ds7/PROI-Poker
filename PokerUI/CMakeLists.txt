@@ -18,7 +18,7 @@ set(CMAKE_PREFIX_PATH "C:/Qt/6.7.1/msvc2019_64")
 #set(QT_QMAKE_EXECUTABLE "C:/QtMSVC/6.7.1/msvc2019_64/bin/qmake.exe")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Core Gui)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 
 set(PROJECT_SOURCES

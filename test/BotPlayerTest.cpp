@@ -155,3 +155,14 @@ TEST(BotPlayerTest, BotPlayerMakeDecisionCheck){
     EXPECT_EQ(bot.bet(), 0);
 }
 
+TEST(BotPlayerTest, BotPlayerMakeDecisionSmallBlind){
+    BotPlayer bot("Bot", 1000, 0);
+    bot.make_decision(0, 2, true);
+    EXPECT_EQ(bot.bet(), 100);
+}
+
+TEST(BotPlayerTest, BotPlayerMakeDecisionBigBlind){
+    BotPlayer bot("Bot", 1000, 0);
+    bot.make_decision(100, 2, false, true);
+    EXPECT_EQ(bot.bet(), 200);
+}

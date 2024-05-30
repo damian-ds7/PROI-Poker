@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/Deck/clubs_ace.png</file>
+    </qresource>
+</RCC>

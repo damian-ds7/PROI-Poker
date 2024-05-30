@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPixmap>
+#include <QPalette>
+#include <QBrush>
+#include <QWidget>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

@@ -18,7 +18,8 @@ int main(int argc, char *argv[])
     QPixmap background(":/resources/Deck/clubs_ace.png");
     label.setPixmap(background);
     label.setScaledContents(true);
-    label.setBaseSize(background.size());
+    label.setFixedSize(100, 140);
+    label.move(320, 520);
 
     //QPushButton Bu_Quit("Quit", &Main_Window);
 

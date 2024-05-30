@@ -4,8 +4,6 @@
 MainWindow::MainWindow(QWidget* parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
-	, PlayerCard1(new QLabel(this))
-	, PlayerCard2(new QLabel(this))
 {
     ui->setupUi(this);
     //label.hide();
@@ -18,14 +16,12 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-	//delete PlayerCard1;
-	//delete PlayerCard2;
 }
 
 void MainWindow::createWidgets(MainWindow* ptr, const short opponents)
 {
 	createPlayerCards(ptr);
-    //createTableCards();
+    createTableCards(ptr);
     //createOpponentCards(opponents);
     //createButtons();
 }
@@ -40,7 +36,6 @@ void MainWindow::createPlayerCards(MainWindow* ptr)
 	QPixmap pcard1(":/resources/Deck/clubs_ace.png");
 	PlayerCard1.setPixmap(pcard1);
 	//
-	PlayerCard1.raise();
 
 	PlayerCard2.setParent(ptr);
 	PlayerCard2.setScaledContents(true);
@@ -50,7 +45,42 @@ void MainWindow::createPlayerCards(MainWindow* ptr)
 	QPixmap pcard2(":/resources/Deck/clubs_two.png");
 	PlayerCard2.setPixmap(pcard2);
 	//
-	PlayerCard2.raise();
+}
+
+void MainWindow::createTableCards(MainWindow* ptr)
+{
+	TableCard1.setParent(ptr);
+	TableCard1.setScaledContents(true);
+	TableCard1.setFixedSize(107, 150);
+	TableCard1.move(340, 225);
+	//
+	QPixmap tcard1(":/resources/Deck/clubs_three.png");
+	TableCard1.setPixmap(tcard1);
+	//
+	TableCard2.setParent(ptr);
+	TableCard2.setScaledContents(true);
+	TableCard2.setFixedSize(107, 150);
+	TableCard2.move(460, 225);
+	//
+	QPixmap tcard2(":/resources/Deck/clubs_four.png");
+	TableCard2.setPixmap(tcard2);
+	//
+	TableCard3.setParent(ptr);
+	TableCard3.setScaledContents(true);
+	TableCard3.setFixedSize(107, 150);
+	TableCard3.move(580, 225);
+	//
+	QPixmap tcard3(":/resources/Deck/clubs_five.png");
+	TableCard3.setPixmap(tcard3);
+	//
+	TableCardBack.setParent(ptr);
+	TableCardBack.setScaledContents(true);
+	TableCardBack.setFixedSize(107, 150);
+	TableCardBack.move(700, 225);
+	//
+	QPixmap tcardback(":/resources/Deck/card_back.png");
+	TableCardBack.setPixmap(tcardback);
+	//
 }
 
 void MainWindow::showPlayerCards()

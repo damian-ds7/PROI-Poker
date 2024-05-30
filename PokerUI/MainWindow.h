@@ -27,7 +27,7 @@ public:
 
 private:
     void createPlayerCards(MainWindow* ptr);
-    //void createTableCards();
+    void createTableCards(MainWindow* ptr);
     //void createButtons();
     //void createOpponentCards(const short opponents);
 
@@ -35,6 +35,10 @@ private:
 
     QLabel PlayerCard1;
     QLabel PlayerCard2;
+    QLabel TableCard1;
+    QLabel TableCard2;
+    QLabel TableCard3;
+    QLabel TableCardBack;
     Ui::Widget* ui;
 };
 #endif // WIDGET_H

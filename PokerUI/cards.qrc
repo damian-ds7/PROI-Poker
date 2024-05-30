@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/Deck/clubs_ace.png</file>
+        <file>resources/Deck/clubs_two.png</file>
     </qresource>
 </RCC>

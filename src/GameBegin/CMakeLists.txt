@@ -16,9 +16,9 @@ set(CMAKE_PREFIX_PATH "C:/Qt/6.7.1/msvc2019_64")
 
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        beginmainwindow.cpp
+        beginmainwindow.h
+        beginmainwindow.ui
         resources.qrc
 )
 

@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "beginmainwindow.h"
 #include <QApplication>
 #include <QObject>
 
@@ -11,9 +11,9 @@ void handleGameInfo(GameInfo gameInfo) {
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
+    BeginMainWindow w;
 
-    QObject::connect(&w, &MainWindow::gameInfoReady, &handleGameInfo);
+    QObject::connect(&w, &BeginMainWindow::gameInfoReady, &handleGameInfo);
 
     w.show();
     return a.exec();

@@ -14,13 +14,13 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class BeginMainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    BeginMainWindow(QWidget *parent = nullptr);
+    ~BeginMainWindow();
 
 signals:
     void gameInfoReady(GameInfo gameInfo);
@@ -31,7 +31,7 @@ private slots:
     void updateStartMoney(int count);
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow*ui;
 };
 
 #endif // MAINWINDOW_H

@@ -10,6 +10,9 @@ MainWindow::MainWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent)
 {
     ui->setupUi(this);
 
+    this->setWindowTitle("Poker Texas Holdem");
+    this->setFixedSize(800, 600);
+
     // Load the background image
     QFile file(":/resources/background.jpg");
     if (!file.exists()) {

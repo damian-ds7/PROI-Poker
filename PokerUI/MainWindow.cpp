@@ -620,7 +620,48 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const short opponents)
 
 void MainWindow::createPlayerLabels(MainWindow* ptr)
 {
-	//TODO
+	QFont NameFont("Arial", 20, QFont::Bold);
+	QFont CashFont("Arial", 17, QFont::Bold);
+	QFont StatusFont("Arial", 26, QFont::Bold);
+	QPixmap token(":/resources/token.png");
+
+	PlayerName.setParent(ptr);
+	PlayerName.setFont(NameFont);
+	PlayerName.setStyleSheet("background: transparent;");
+	PlayerName.move(280, 520);
+
+	PlayerCash.setParent(ptr);
+	PlayerCash.setFont(CashFont);
+	PlayerCash.move(315, 555);
+
+	PlayerStatus.setParent(ptr);
+	PlayerStatus.setFont(StatusFont);
+	PlayerStatus.move(280, 600);
+
+	PlayerBet.setParent(ptr);
+	PlayerBet.setFont(CashFont);
+	PlayerBet.setStyleSheet("background: transparent;");
+	PlayerBet.move(495, 415);
+
+	PlayerSelfToken.setParent(ptr);
+	PlayerSelfToken.setScaledContents(true);
+	PlayerSelfToken.setStyleSheet("background: transparent;");
+	PlayerSelfToken.setFixedSize(30, 30);
+	PlayerSelfToken.move(280, 554);
+	PlayerSelfToken.setPixmap(token);
+
+	PlayerTableToken.setParent(ptr);
+	PlayerTableToken.setScaledContents(true);
+	PlayerTableToken.setStyleSheet("background: transparent;");
+	PlayerTableToken.setFixedSize(30, 30);
+	PlayerTableToken.move(460, 415);
+	PlayerTableToken.setPixmap(token);
+
+	//
+	PlayerName.setText("Player");
+	PlayerCash.setText("1000$");
+	PlayerStatus.setText("CALL");
+	PlayerBet.setText("100$");
 }
 
 void MainWindow::createTableLabels(MainWindow* ptr)

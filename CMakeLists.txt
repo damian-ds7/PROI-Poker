@@ -7,7 +7,7 @@ include_directories(src/Card src/CardCollection src/Deck src/Hand src/Table src/
         src/HumanPlayer src/Game utils utils/libdivide utils/omp utils/MonteCarloPoker)
 
 
-file(GLOB GAME_FILES src/Game/*.h src/Game/*.cpp)
+file(GLOB GAME_FILES src/GameHandler/*.h src/GameHandler/*.cpp src/Game/*.h src/Game/*.cpp)
 file(GLOB CARD_FILES src/Card/*.cpp src/Card/*.h)
 file(GLOB COLLECTION_FILES src/CardCollection/*.h src/CardCollection/*.cpp
         src/Deck/*.h src/Deck/*.cpp src/Hand/*.h src/Hand/*.cpp src/Table/*.h)

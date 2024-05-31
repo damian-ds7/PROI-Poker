@@ -127,6 +127,12 @@ TEST(PlayerTest, MakeCheck) {
     EXPECT_EQ(player.bet(), 0);
 }
 
+TEST(PlayerTest, RemoveBet) {
+    Player player("Player", 1000, 100);
+    EXPECT_EQ(player.remove_bet(), 100);
+    EXPECT_EQ(player.bet(), 0);
+}
+
 typedef std::unique_ptr<Player> PlayerPtr;
 
 TEST(PlayerTest, EvaluateRoyalStraight) {

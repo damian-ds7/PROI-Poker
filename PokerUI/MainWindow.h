@@ -98,6 +98,8 @@ private:
     QLabel Opponent5TableToken;
     QLabel PotToken;
 
+    QLabel CurrentPotDecsription;
+
     Ui::Widget* ui;
 };
 #endif // WIDGET_H

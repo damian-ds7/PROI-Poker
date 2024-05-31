@@ -666,7 +666,30 @@ void MainWindow::createPlayerLabels(MainWindow* ptr)
 
 void MainWindow::createTableLabels(MainWindow* ptr)
 {
-	//TODO
+	QFont PotFont("Arial", 17, QFont::Bold);
+	QPixmap token(":/resources/token.png");
+
+	Pot.setParent(ptr);
+	Pot.setFont(PotFont);
+	Pot.setStyleSheet("background: transparent;");
+	Pot.move(1035, 415);
+
+	CurrentPotDecsription.setParent(ptr);
+	CurrentPotDecsription.setFont(PotFont);
+	CurrentPotDecsription.setStyleSheet("background: transparent;");
+	CurrentPotDecsription.move(860, 415);
+	CurrentPotDecsription.setText("Current pot:");
+
+	PotToken.setParent(ptr);
+	PotToken.setScaledContents(true);
+	PotToken.setStyleSheet("background: transparent;");
+	PotToken.setFixedSize(30, 30);
+	PotToken.move(1000, 414);
+	PotToken.setPixmap(token);
+
+	//
+	Pot.setText("600$");
+	//
 }
 
 void MainWindow::createButtons(MainWindow* ptr)

@@ -255,17 +255,19 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const short opponents)
 	QFont NameFont("Arial", 14, QFont::Bold);
 	QFont CashFont("Arial", 13, QFont::Bold);
 	QFont StatusFont("Arial", 18, QFont::Bold);
+	QPixmap token(":/resources/token.png");
 
 	if (opponents == 1 || opponents == 3 || opponents == 5)
 	{
 		//Opponent 1
 		Opponent1Name.setParent(ptr);
 		Opponent1Name.setFont(NameFont);
+		Opponent1Name.setStyleSheet("background: transparent;");
 		Opponent1Name.move(800, 5);
 
 		Opponent1Cash.setParent(ptr);
 		Opponent1Cash.setFont(CashFont);
-		Opponent1Cash.move(800, 30);
+		Opponent1Cash.move(825, 30);
 
 		Opponent1Status.setParent(ptr);
 		Opponent1Status.setFont(StatusFont);
@@ -273,7 +275,22 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const short opponents)
 
 		Opponent1Bet.setParent(ptr);
 		Opponent1Bet.setFont(CashFont);
-		Opponent1Bet.move(710, 150);
+		Opponent1Bet.setStyleSheet("background: transparent;");
+		Opponent1Bet.move(735, 150);
+
+		Opponent1SelfToken.setParent(ptr);
+		Opponent1SelfToken.setScaledContents(true);
+		Opponent1SelfToken.setStyleSheet("background: transparent;");
+		Opponent1SelfToken.setFixedSize(20, 20);
+		Opponent1SelfToken.move(800, 29);
+		Opponent1SelfToken.setPixmap(token);
+
+		Opponent1TableToken.setParent(ptr);
+		Opponent1TableToken.setScaledContents(true);
+		Opponent1TableToken.setStyleSheet("background: transparent;");
+		Opponent1TableToken.setFixedSize(20, 20);
+		Opponent1TableToken.move(710, 149);
+		Opponent1TableToken.setPixmap(token);
 
 		//
 		Opponent1Name.setText("Opponent 1");
@@ -285,22 +302,319 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const short opponents)
 	}
 	if (opponents == 2 || opponents == 4)
 	{
-		
-	}
+		//Opponent 1
+		Opponent1Name.setParent(ptr);
+		Opponent1Name.setFont(NameFont);
+		Opponent1Name.setStyleSheet("background: transparent;");
+		Opponent1Name.move(430, 5);
 
+		Opponent1Cash.setParent(ptr);
+		Opponent1Cash.setFont(CashFont);
+		Opponent1Cash.move(455, 30);
+
+		Opponent1Status.setParent(ptr);
+		Opponent1Status.setFont(StatusFont);
+		Opponent1Status.move(430, 60);
+
+		Opponent1Bet.setParent(ptr);
+		Opponent1Bet.setFont(CashFont);
+		Opponent1Bet.setStyleSheet("background: transparent;");
+		Opponent1Bet.move(335, 150);
+
+		Opponent1SelfToken.setParent(ptr);
+		Opponent1SelfToken.setScaledContents(true);
+		Opponent1SelfToken.setStyleSheet("background: transparent;");
+		Opponent1SelfToken.setFixedSize(20, 20);
+		Opponent1SelfToken.move(430, 29);
+		Opponent1SelfToken.setPixmap(token);
+
+		Opponent1TableToken.setParent(ptr);
+		Opponent1TableToken.setScaledContents(true);
+		Opponent1TableToken.setStyleSheet("background: transparent;");
+		Opponent1TableToken.setFixedSize(20, 20);
+		Opponent1TableToken.move(310, 149);
+		Opponent1TableToken.setPixmap(token);
+
+		//Opponent 2
+		Opponent2Name.setParent(ptr);
+		Opponent2Name.setFont(NameFont);
+		Opponent2Name.setStyleSheet("background: transparent;");
+		Opponent2Name.move(1140, 5);
+		
+		Opponent2Cash.setParent(ptr);
+		Opponent2Cash.setFont(CashFont);
+		Opponent2Cash.move(1165, 30);
+
+		Opponent2Status.setParent(ptr);
+		Opponent2Status.setFont(StatusFont);
+		Opponent2Status.move(1140, 60);
+
+		Opponent2Bet.setParent(ptr);
+		Opponent2Bet.setFont(CashFont);
+		Opponent2Bet.setStyleSheet("background: transparent;");
+		Opponent2Bet.move(1085, 150);
+
+		Opponent2SelfToken.setParent(ptr);
+		Opponent2SelfToken.setScaledContents(true);
+		Opponent2SelfToken.setStyleSheet("background: transparent;");
+		Opponent2SelfToken.setFixedSize(20, 20);
+		Opponent2SelfToken.move(1140, 29);
+		Opponent2SelfToken.setPixmap(token);
+
+		Opponent2TableToken.setParent(ptr);
+		Opponent2TableToken.setScaledContents(true);
+		Opponent2TableToken.setStyleSheet("background: transparent;");
+		Opponent2TableToken.setFixedSize(20, 20);
+		Opponent2TableToken.move(1060, 149);
+		Opponent2TableToken.setPixmap(token);
+
+		//
+		Opponent1Name.setText("Opponent 1");
+		Opponent1Cash.setText("1000$");
+		Opponent1Status.setText("CALL");
+		Opponent1Bet.setText("100$");
+		Opponent2Name.setText("Opponent 2");
+		Opponent2Cash.setText("1000$");
+		Opponent2Status.setText("CALL");
+		Opponent2Bet.setText("100$");
+		//
+	}
 	if (opponents == 3 || opponents == 5)
 	{
-		
-	}
+		//Opponent 2
+		Opponent2Name.setParent(ptr);
+		Opponent2Name.setFont(NameFont);
+		Opponent2Name.setStyleSheet("background: transparent;");
+		Opponent2Name.move(5, 110);
 
+		Opponent2Cash.setParent(ptr);
+		Opponent2Cash.setFont(CashFont);
+		Opponent2Cash.move(30, 135);
+
+		Opponent2Status.setParent(ptr);
+		Opponent2Status.setFont(StatusFont);
+		Opponent2Status.move(5, 165);
+
+		Opponent2Bet.setParent(ptr);
+		Opponent2Bet.setFont(CashFont);
+		Opponent2Bet.setStyleSheet("background: transparent;");
+		Opponent2Bet.move(205, 285);
+
+		Opponent2SelfToken.setParent(ptr);
+		Opponent2SelfToken.setScaledContents(true);
+		Opponent2SelfToken.setStyleSheet("background: transparent;");
+		Opponent2SelfToken.setFixedSize(20, 20);
+		Opponent2SelfToken.move(5, 134);
+		Opponent2SelfToken.setPixmap(token);
+
+		Opponent2TableToken.setParent(ptr);
+		Opponent2TableToken.setScaledContents(true);
+		Opponent2TableToken.setStyleSheet("background: transparent;");
+		Opponent2TableToken.setFixedSize(20, 20);
+		Opponent2TableToken.move(180, 284);
+		Opponent2TableToken.setPixmap(token);
+
+		//Opponent 3
+		Opponent3Name.setParent(ptr);
+		Opponent3Name.setFont(NameFont);
+		Opponent3Name.setStyleSheet("background: transparent;");
+		Opponent3Name.move(1320, 110);
+
+		Opponent3Cash.setParent(ptr);
+		Opponent3Cash.setFont(CashFont);
+		Opponent3Cash.move(1345, 135);
+
+		Opponent3Status.setParent(ptr);
+		Opponent3Status.setFont(StatusFont);
+		Opponent3Status.move(1320, 165);
+
+		Opponent3Bet.setParent(ptr);
+		Opponent3Bet.setFont(CashFont);
+		Opponent3Bet.setStyleSheet("background: transparent;");
+		Opponent3Bet.move(1225, 285);
+
+		Opponent3SelfToken.setParent(ptr);
+		Opponent3SelfToken.setScaledContents(true);
+		Opponent3SelfToken.setStyleSheet("background: transparent;");
+		Opponent3SelfToken.setFixedSize(20, 20);
+		Opponent3SelfToken.move(1320, 134);
+		Opponent3SelfToken.setPixmap(token);
+
+		Opponent3TableToken.setParent(ptr);
+		Opponent3TableToken.setScaledContents(true);
+		Opponent3TableToken.setStyleSheet("background: transparent;");
+		Opponent3TableToken.setFixedSize(20, 20);
+		Opponent3TableToken.move(1205, 284);
+		Opponent3TableToken.setPixmap(token);
+
+		//
+		Opponent2Name.setText("Opponent 2");
+		Opponent2Cash.setText("1000$");
+		Opponent2Status.setText("CALL");
+		Opponent2Bet.setText("100$");
+		Opponent3Name.setText("Opponent 3");
+		Opponent3Cash.setText("1000$");
+		Opponent3Status.setText("CALL");
+		Opponent3Bet.setText("100$");	
+		//
+	}
 	if (opponents == 4)
 	{
-		
-	}
+		//Opponent 3
+		Opponent3Name.setParent(ptr);
+		Opponent3Name.setFont(NameFont);
+		Opponent3Name.setStyleSheet("background: transparent;");
+		Opponent3Name.move(1320, 110);
 
+		Opponent3Cash.setParent(ptr);
+		Opponent3Cash.setFont(CashFont);
+		Opponent3Cash.move(1345, 135);
+
+		Opponent3Status.setParent(ptr);
+		Opponent3Status.setFont(StatusFont);
+		Opponent3Status.move(1320, 165);
+
+		Opponent3Bet.setParent(ptr);
+		Opponent3Bet.setFont(CashFont);
+		Opponent3Bet.setStyleSheet("background: transparent;");
+		Opponent3Bet.move(1225, 285);
+
+		Opponent3SelfToken.setParent(ptr);
+		Opponent3SelfToken.setScaledContents(true);
+		Opponent3SelfToken.setStyleSheet("background: transparent;");
+		Opponent3SelfToken.setFixedSize(20, 20);
+		Opponent3SelfToken.move(1320, 134);
+		Opponent3SelfToken.setPixmap(token);
+
+		Opponent3TableToken.setParent(ptr);
+		Opponent3TableToken.setScaledContents(true);
+		Opponent3TableToken.setStyleSheet("background: transparent;");
+		Opponent3TableToken.setFixedSize(20, 20);
+		Opponent3TableToken.move(1205, 284);
+		Opponent3TableToken.setPixmap(token);
+
+		//Opponent 4
+		Opponent4Name.setParent(ptr);
+		Opponent4Name.setFont(NameFont);
+		Opponent4Name.setStyleSheet("background: transparent;");
+		Opponent4Name.move(5, 110);
+
+		Opponent4Cash.setParent(ptr);
+		Opponent4Cash.setFont(CashFont);
+		Opponent4Cash.move(30, 135);
+
+		Opponent4Status.setParent(ptr);
+		Opponent4Status.setFont(StatusFont);
+		Opponent4Status.move(5, 165);
+
+		Opponent4Bet.setParent(ptr);
+		Opponent4Bet.setFont(CashFont);
+		Opponent4Bet.setStyleSheet("background: transparent;");
+		Opponent4Bet.move(205, 285);
+
+		Opponent4SelfToken.setParent(ptr);
+		Opponent4SelfToken.setScaledContents(true);
+		Opponent4SelfToken.setStyleSheet("background: transparent;");
+		Opponent4SelfToken.setFixedSize(20, 20);
+		Opponent4SelfToken.move(5, 134);
+		Opponent4SelfToken.setPixmap(token);
+
+		Opponent4TableToken.setParent(ptr);
+		Opponent4TableToken.setScaledContents(true);
+		Opponent4TableToken.setStyleSheet("background: transparent;");
+		Opponent4TableToken.setFixedSize(20, 20);
+		Opponent4TableToken.move(180, 284);
+		Opponent4TableToken.setPixmap(token);
+
+		//
+		Opponent4Name.setText("Opponent 4");
+		Opponent4Cash.setText("1000$");
+		Opponent4Status.setText("CALL");
+		Opponent4Bet.setText("100$");
+		Opponent3Name.setText("Opponent 3");
+		Opponent3Cash.setText("1000$");
+		Opponent3Status.setText("CALL");
+		Opponent3Bet.setText("100$");
+		//
+	}
 	if (opponents == 5)
 	{
-		
+		//Opponent 4
+		Opponent4Name.setParent(ptr);
+		Opponent4Name.setFont(NameFont);
+		Opponent4Name.setStyleSheet("background: transparent;");
+		Opponent4Name.move(430, 5);
+
+		Opponent4Cash.setParent(ptr);
+		Opponent4Cash.setFont(CashFont);
+		Opponent4Cash.move(455, 30);
+
+		Opponent4Status.setParent(ptr);
+		Opponent4Status.setFont(StatusFont);
+		Opponent4Status.move(430, 60);
+
+		Opponent4Bet.setParent(ptr);
+		Opponent4Bet.setFont(CashFont);
+		Opponent4Bet.setStyleSheet("background: transparent;");
+		Opponent4Bet.move(335, 150);
+
+		Opponent4SelfToken.setParent(ptr);
+		Opponent4SelfToken.setScaledContents(true);
+		Opponent4SelfToken.setStyleSheet("background: transparent;");
+		Opponent4SelfToken.setFixedSize(20, 20);
+		Opponent4SelfToken.move(430, 29);
+		Opponent4SelfToken.setPixmap(token);
+
+		Opponent4TableToken.setParent(ptr);
+		Opponent4TableToken.setScaledContents(true);
+		Opponent4TableToken.setStyleSheet("background: transparent;");
+		Opponent4TableToken.setFixedSize(20, 20);
+		Opponent4TableToken.move(310, 149);
+		Opponent4TableToken.setPixmap(token);
+
+		//Opponent 5
+		Opponent5Name.setParent(ptr);
+		Opponent5Name.setFont(NameFont);
+		Opponent5Name.setStyleSheet("background: transparent;");
+		Opponent5Name.move(1140, 5);
+
+		Opponent5Cash.setParent(ptr);
+		Opponent5Cash.setFont(CashFont);
+		Opponent5Cash.move(1165, 30);
+
+		Opponent5Status.setParent(ptr);
+		Opponent5Status.setFont(StatusFont);
+		Opponent5Status.move(1140, 60);
+
+		Opponent5Bet.setParent(ptr);
+		Opponent5Bet.setFont(CashFont);
+		Opponent5Bet.setStyleSheet("background: transparent;");
+		Opponent5Bet.move(1085, 150);
+
+		Opponent5SelfToken.setParent(ptr);
+		Opponent5SelfToken.setScaledContents(true);
+		Opponent5SelfToken.setStyleSheet("background: transparent;");
+		Opponent5SelfToken.setFixedSize(20, 20);
+		Opponent5SelfToken.move(1140, 29);
+		Opponent5SelfToken.setPixmap(token);
+
+		Opponent5TableToken.setParent(ptr);
+		Opponent5TableToken.setScaledContents(true);
+		Opponent5TableToken.setStyleSheet("background: transparent;");
+		Opponent5TableToken.setFixedSize(20, 20);
+		Opponent5TableToken.move(1060, 149);
+		Opponent5TableToken.setPixmap(token);
+
+		//
+		Opponent4Name.setText("Opponent 4");
+		Opponent4Cash.setText("1000$");
+		Opponent4Status.setText("CALL");
+		Opponent4Bet.setText("100$");
+		Opponent5Name.setText("Opponent 5");
+		Opponent5Cash.setText("1000$");
+		Opponent5Status.setText("CALL");
+		Opponent5Bet.setText("100$");
+		//
 	}
 }
 

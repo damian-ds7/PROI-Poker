@@ -53,5 +53,6 @@
         <file>resources/Deck/spades_queen.png</file>
         <file>resources/Deck/spades_king.png</file>
         <file>resources/Deck/card_back.png</file>
+		<file>resources/token.png</file>
     </qresource>
 </RCC>

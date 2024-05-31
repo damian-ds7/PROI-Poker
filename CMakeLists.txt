@@ -47,4 +47,5 @@ target_link_libraries(PlayerTest PUBLIC gtest_main)
 add_executable(BotPlayerTest ${SOURCE_FILES} ${BOT_FILES} ${UTILS_FILES} ${OMP_FILES} test/BotPlayerTest.cpp)
 target_link_libraries(BotPlayerTest PUBLIC gtest_main)
 
-add_subdirectory(PokerUI)
+add_subdirectory(src/PokerUI)
+add_subdirectory(src/GameBegin)

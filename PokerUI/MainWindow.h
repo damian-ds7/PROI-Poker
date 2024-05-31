@@ -7,6 +7,9 @@
 #include <QPushButton>
 #include <QTransform>
 #include <QFont>
+#include <QGridLayout>
+#include <QLineEdit>
+#include <QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -30,7 +33,6 @@ private:
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);
     void createOpponentCards(MainWindow* ptr, const short opponents);
-    void createButtons(MainWindow* ptr);
     void createOpponentLabels(MainWindow* ptr, const short opponents);
     void createPlayerLabels(MainWindow* ptr);
     void createTableLabels(MainWindow* ptr);

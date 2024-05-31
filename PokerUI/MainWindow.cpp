@@ -26,7 +26,6 @@ void MainWindow::createWidgets(MainWindow* ptr, const short opponents)
 	createOpponentLabels(ptr, opponents);
 	createPlayerLabels(ptr);
 	createTableLabels(ptr);
-	createButtons(ptr);
 }
 
 void MainWindow::createPlayerCards(MainWindow* ptr)
@@ -153,7 +152,6 @@ void MainWindow::createOpponentCards(MainWindow* ptr, const short opponents)
 		Opponent2Card1.setPixmap(ocard);
 		Opponent2Card2.setPixmap(ocard);
 	}
-
 	if (opponents == 3 || opponents == 5)
 	{
 		//Opponent 2
@@ -185,7 +183,6 @@ void MainWindow::createOpponentCards(MainWindow* ptr, const short opponents)
 		Opponent3Card1.setPixmap(ocardr);
 		Opponent3Card2.setPixmap(ocardr);
 	}
-
 	if (opponents == 4) 
 	{
 		//Opponent 3
@@ -216,7 +213,6 @@ void MainWindow::createOpponentCards(MainWindow* ptr, const short opponents)
 		Opponent4Card1.setPixmap(ocardr);
 		Opponent4Card2.setPixmap(ocardr);
 	}
-
 	if (opponents == 5)
 	{
 		//Opponent 4
@@ -617,7 +613,6 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const short opponents)
 		//
 	}
 }
-
 void MainWindow::createPlayerLabels(MainWindow* ptr)
 {
 	QFont NameFont("Arial", 20, QFont::Bold);
@@ -663,7 +658,6 @@ void MainWindow::createPlayerLabels(MainWindow* ptr)
 	PlayerStatus.setText("CALL");
 	PlayerBet.setText("100$");
 }
-
 void MainWindow::createTableLabels(MainWindow* ptr)
 {
 	QFont PotFont("Arial", 17, QFont::Bold);
@@ -690,11 +684,6 @@ void MainWindow::createTableLabels(MainWindow* ptr)
 	//
 	Pot.setText("600$");
 	//
-}
-
-void MainWindow::createButtons(MainWindow* ptr)
-{
-	//TODO
 }
 
 

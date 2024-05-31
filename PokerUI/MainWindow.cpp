@@ -23,7 +23,10 @@ void MainWindow::createWidgets(MainWindow* ptr, const short opponents)
 	createPlayerCards(ptr);
     createTableCards(ptr);
     createOpponentCards(ptr, opponents);
-    //createButtons();
+	createOpponentLabels(ptr, opponents);
+	createPlayerLabels(ptr);
+	createTableLabels(ptr);
+	createButtons(ptr);
 }
 
 void MainWindow::createPlayerCards(MainWindow* ptr)
@@ -31,12 +34,12 @@ void MainWindow::createPlayerCards(MainWindow* ptr)
 	PlayerCard1.setParent(ptr);
 	PlayerCard1.setScaledContents(true);
 	PlayerCard1.setFixedSize(107, 150);
-	PlayerCard1.move(360, 520);
+	PlayerCard1.move(440, 520);
 
 	PlayerCard2.setParent(ptr);
 	PlayerCard2.setScaledContents(true);
 	PlayerCard2.setFixedSize(107, 150);
-	PlayerCard2.move(480, 520);
+	PlayerCard2.move(560, 520);
 
 
 	//
@@ -250,8 +253,39 @@ void MainWindow::createOpponentCards(MainWindow* ptr, const short opponents)
 
 }
 
-void MainWindow::showPlayerCards()
+void MainWindow::createButtons(MainWindow* ptr)
 {
-	PlayerCard1.show();
-	PlayerCard2.show();
+	
+}
+
+void MainWindow::createOpponentLabels(MainWindow* ptr, const short opponents) 
+{
+
+}
+
+void MainWindow::createPlayerLabels(MainWindow* ptr)
+{
+
+}
+
+void MainWindow::createTableLabels(MainWindow* ptr)
+{
+
+}
+
+
+
+
+void MainWindow::showPlayerCards(bool visible)
+{
+	if (visible == false)
+	{
+		PlayerCard1.hide();
+		PlayerCard2.hide();
+	}
+	else
+	{
+		PlayerCard1.show();
+		PlayerCard2.show();
+	}
 }

@@ -2,8 +2,6 @@
 #define WIDGET_H
 
 #include <QPixmap>
-#include <QPalette>
-#include <QBrush>
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
@@ -23,14 +21,17 @@ public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
     
-    void showPlayerCards();
+    void showPlayerCards(bool visible);
     void createWidgets(MainWindow* ptr, const short opponents);
 
 private:
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);
-    //void createButtons();
     void createOpponentCards(MainWindow* ptr, const short opponents);
+    void createButtons(MainWindow* ptr);
+    void createOpponentLabels(MainWindow* ptr, const short opponents);
+    void createPlayerLabels(MainWindow* ptr);
+    void createTableLabels(MainWindow* ptr);
 
 
 

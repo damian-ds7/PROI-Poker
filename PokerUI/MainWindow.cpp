@@ -1,9 +1,11 @@
 #include "MainWindow.h"
 #include "./ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget* parent)
+MainWindow::MainWindow(QWidget* parent, const short opponents)
     : QWidget(parent)
     , ui(new Ui::Widget)
+	, opponents(opponents)
+
 {
     ui->setupUi(this);
     //label.hide();
@@ -18,12 +20,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::createWidgets(MainWindow* ptr, const short opponents)
+void MainWindow::createWidgets(MainWindow* ptr)
 {
 	createPlayerCards(ptr);
     createTableCards(ptr);
-    createOpponentCards(ptr, opponents);
-	createOpponentLabels(ptr, opponents);
+    createOpponentCards(ptr);
+	createOpponentLabels(ptr);
 	createPlayerLabels(ptr);
 	createTableLabels(ptr);
 }
@@ -97,7 +99,7 @@ void MainWindow::createTableCards(MainWindow* ptr)
 	TableCard5.setPixmap(tcard5);
 	//
 }
-void MainWindow::createOpponentCards(MainWindow* ptr, const short opponents)
+void MainWindow::createOpponentCards(MainWindow* ptr)
 {
 	QPixmap ocard(":/resources/Deck/card_back.png");
 	QTransform transform;
@@ -246,7 +248,7 @@ void MainWindow::createOpponentCards(MainWindow* ptr, const short opponents)
 	}
 }
 
-void MainWindow::createOpponentLabels(MainWindow* ptr, const short opponents) 
+void MainWindow::createOpponentLabels(MainWindow* ptr) 
 {
 	QFont NameFont("Arial", 14, QFont::Bold);
 	QFont CashFont("Arial", 13, QFont::Bold);

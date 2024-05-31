@@ -22,24 +22,22 @@ class MainWindow : public QWidget
     Q_OBJECT
 
 public:
-    MainWindow(QWidget* parent = nullptr);
+    MainWindow(QWidget* parent = nullptr, const short opponents = 2);
     ~MainWindow();
     
     void showPlayerCards(bool visible);
     void InputNames(std::vector<std::string> names);
-    void createWidgets(MainWindow* ptr, const short opponents);
+    void createWidgets(MainWindow* ptr);
 
 private:
+    const short opponents;
+
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);
-    void createOpponentCards(MainWindow* ptr, const short opponents);
-    void createOpponentLabels(MainWindow* ptr, const short opponents);
+    void createOpponentCards(MainWindow* ptr);
+    void createOpponentLabels(MainWindow* ptr);
     void createPlayerLabels(MainWindow* ptr);
     void createTableLabels(MainWindow* ptr);
-
-
-
-
 
     QLabel PlayerCard1;
     QLabel PlayerCard2;

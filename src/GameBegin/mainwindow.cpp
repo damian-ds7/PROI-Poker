@@ -3,9 +3,9 @@
 #include <QMessageBox>
 #include <QFile>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget *parent, std::shared_ptr<Game> Igame)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow), game(std::move(Igame))
 {
     ui->setupUi(this);
 
@@ -43,6 +43,7 @@ void MainWindow::startGame() {
 
     // Create the GameInfo object
     GameInfo gameInfo(playerName.toStdString(), numberOfPlayers, initialMoney);
+    game->setGameInfo(gameInfo);
 
     // Emit the signal with the game info
     emit gameInfoReady(gameInfo);

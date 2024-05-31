@@ -2,13 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
-struct GameInfo {
-    GameInfo(std::string name, int count, int money) : player_name(name), player_count(count), initial_money(money) {}
-    std::string player_name;
-    int player_count;
-    int initial_money;
-};
+#include <string>
+#include "GameInfo.h"
+#include "Game.h"
+#include <memory>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,9 +14,10 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+    std::shared_ptr<Game> game;
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr, std::shared_ptr<Game> Igame);
     ~MainWindow();
 
 signals:

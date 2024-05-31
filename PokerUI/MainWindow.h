@@ -39,6 +39,8 @@ private:
     QLabel TableCard1;
     QLabel TableCard2;
     QLabel TableCard3;
+    QLabel TableCard4;
+    QLabel TableCard5;
     QLabel TableCardBack;
     QLabel Opponent1Card1;
     QLabel Opponent1Card2;

@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QTransform>
+#include <QFont>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

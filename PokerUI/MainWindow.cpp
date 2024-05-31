@@ -252,25 +252,35 @@ void MainWindow::createOpponentCards(MainWindow* ptr, const short opponents)
 
 void MainWindow::createOpponentLabels(MainWindow* ptr, const short opponents) 
 {
+	QFont NameFont("Arial", 14, QFont::Bold);
+	QFont CashFont("Arial", 13, QFont::Bold);
+	QFont StatusFont("Arial", 18, QFont::Bold);
+
 	if (opponents == 1 || opponents == 3 || opponents == 5)
 	{
 		//Opponent 1
 		Opponent1Name.setParent(ptr);
-		Opponent1Name.move(670, -80);
+		Opponent1Name.setFont(NameFont);
+		Opponent1Name.move(800, 5);
 
 		Opponent1Cash.setParent(ptr);
-		Opponent1Cash.move(700, -80);
+		Opponent1Cash.setFont(CashFont);
+		Opponent1Cash.move(800, 30);
 
 		Opponent1Status.setParent(ptr);
-		Opponent1Status.move(730, -80);
+		Opponent1Status.setFont(StatusFont);
+		Opponent1Status.move(800, 60);
 
 		Opponent1Bet.setParent(ptr);
-		Opponent1Bet.move(760, -80);
+		Opponent1Bet.setFont(CashFont);
+		Opponent1Bet.move(710, 150);
 
+		//
 		Opponent1Name.setText("Opponent 1");
 		Opponent1Cash.setText("1000$");
 		Opponent1Status.setText("CALL");
 		Opponent1Bet.setText("100$");
+		//
 
 	}
 	if (opponents == 2 || opponents == 4)

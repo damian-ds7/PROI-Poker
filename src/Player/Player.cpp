@@ -118,6 +118,12 @@ void Player::make_check() {
     // Do nothing.
 }
 
+unsigned int Player::remove_bet() noexcept {
+    unsigned int bet = m_bet;
+    m_bet = 0;
+    return bet;
+}
+
 Cards&& Player::clear_hand() noexcept {
     return std::move(m_hand);
 }

@@ -50,6 +50,7 @@ public:
     virtual void make_fold();
     virtual void make_all_in();
     virtual void make_check();
+    virtual unsigned int remove_bet() noexcept;
     Cards&& clear_hand() noexcept;
 protected:
     static omp::HandEvaluator eval;

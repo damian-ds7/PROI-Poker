@@ -123,3 +123,64 @@ std::string Card::to_string() const noexcept {
     }
     return repr;
 }
+
+std::string Card::get_file_path() const noexcept{
+    std::string file_name = "resources/deck/";
+    switch(m_suit){
+        case Suit::Hearts:
+            file_name += "hearts_";
+            break;
+        case Suit::Diamonds:
+            file_name += "diamonds_";
+            break;
+        case Suit::Clubs:
+            file_name += "clubs_";
+            break;
+        case Suit::Spades:
+            file_name += "spades_";
+            break;
+    }
+    switch(m_value){
+        case Value::Two:
+            file_name += "two";
+            break;
+        case Value::Three:
+            file_name += "three";
+            break;
+        case Value::Four:
+            file_name += "four";
+            break;
+        case Value::Five:
+            file_name += "five";
+            break;
+        case Value::Six:
+            file_name += "six";
+            break;
+        case Value::Seven:
+            file_name += "seven";
+            break;
+        case Value::Eight:
+            file_name += "eight";
+            break;
+        case Value::Nine:
+            file_name += "nine";
+            break;
+        case Value::Ten:
+            file_name += "ten";
+            break;
+        case Value::Jack:
+            file_name += "jack";
+            break;
+        case Value::Queen:
+            file_name += "queen";
+            break;
+        case Value::King:
+            file_name += "king";
+            break;
+        case Value::Ace:
+            file_name += "ace";
+            break;
+    }
+    file_name += ".png";
+    return file_name;
+}

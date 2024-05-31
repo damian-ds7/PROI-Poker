@@ -26,4 +26,5 @@ public:
     bool operator<=(const Value& other) const noexcept;
     bool operator>=(const Value& other) const noexcept;
     std::string to_string() const noexcept;
+    std::string get_file_path() const noexcept;
 };

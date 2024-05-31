@@ -2,10 +2,11 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QFile>
+#include <utility>
 
-MainWindow::MainWindow(QWidget *parent, std::shared_ptr<Game> Igame)
+MainWindow::MainWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow), game(std::move(Igame))
+    , ui(new Ui::MainWindow), game_handler(std::move(Igame))
 {
     ui->setupUi(this);
 
@@ -43,7 +44,7 @@ void MainWindow::startGame() {
 
     // Create the GameInfo object
     GameInfo gameInfo(playerName.toStdString(), numberOfPlayers, initialMoney);
-    game->setGameInfo(gameInfo);
+    game_handler->initialize_game(gameInfo);
 
     // Emit the signal with the game info
     emit gameInfoReady(gameInfo);

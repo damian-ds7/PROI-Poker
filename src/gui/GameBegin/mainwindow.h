@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <string>
 #include "GameInfo.h"
-#include "Game.h"
+#include "GameHandler.h"
 #include <memory>
 
 QT_BEGIN_NAMESPACE
@@ -14,10 +14,10 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    std::shared_ptr<Game> game;
+    std::shared_ptr<GameHandler> game_handler;
 
 public:
-    MainWindow(QWidget *parent = nullptr, std::shared_ptr<Game> Igame);
+    MainWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent = nullptr);
     ~MainWindow();
 
 signals:

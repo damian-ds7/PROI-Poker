@@ -22,7 +22,7 @@ private:
     Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>(true);
     Phase phase = Phase::PreFlop;
 public:
-//    Game(const std::string& name, unsigned int player_count, unsigned int starting_money);
+    Game(const std::string& name, unsigned int player_count, unsigned int initial_money);
     Game() = default;
     void add_table_card(unsigned int num_of_cards);
     void deal();

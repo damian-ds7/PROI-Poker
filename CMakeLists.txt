@@ -11,7 +11,7 @@ file(GLOB GAME_FILES src/Game/*.h src/Game/*.cpp)
 file(GLOB CARD_FILES src/Card/*.cpp src/Card/*.h)
 file(GLOB COLLECTION_FILES src/CardCollection/*.h src/CardCollection/*.cpp
         src/Deck/*.h src/Deck/*.cpp src/Hand/*.h src/Hand/*.cpp src/Table/*.h)
-file(GLOB PLAYERS_FILES src/Player/*.h src/Player/*.cpp src/HumanPlayer/*.h src/BotPlayer/*.h src/BotPlayer/*.cpp)
+file(GLOB PLAYERS_FILES src/Player/*.h src/Player/*.cpp src/HumanPlayer/*.h src/HumanPlayer/*.cpp src/BotPlayer/*.h src/BotPlayer/*.cpp)
 file(GLOB UTILS_FILES utils/*.h utils/*.cpp)
 file(GLOB EVALUATOR_FILES utils/omp/*.h utils/omp/*.cpp utils/omp/*.hxx)
 file(GLOB EQUITY_CALC_FILES utils/libdivide/*.h)

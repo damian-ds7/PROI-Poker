@@ -49,7 +49,6 @@ void MainWindow::createPlayerCards(MainWindow* ptr)
 	PlayerCard2.setPixmap(pcard2);
 	//
 }
-
 void MainWindow::createTableCards(MainWindow* ptr)
 {
 	TableCard1.setParent(ptr);
@@ -99,7 +98,6 @@ void MainWindow::createTableCards(MainWindow* ptr)
 	TableCard5.setPixmap(tcard5);
 	//
 }
-
 void MainWindow::createOpponentCards(MainWindow* ptr, const short opponents)
 {
 	QPixmap ocard(":/resources/Deck/card_back.png");
@@ -250,27 +248,65 @@ void MainWindow::createOpponentCards(MainWindow* ptr, const short opponents)
 		Opponent5Card1.setPixmap(ocard);
 		Opponent5Card2.setPixmap(ocard);
 	}
-
-}
-
-void MainWindow::createButtons(MainWindow* ptr)
-{
-	
 }
 
 void MainWindow::createOpponentLabels(MainWindow* ptr, const short opponents) 
 {
+	if (opponents == 1 || opponents == 3 || opponents == 5)
+	{
+		//Opponent 1
+		Opponent1Name.setParent(ptr);
+		Opponent1Name.move(670, -80);
 
+		Opponent1Cash.setParent(ptr);
+		Opponent1Cash.move(700, -80);
+
+		Opponent1Status.setParent(ptr);
+		Opponent1Status.move(730, -80);
+
+		Opponent1Bet.setParent(ptr);
+		Opponent1Bet.move(760, -80);
+
+		Opponent1Name.setText("Opponent 1");
+		Opponent1Cash.setText("1000$");
+		Opponent1Status.setText("CALL");
+		Opponent1Bet.setText("100$");
+
+	}
+	if (opponents == 2 || opponents == 4)
+	{
+		
+	}
+
+	if (opponents == 3 || opponents == 5)
+	{
+		
+	}
+
+	if (opponents == 4)
+	{
+		
+	}
+
+	if (opponents == 5)
+	{
+		
+	}
 }
 
 void MainWindow::createPlayerLabels(MainWindow* ptr)
 {
-
+	//TODO
 }
 
 void MainWindow::createTableLabels(MainWindow* ptr)
 {
+	//TODO
+}
 
+void MainWindow::createButtons(MainWindow* ptr)
+{
+	//TODO
 }
 
 
@@ -288,4 +324,9 @@ void MainWindow::showPlayerCards(bool visible)
 		PlayerCard1.show();
 		PlayerCard2.show();
 	}
+}
+
+void MainWindow::InputNames(std::vector<std::string> names)
+{
+	//TODO
 }

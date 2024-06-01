@@ -294,7 +294,6 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, cons
 		//
 		Opponent1Name.setText("Opponent 1");
 		Opponent1Status.setText("CALL");
-		Opponent1Bet.setText("100$");
 		//
 
 	}
@@ -372,10 +371,8 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, cons
 		//
 		Opponent1Name.setText("Opponent 1");
 		Opponent1Status.setText("CALL");
-		Opponent1Bet.setText("100$");
 		Opponent2Name.setText("Opponent 2");
 		Opponent2Status.setText("CALL");
-		Opponent2Bet.setText("100$");
 		//
 	}
 	if (opponents == 3 || opponents == 5)
@@ -452,10 +449,8 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, cons
 		//
 		Opponent2Name.setText("Opponent 2");
 		Opponent2Status.setText("CALL");
-		Opponent2Bet.setText("100$");
 		Opponent3Name.setText("Opponent 3");
 		Opponent3Status.setText("CALL");
-		Opponent3Bet.setText("100$");	
 		//
 	}
 	if (opponents == 4)
@@ -532,10 +527,8 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, cons
 		//
 		Opponent4Name.setText("Opponent 4");
 		Opponent4Status.setText("CALL");
-		Opponent4Bet.setText("100$");
 		Opponent3Name.setText("Opponent 3");
 		Opponent3Status.setText("CALL");
-		Opponent3Bet.setText("100$");
 		//
 	}
 	if (opponents == 5)
@@ -612,10 +605,8 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, cons
 		//
 		Opponent4Name.setText("Opponent 4");
 		Opponent4Status.setText("CALL");
-		Opponent4Bet.setText("100$");
 		Opponent5Name.setText("Opponent 5");
 		Opponent5Status.setText("CALL");
-		Opponent5Bet.setText("100$");
 		//
 	}
 }
@@ -663,7 +654,6 @@ void MainWindow::createPlayerLabels(MainWindow* ptr, const char* name, const cha
 
 	//
 	PlayerStatus.setText("CALL");
-	PlayerBet.setText("100$");
 }
 void MainWindow::createTableLabels(MainWindow* ptr)
 {
@@ -687,10 +677,6 @@ void MainWindow::createTableLabels(MainWindow* ptr)
 	PotToken.setFixedSize(30, 30);
 	PotToken.move(1000, 414);
 	PotToken.setPixmap(token);
-
-	//
-	Pot.setText("600$");
-	//
 }
 
 
@@ -699,6 +685,7 @@ void MainWindow::PlayGame()
 	game_handler->start_game();
 	setPlayerCards();
 	setCash();
+	setButtons();
 }
 
 void MainWindow::setPlayerCards()
@@ -788,6 +775,42 @@ void MainWindow::setCash()
 	pot.append("$");
 	const char* cpot = pot.c_str();
 	Pot.setText(cpot);
+}
+
+void MainWindow::setBetButton(bool bet)
+{
+	if (bet)
+	{
+		ui->BetButton->setText("Bet");
+	}
+	else
+	{
+		ui->BetButton->setText("Raise");
+	}
+}
+void MainWindow::setCheckButton(bool check)
+{
+	if (check)
+	{
+		ui->CheckButton->setText("Check");
+	}
+	else
+	{
+		ui->CheckButton->setText("Call");
+	}
+}
+void MainWindow::setButtons()
+{
+	if (game_handler->game->pot == 0)
+	{
+		setBetButton(true);
+		setCheckButton(true);
+	}
+	else
+	{
+		setBetButton(false);
+		setCheckButton(false);
+	}
 }
 
 void MainWindow::InputNames(std::vector<std::string> names)

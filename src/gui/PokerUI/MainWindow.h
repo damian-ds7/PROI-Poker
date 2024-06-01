@@ -49,8 +49,9 @@ private:
     void setTableCards();
     void setCash();
 
-    void setBetButton();
-    void setCheckButton();
+    void setButtons();
+    void setBetButton(bool bet);
+    void setCheckButton(bool check);
 
     QLabel PlayerCard1;
     QLabel PlayerCard2;

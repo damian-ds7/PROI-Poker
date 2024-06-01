@@ -52,7 +52,7 @@ void MenuWindow::startGame() {
     game_handler->initialize_game(gameInfo);
 
     // Emit the signal with the game info
-    emit gameInfoReady(gameInfo);
+    emit gameInfoReady(gameInfo, game_handler);
 
     // Close the window
     this->close();

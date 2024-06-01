@@ -11,6 +11,11 @@ TEST(DeckTest, DeckCreate) {
     EXPECT_EQ(deck->size(), 0);
 }
 
+TEST(DeckTest, DeckCreatePopulate) {
+    Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>(true);
+    EXPECT_EQ(deck->size(), 52);
+}
+
 TEST(DeckTest, DeckAddCard) {
     Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>();
     deck->add_card(std::move(std::make_unique<Card>(Suit::Hearts, Value::Ace)));

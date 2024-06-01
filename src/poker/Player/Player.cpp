@@ -40,6 +40,10 @@ bool Player::dealer() const noexcept {
     return m_dealer;
 }
 
+bool Player::can_check() const noexcept {
+    return m_can_check;
+}
+
 unsigned int Player::evaluate() const noexcept {
     return eval.evaluate(card_eval);
 }
@@ -76,6 +80,10 @@ void Player::set_dealer(bool dealer) {
     m_dealer = dealer;
 }
 
+void Player::set_can_check(bool can_check) {
+    m_can_check = can_check;
+}
+
 void Player::add_card(std::unique_ptr<Card>&& card) {
     card_eval += omp::Hand(card->card_index());
     m_hand->add_card(std::move(card));
@@ -108,6 +116,12 @@ void Player::make_all_in() {
 
 void Player::make_check() {
     // Do nothing.
+}
+
+unsigned int Player::remove_bet() noexcept {
+    unsigned int bet = m_bet;
+    m_bet = 0;
+    return bet;
 }
 
 Cards&& Player::clear_hand() noexcept {

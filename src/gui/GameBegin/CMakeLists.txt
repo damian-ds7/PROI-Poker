@@ -12,13 +12,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
-set(CMAKE_PREFIX_PATH "C:/Qt/6.7.1/msvc2019_64")
-
 set(PROJECT_SOURCES
-        main.cpp
-        beginmainwindow.cpp
-        beginmainwindow.h
-        beginmainwindow.ui
+        ../main.cpp
+        mainwindow.cpp
+        mainwindow.h
+        mainwindow.ui
         resources.qrc
 )
 
@@ -67,9 +65,6 @@ install(TARGETS PokerMenuFinal
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-
-
-target_compile_options(PokerUI PUBLIC "/Zc:__cplusplus" "-permissive-")
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(PokerMenuFinal)

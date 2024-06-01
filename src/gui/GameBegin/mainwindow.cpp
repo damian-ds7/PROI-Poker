@@ -2,12 +2,20 @@
 #include "ui_beginmainwindow.h"
 #include <QMessageBox>
 #include <QFile>
+#include <utility>
 
+<<<<<<<< HEAD:src/gui/GameBegin/beginmainwindow.cpp
 BeginMainWindow::BeginMainWindow(QWidget *parent)
+========
+MainWindow::MainWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent)
+>>>>>>>> origin/develop:src/gui/GameBegin/mainwindow.cpp
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow), game_handler(std::move(Igame))
 {
     ui->setupUi(this);
+
+    this->setWindowTitle("Poker Texas Holdem");
+    this->setFixedSize(800, 600);
 
     // Load the background image
     QFile file(":/resources/background.jpg");
@@ -43,6 +51,7 @@ void BeginMainWindow::startGame() {
 
     // Create the GameInfo object
     GameInfo gameInfo(playerName.toStdString(), numberOfPlayers, initialMoney);
+    game_handler->initialize_game(gameInfo);
 
     // Emit the signal with the game info
     emit gameInfoReady(gameInfo);

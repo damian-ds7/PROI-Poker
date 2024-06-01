@@ -26,11 +26,11 @@ int main(int argc, char *argv[])
 
     
     //QApplication a(argc, argv);
-    MainWindow Main_Window(nullptr, game_handler);
-    MainWindow* ptr = &Main_Window;
-    Main_Window.createWidgets(ptr);
+    //MainWindow Main_Window(game_handler);
+    //MainWindow* ptr = &Main_Window;
+    //Main_Window.createWidgets(ptr);
 
-    Main_Window.show();
+    //Main_Window.show();
 
     return a.exec();
 }

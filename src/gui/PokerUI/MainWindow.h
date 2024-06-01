@@ -21,9 +21,10 @@ QT_END_NAMESPACE
 class MainWindow : public QWidget
 {
     Q_OBJECT
+    std::shared_ptr<GameHandler> game_handler;
 
 public:
-    MainWindow(QWidget* parent = nullptr, std::shared_ptr<GameHandler> = nullptr);
+    MainWindow(std::shared_ptr<GameHandler> Igame, QWidget* parent = nullptr);
     ~MainWindow();
     
     void showPlayerCards(bool visible);
@@ -31,7 +32,6 @@ public:
     void createWidgets(MainWindow* ptr);
 
 private:
-    std::shared_ptr<GameHandler> game_handler;
 
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);

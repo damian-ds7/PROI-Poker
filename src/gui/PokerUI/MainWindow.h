@@ -53,6 +53,12 @@ private:
     void setBetButton(bool bet);
     void setCheckButton(bool check);
 
+    void check();
+    void bet();
+    void fold();
+    void all_in();
+    void bet_confirmed();
+
     QLabel PlayerCard1;
     QLabel PlayerCard2;
     QLabel TableCard1;

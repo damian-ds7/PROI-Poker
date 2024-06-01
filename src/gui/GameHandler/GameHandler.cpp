@@ -8,3 +8,7 @@ void GameHandler::initialize_game(const GameInfo& game_info) {
 void GameHandler::start_game() {
 	game->deal();
 }
+
+void GameHandler::player_make_call() {
+	//TODO
+}

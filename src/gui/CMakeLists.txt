@@ -1,20 +1,23 @@
 set(CMAKE_AUTORCC ON)
 
-include_directories(../utils GameHandler GameBegin)
+include_directories(../utils GameHandler GameBegin PokerUI)
 
 set(MENU_SOURCES
-        main.cpp
-        GameBegin/mainwindow.cpp
-        GameBegin/mainwindow.h
-        GameBegin/mainwindow.ui
+        GameBegin/menu.cpp
+        GameBegin/menu.h
+        GameBegin/menu.ui
         GameBegin/resources.qrc
 )
 
-set(UI_SOURCES)
-
+set(MAIN_WINDOW_SOURCES
+        PokerUI/MainWindow.cpp
+        PokerUI/MainWindow.h
+        PokerUI/mainwindow.ui
+        PokerUI/background.qrc
+        PokerUI/cards.qrc
+)
 
 set(GAME_HANDLER GameHandler/GameHandler.h GameHandler/GameHandler.cpp)
 
-add_executable(Poker ${MENU_SOURCES} ${GAME_HANDLER})
-#target_include_directories(Poker INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/utils ${CMAKE_CURRENT_SOURCE_DIR}/src/gui/GameHandler)
+add_executable(Poker main.cpp ${MAIN_WINDOW_SOURCES} ${MENU_SOURCES} ${GAME_HANDLER})
 target_link_libraries(Poker PRIVATE poker_lib Qt::Widgets Qt::Core Qt::Gui)

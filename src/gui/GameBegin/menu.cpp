@@ -52,10 +52,10 @@ void MenuWindow::startGame() {
     game_handler->initialize_game(gameInfo);
 
     // Emit the signal with the game info
-    emit gameInfoReady(gameInfo, game_handler);
+    emit gameInfoReady(gameInfo);
 
     // Close the window
-    this->close();
+    this->hide();
 }
 
 void MenuWindow::updatePlayerCount(int count){

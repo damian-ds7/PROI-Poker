@@ -12,6 +12,8 @@ MenuWindow::MenuWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent)
 
     this->setWindowTitle("Poker Texas Holdem");
     this->setFixedSize(800, 600);
+    QIcon icon(":/resources/app.ico");
+    this->setWindowIcon(icon);
 
     // Load the background image
     QFile file(":/resources/background.jpg");

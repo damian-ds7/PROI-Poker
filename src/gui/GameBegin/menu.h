@@ -21,7 +21,7 @@ public:
     ~MenuWindow();
 
 signals:
-    void gameInfoReady(GameInfo gameInfo);
+    void gameInfoReady(GameInfo gameInfo, std::shared_ptr<GameHandler> game_handler);
 
 private slots:
     void startGame();

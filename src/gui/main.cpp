@@ -23,13 +23,14 @@ int main(int argc, char *argv[])
     QObject::connect(&w, &MenuWindow::gameInfoReady, &handleGameInfo);
 
     w.show();
-//    return a.exec();
-    //QApplication a(argc, argv);
-    //MainWindow Main_Window(nullptr, 5);
-    //MainWindow* ptr = &Main_Window;
-    //Main_Window.createWidgets(ptr);
 
-    //Main_Window.show();
+    
+    //QApplication a(argc, argv);
+    MainWindow Main_Window(nullptr, game_handler);
+    MainWindow* ptr = &Main_Window;
+    Main_Window.createWidgets(ptr);
+
+    Main_Window.show();
 
     return a.exec();
 }

@@ -23,14 +23,15 @@ class MainWindow : public QWidget
     Q_OBJECT
 
 public:
-    MainWindow(QWidget* parent = nullptr);
+    MainWindow(QWidget* parent = nullptr, std::shared_ptr<GameHandler> = nullptr);
     ~MainWindow();
     
     void showPlayerCards(bool visible);
     void InputNames(std::vector<std::string> names);
-    void createWidgets(MainWindow* ptr, const int opponents, const int initial_money, const std::string player_name);
+    void createWidgets(MainWindow* ptr);
 
 private:
+    std::shared_ptr<GameHandler> game_handler;
 
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);

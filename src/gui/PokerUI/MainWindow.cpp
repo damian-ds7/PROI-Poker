@@ -1,9 +1,11 @@
 #include "MainWindow.h"
 #include "./ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget* parent)
+MainWindow::MainWindow(QWidget* parent, std::shared_ptr<GameHandler> game_handler)
     : QWidget(parent)
     , ui(new Ui::Widget)
+	, game_handler(std::move(game_handler))
+
 {
     ui->setupUi(this);
     //label.hide();
@@ -18,16 +20,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::createWidgets(MainWindow* ptr, const int opponents, const int initial_money, const std::string player_name)
+void MainWindow::createWidgets(MainWindow* ptr)
 {
-	std::string str = std::to_string(initial_money);
+	std::string str = std::to_string(game_handler->game_info.initial_money);
 	const char* cstr = str.c_str();
-	const char* cplayer_name = player_name.c_str();
+	const char* cplayer_name = game_handler->game_info.player_name.c_str();
 
 	createPlayerCards(ptr);
     createTableCards(ptr);
-    createOpponentCards(ptr, opponents);
-	createOpponentLabels(ptr, opponents, cstr);
+    createOpponentCards(ptr, game_handler->game_info.player_count - 1);
+	createOpponentLabels(ptr, game_handler->game_info.player_count - 1, cstr);
 	createPlayerLabels(ptr, cplayer_name, cstr);
 	createTableLabels(ptr);
 }

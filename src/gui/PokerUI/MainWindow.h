@@ -32,20 +32,25 @@ public:
     MainWindow(std::shared_ptr<GameHandler> Igame, QWidget* parent = nullptr);
     ~MainWindow();
     
-    void showPlayerCards(bool visible);
     void InputNames(std::vector<std::string> names);
     void createWidgets(MainWindow* ptr);
 
     void PlayGame();
 
 private:
-
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);
     void createOpponentCards(MainWindow* ptr, const int opponents);
     void createOpponentLabels(MainWindow* ptr, const int opponents, const char* initial_money);
     void createPlayerLabels(MainWindow* ptr, const char* name, const char* initial_money);
     void createTableLabels(MainWindow* ptr);
+
+    void setPlayerCards();
+    void setTableCards();
+    void setCash();
+
+    void setBetButton();
+    void setCheckButton();
 
     QLabel PlayerCard1;
     QLabel PlayerCard2;

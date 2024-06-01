@@ -6,7 +6,7 @@
 
 MenuWindow::MenuWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MenuWindow), game_handler(Igame)
+    , ui(new Ui::MenuWindow), game_handler(std::move(Igame))
 {
     ui->setupUi(this);
 

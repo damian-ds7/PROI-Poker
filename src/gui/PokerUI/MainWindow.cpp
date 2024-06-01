@@ -1,10 +1,11 @@
 #include "MainWindow.h"
 #include "./ui_mainwindow.h"
+#include <utility>
 
 MainWindow::MainWindow(std::shared_ptr<GameHandler> Igame, QWidget* parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
-	, game_handler(Igame)
+	, game_handler(std::move(Igame))
 
 {
     ui->setupUi(this);

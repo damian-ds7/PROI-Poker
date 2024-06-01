@@ -15,7 +15,7 @@ void handleGameInfo(const GameInfo& gameInfo) {
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::addLibraryPath(R"(C:\Qt\6.7.1\mingw_64\plugins)");
+//    QCoreApplication::addLibraryPath(R"(C:\Qt\6.7.1\mingw_64\plugins)");
     QApplication a(argc, argv);
     std::shared_ptr<GameHandler> game_handler = std::make_shared<GameHandler>();
     MenuWindow w(game_handler);
@@ -35,5 +35,5 @@ int main(int argc, char *argv[])
 //
 //    Main_Window.show();
 
-    return a.exec();
+//    return a.exec();
 }

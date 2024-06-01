@@ -1,14 +1,10 @@
-#include "beginmainwindow.h"
-#include "ui_beginmainwindow.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QFile>
 #include <utility>
 
-<<<<<<<< HEAD:src/gui/GameBegin/beginmainwindow.cpp
-BeginMainWindow::BeginMainWindow(QWidget *parent)
-========
 MainWindow::MainWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent)
->>>>>>>> origin/develop:src/gui/GameBegin/mainwindow.cpp
     : QMainWindow(parent)
     , ui(new Ui::MainWindow), game_handler(std::move(Igame))
 {
@@ -25,21 +21,21 @@ MainWindow::MainWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent)
         this->setStyleSheet("QMainWindow { background-image: url(:/resources/background.jpg); background-position: center; background-repeat: no-repeat; }");
     }
 
-    connect(ui->startButton, &QPushButton::clicked, this, &BeginMainWindow::startGame);
-    connect(ui->playerSlider, &QSlider::valueChanged, this, &BeginMainWindow::updatePlayerCount);
-    connect(ui->moneySlider, &QSlider::valueChanged, this, &BeginMainWindow::updateStartMoney);
+    connect(ui->startButton, &QPushButton::clicked, this, &MainWindow::startGame);
+    connect(ui->playerSlider, &QSlider::valueChanged, this, &MainWindow::updatePlayerCount);
+    connect(ui->moneySlider, &QSlider::valueChanged, this, &MainWindow::updateStartMoney);
 
     // Set the initial value
     updatePlayerCount(ui->playerSlider->value());
     updateStartMoney(ui->moneySlider->value());
 }
 
-BeginMainWindow::~BeginMainWindow()
+MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-void BeginMainWindow::startGame() {
+void MainWindow::startGame() {
     QString playerName = ui->nameField->text();
     int numberOfPlayers = ui->playerSlider->value();
     int initialMoney = ui->moneySlider->value();
@@ -60,10 +56,10 @@ void BeginMainWindow::startGame() {
     this->close();
 }
 
-void BeginMainWindow::updatePlayerCount(int count){
+void MainWindow::updatePlayerCount(int count){
     ui->playerCountLabel->setText(QString::number(count));
 }
 
-void BeginMainWindow::updateStartMoney(int count){
+void MainWindow::updateStartMoney(int count){
     ui->startMoneyLabel->setText(QString::number(count));
 }

@@ -9,10 +9,8 @@ class GameHandler {
 public:
     GameHandler() = default;
     void initialize_game(const GameInfo& game_info);
-
 private:
     std::unique_ptr<Game> game;
     GameInfo game_info;
-
-friend class MainWindow;
+    friend class MainWindow;
 };

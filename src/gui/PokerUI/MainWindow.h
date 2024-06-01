@@ -9,8 +9,12 @@
 #include <QPushButton>
 #include <QTransform>
 #include <QFont>
+#include <QGridLayout>
 #include <QLineEdit>
-#include <string>
+#include <QVBoxLayout>
+#include "GameHandler.h"
+
+class GameHandler;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -104,4 +108,3 @@ private:
     Ui::Widget* ui;
 };
 #endif // WIDGET_H
-

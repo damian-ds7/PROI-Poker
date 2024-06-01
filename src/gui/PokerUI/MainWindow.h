@@ -1,15 +1,16 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include "GameInfo.h"
+#include "GameHandler.h"
 #include <QPixmap>
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
 #include <QTransform>
 #include <QFont>
-#include <QGridLayout>
 #include <QLineEdit>
-#include <QVBoxLayout>
+#include <string>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,21 +23,20 @@ class MainWindow : public QWidget
     Q_OBJECT
 
 public:
-    MainWindow(QWidget* parent = nullptr, const short opponents = 2);
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
     
     void showPlayerCards(bool visible);
     void InputNames(std::vector<std::string> names);
-    void createWidgets(MainWindow* ptr);
+    void createWidgets(MainWindow* ptr, int opponents, int initial_money, QString player_name);
 
 private:
-    const short opponents;
 
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);
-    void createOpponentCards(MainWindow* ptr);
-    void createOpponentLabels(MainWindow* ptr);
-    void createPlayerLabels(MainWindow* ptr);
+    void createOpponentCards(MainWindow* ptr, int opponents);
+    void createOpponentLabels(MainWindow* ptr, int opponents, const char* initial_money);
+    void createPlayerLabels(MainWindow* ptr, QString name, const char* initial_money);
     void createTableLabels(MainWindow* ptr);
 
     QLabel PlayerCard1;

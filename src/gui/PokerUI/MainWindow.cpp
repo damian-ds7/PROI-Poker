@@ -1,11 +1,9 @@
 #include "MainWindow.h"
 #include "./ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget* parent, const short opponents)
+MainWindow::MainWindow(QWidget* parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
-	, opponents(opponents)
-
 {
     ui->setupUi(this);
     //label.hide();
@@ -20,13 +18,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::createWidgets(MainWindow* ptr)
+void MainWindow::createWidgets(MainWindow* ptr, int opponents, int initial_money, QString player_name)
 {
+	std::string str = std::to_string(initial_money);
+	const char* cstr = str.c_str();
+
 	createPlayerCards(ptr);
     createTableCards(ptr);
-    createOpponentCards(ptr);
-	createOpponentLabels(ptr);
-	createPlayerLabels(ptr);
+    createOpponentCards(ptr, opponents);
+	createOpponentLabels(ptr, opponents, cstr);
+	createPlayerLabels(ptr, player_name, cstr);
 	createTableLabels(ptr);
 }
 
@@ -99,7 +100,7 @@ void MainWindow::createTableCards(MainWindow* ptr)
 	TableCard5.setPixmap(tcard5);
 	//
 }
-void MainWindow::createOpponentCards(MainWindow* ptr)
+void MainWindow::createOpponentCards(MainWindow* ptr, int opponents)
 {
 	QPixmap ocard(":/resources/Deck/card_back.png");
 	QTransform transform;
@@ -248,7 +249,7 @@ void MainWindow::createOpponentCards(MainWindow* ptr)
 	}
 }
 
-void MainWindow::createOpponentLabels(MainWindow* ptr) 
+void MainWindow::createOpponentLabels(MainWindow* ptr, int opponents, const char* initial_money)
 {
 	QFont NameFont("Arial", 14, QFont::Bold);
 	QFont CashFont("Arial", 13, QFont::Bold);
@@ -290,9 +291,11 @@ void MainWindow::createOpponentLabels(MainWindow* ptr)
 		Opponent1TableToken.move(710, 149);
 		Opponent1TableToken.setPixmap(token);
 
+		Opponent1Cash.setText(initial_money);
+
+		
 		//
 		Opponent1Name.setText("Opponent 1");
-		Opponent1Cash.setText("1000$");
 		Opponent1Status.setText("CALL");
 		Opponent1Bet.setText("100$");
 		//
@@ -366,13 +369,14 @@ void MainWindow::createOpponentLabels(MainWindow* ptr)
 		Opponent2TableToken.move(1060, 149);
 		Opponent2TableToken.setPixmap(token);
 
+		Opponent1Cash.setText(initial_money);
+		Opponent2Cash.setText(initial_money);
+
 		//
 		Opponent1Name.setText("Opponent 1");
-		Opponent1Cash.setText("1000$");
 		Opponent1Status.setText("CALL");
 		Opponent1Bet.setText("100$");
 		Opponent2Name.setText("Opponent 2");
-		Opponent2Cash.setText("1000$");
 		Opponent2Status.setText("CALL");
 		Opponent2Bet.setText("100$");
 		//
@@ -445,13 +449,14 @@ void MainWindow::createOpponentLabels(MainWindow* ptr)
 		Opponent3TableToken.move(1205, 284);
 		Opponent3TableToken.setPixmap(token);
 
+		Opponent2Cash.setText(initial_money);
+		Opponent3Cash.setText(initial_money);
+
 		//
 		Opponent2Name.setText("Opponent 2");
-		Opponent2Cash.setText("1000$");
 		Opponent2Status.setText("CALL");
 		Opponent2Bet.setText("100$");
 		Opponent3Name.setText("Opponent 3");
-		Opponent3Cash.setText("1000$");
 		Opponent3Status.setText("CALL");
 		Opponent3Bet.setText("100$");	
 		//
@@ -524,13 +529,14 @@ void MainWindow::createOpponentLabels(MainWindow* ptr)
 		Opponent4TableToken.move(180, 284);
 		Opponent4TableToken.setPixmap(token);
 
+		Opponent4Cash.setText(initial_money);
+		Opponent3Cash.setText(initial_money);
+
 		//
 		Opponent4Name.setText("Opponent 4");
-		Opponent4Cash.setText("1000$");
 		Opponent4Status.setText("CALL");
 		Opponent4Bet.setText("100$");
 		Opponent3Name.setText("Opponent 3");
-		Opponent3Cash.setText("1000$");
 		Opponent3Status.setText("CALL");
 		Opponent3Bet.setText("100$");
 		//
@@ -603,19 +609,20 @@ void MainWindow::createOpponentLabels(MainWindow* ptr)
 		Opponent5TableToken.move(1060, 149);
 		Opponent5TableToken.setPixmap(token);
 
+		Opponent4Cash.setText(initial_money);
+		Opponent5Cash.setText(initial_money);
+
 		//
 		Opponent4Name.setText("Opponent 4");
-		Opponent4Cash.setText("1000$");
 		Opponent4Status.setText("CALL");
 		Opponent4Bet.setText("100$");
 		Opponent5Name.setText("Opponent 5");
-		Opponent5Cash.setText("1000$");
 		Opponent5Status.setText("CALL");
 		Opponent5Bet.setText("100$");
 		//
 	}
 }
-void MainWindow::createPlayerLabels(MainWindow* ptr)
+void MainWindow::createPlayerLabels(MainWindow* ptr, QString name, const char* initial_money)
 {
 	QFont NameFont("Arial", 20, QFont::Bold);
 	QFont CashFont("Arial", 17, QFont::Bold);

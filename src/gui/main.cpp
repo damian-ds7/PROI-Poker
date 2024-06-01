@@ -13,6 +13,8 @@ void handleGameInfo(const GameInfo& gameInfo, MainWindow* ptr) {
     qDebug() << "Initial Money:" << gameInfo.initial_money;
 
     ptr->createWidgets(ptr);
+    qDebug() << "Game started";
+    ptr->PlayGame();
     ptr->show();
 }
 

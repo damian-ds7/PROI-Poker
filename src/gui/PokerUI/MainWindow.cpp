@@ -24,6 +24,7 @@ MainWindow::~MainWindow()
 void MainWindow::createWidgets(MainWindow* ptr)
 {
 	std::string str = std::to_string(game_handler->game_info.initial_money);
+	str.append("$");
 	const char* cstr = str.c_str();
 	const char* cplayer_name = game_handler->game_info.player_name.c_str();
 
@@ -701,7 +702,14 @@ void MainWindow::createTableLabels(MainWindow* ptr)
 }
 
 
-
+void MainWindow::PlayGame()
+{
+	game_handler->start_game();
+	QPixmap qcard1(game_handler->game->players[0]->m_hand->at(0)->get_file_path().c_str());
+	QPixmap qcard2(game_handler->game->players[0]->m_hand->at(1)->get_file_path().c_str());
+	PlayerCard1.setPixmap(qcard1);
+	PlayerCard2.setPixmap(qcard2);
+}
 
 void MainWindow::showPlayerCards(bool visible)
 {

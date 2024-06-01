@@ -29,4 +29,6 @@ public:
     void next_phase();
     void collect_bets();
     void next_player();
+
+    friend class MainWindow;
 };

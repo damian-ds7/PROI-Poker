@@ -13,6 +13,7 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 #include "GameHandler.h"
+#include "CardsTypedef.h"
 
 class GameHandler;
 
@@ -34,6 +35,8 @@ public:
     void showPlayerCards(bool visible);
     void InputNames(std::vector<std::string> names);
     void createWidgets(MainWindow* ptr);
+
+    void PlayGame();
 
 private:
 

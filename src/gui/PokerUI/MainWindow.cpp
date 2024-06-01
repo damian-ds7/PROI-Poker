@@ -18,16 +18,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::createWidgets(MainWindow* ptr, int opponents, int initial_money, QString player_name)
+void MainWindow::createWidgets(MainWindow* ptr, const int opponents, const int initial_money, const std::string player_name)
 {
 	std::string str = std::to_string(initial_money);
 	const char* cstr = str.c_str();
+	const char* cplayer_name = player_name.c_str();
 
 	createPlayerCards(ptr);
     createTableCards(ptr);
     createOpponentCards(ptr, opponents);
 	createOpponentLabels(ptr, opponents, cstr);
-	createPlayerLabels(ptr, player_name, cstr);
+	createPlayerLabels(ptr, cplayer_name, cstr);
 	createTableLabels(ptr);
 }
 
@@ -100,7 +101,7 @@ void MainWindow::createTableCards(MainWindow* ptr)
 	TableCard5.setPixmap(tcard5);
 	//
 }
-void MainWindow::createOpponentCards(MainWindow* ptr, int opponents)
+void MainWindow::createOpponentCards(MainWindow* ptr, const int opponents)
 {
 	QPixmap ocard(":/resources/Deck/card_back.png");
 	QTransform transform;
@@ -249,7 +250,7 @@ void MainWindow::createOpponentCards(MainWindow* ptr, int opponents)
 	}
 }
 
-void MainWindow::createOpponentLabels(MainWindow* ptr, int opponents, const char* initial_money)
+void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, const char* initial_money)
 {
 	QFont NameFont("Arial", 14, QFont::Bold);
 	QFont CashFont("Arial", 13, QFont::Bold);
@@ -622,7 +623,7 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, int opponents, const char
 		//
 	}
 }
-void MainWindow::createPlayerLabels(MainWindow* ptr, QString name, const char* initial_money)
+void MainWindow::createPlayerLabels(MainWindow* ptr, const char* name, const char* initial_money)
 {
 	QFont NameFont("Arial", 20, QFont::Bold);
 	QFont CashFont("Arial", 17, QFont::Bold);
@@ -661,9 +662,10 @@ void MainWindow::createPlayerLabels(MainWindow* ptr, QString name, const char* i
 	PlayerTableToken.move(460, 415);
 	PlayerTableToken.setPixmap(token);
 
+	PlayerName.setText(name);
+	PlayerCash.setText(initial_money);
+
 	//
-	PlayerName.setText("Player");
-	PlayerCash.setText("1000$");
 	PlayerStatus.setText("CALL");
 	PlayerBet.setText("100$");
 }

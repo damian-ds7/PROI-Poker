@@ -7,9 +7,11 @@
 
 class GameHandler {
 public:
-    GameHandler() = default;
+    GameHandler();
     void initialize_game(const GameInfo& game_info);
+    ~GameHandler();
+
 private:
     std::unique_ptr<Game> game;
-    std::unique_ptr<MainWindow> window;
+    MainWindow* window;
 };

@@ -28,15 +28,15 @@ public:
     
     void showPlayerCards(bool visible);
     void InputNames(std::vector<std::string> names);
-    void createWidgets(MainWindow* ptr, int opponents, int initial_money, QString player_name);
+    void createWidgets(MainWindow* ptr, const int opponents, const int initial_money, const std::string player_name);
 
 private:
 
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);
-    void createOpponentCards(MainWindow* ptr, int opponents);
-    void createOpponentLabels(MainWindow* ptr, int opponents, const char* initial_money);
-    void createPlayerLabels(MainWindow* ptr, QString name, const char* initial_money);
+    void createOpponentCards(MainWindow* ptr, const int opponents);
+    void createOpponentLabels(MainWindow* ptr, const int opponents, const char* initial_money);
+    void createPlayerLabels(MainWindow* ptr, const char* name, const char* initial_money);
     void createTableLabels(MainWindow* ptr);
 
     QLabel PlayerCard1;

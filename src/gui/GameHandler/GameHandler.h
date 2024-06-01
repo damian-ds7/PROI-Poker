@@ -7,7 +7,7 @@
 class GameHandler {
 public:
     GameHandler() = default;
-    void initialize_game(GameInfo game_info);
+    void initialize_game(const GameInfo& game_info);
 private:
     std::unique_ptr<Game> game;
 };

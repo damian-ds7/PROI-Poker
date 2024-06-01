@@ -8,6 +8,8 @@ Game::Game(const std::string& name, unsigned int player_count, unsigned int init
     for (unsigned int i = 1; i < player_count; ++i) {
         players.push_back(std::make_unique<BotPlayer>("Bot " + std::to_string(i), initial_money, 0));
     }
+    dealer = 0;
+    current_player = 0;
 
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -25,6 +27,7 @@ void Game::deal() {
     for (int i = 0; i < 2; ++i) {
         for (auto& player : players) {
             player->add_card(std::move(deck->front()));
+            deck->pop_front();
             deck->pop_front();
         }
     }

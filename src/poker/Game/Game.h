@@ -31,4 +31,5 @@ public:
     void next_player();
 
     friend class MainWindow;
+    friend class GameHandler;
 };

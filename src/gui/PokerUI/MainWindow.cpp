@@ -12,13 +12,11 @@ MainWindow::MainWindow(std::shared_ptr<GameHandler> Igame, QWidget* parent)
     //label.hide();
     //label.show();
 	//label.raise();
-	//connect(ui->startButton, &QPushButton::clicked, this, &MenuWindow::startGame);
 	connect(ui->CheckButton, &QPushButton::clicked, this, &MainWindow::check);
 	connect(ui->BetButton, &QPushButton::clicked, this, &MainWindow::bet);
 	connect(ui->FoldButton, &QPushButton::clicked, this, &MainWindow::fold);
 	connect(ui->AllInButton, &QPushButton::clicked, this, &MainWindow::all_in);
 	connect(ui->ConfirmButton, &QPushButton::clicked, this, &MainWindow::bet_confirmed);
-    
 }
 
 MainWindow::~MainWindow()
@@ -694,6 +692,15 @@ void MainWindow::PlayGame()
 	setPlayerCards();
 	setCash();
 	setButtons();
+
+	/*while (game_handler->game->current_player != 0)
+	{
+		game_handler->play_round();
+		setPlayerCards();
+		setTableCards();
+		setCash();
+		setButtons();
+	}*/
 }
 
 void MainWindow::setPlayerCards()
@@ -832,23 +839,19 @@ void MainWindow::check()
 		game_handler->player_make_call();
 	}
 }
-
 void MainWindow::bet()
 {
 	ui->lineEdit->show();
 	ui->ConfirmButton->show();
 }
-
 void MainWindow::fold()
 {
 	game_handler->game->players[0]->make_fold();
 }
-
 void MainWindow::all_in()
 {
 	game_handler->game->players[0]->make_all_in();
 }
-
 void MainWindow::bet_confirmed()
 {
 	if (game_handler->game->pot == 0)

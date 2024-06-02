@@ -9,11 +9,10 @@
 #include <QPushButton>
 #include <QTransform>
 #include <QFont>
-#include <QGridLayout>
 #include <QLineEdit>
-#include <QVBoxLayout>
 #include "GameHandler.h"
 #include "CardsTypedef.h"
+
 
 class GameHandler;
 
@@ -47,6 +46,7 @@ private:
 
     void createEndLabels(MainWindow* ptr);
 
+    void showEndScreen(bool visible);
 
 
     void setPlayerCards();

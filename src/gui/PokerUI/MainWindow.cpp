@@ -37,7 +37,10 @@ void MainWindow::createWidgets(MainWindow* ptr)
 	createOpponentLabels(ptr, game_handler->game_info.player_count - 1, cstr);
 	createPlayerLabels(ptr, cplayer_name, cstr);
 	createTableLabels(ptr);
+	createEndLabels(ptr);
 
+
+	//showEndScreen(false);
 	ui->lineEdit->hide();
 	ui->ConfirmButton->hide();
 }
@@ -695,6 +698,8 @@ void MainWindow::createEndLabels(MainWindow* ptr)
 	EndBackground.setParent(ptr);
 	EndBackground.setFixedSize(400, 400);
 	EndBackground.move(518, 144);
+	EndBackground.setFrameStyle(QFrame::Panel | QFrame::Raised);
+	EndBackground.setLineWidth(4);
 
 	EndWinner.setParent(ptr);
 	EndWinner.setFont(WinnerFont);
@@ -720,6 +725,23 @@ void MainWindow::createEndLabels(MainWindow* ptr)
 	EndWinnerCash.setText("1000$");
 	EndWinnerName.setText("Player 1");
 	//
+}
+
+void MainWindow::PlayGame()
+{
+	game_handler->start_game();
+	setPlayerCards();
+	setCash();
+	setButtons();
+}
+
+void MainWindow::showEndScreen(bool visible)
+{
+	EndBackground.setVisible(visible);
+	EndWinner.setVisible(visible);
+	EndWinnerName.setVisible(visible);
+	EndToken.setVisible(visible);
+	EndWinnerCash.setVisible(visible);
 }
 
 void MainWindow::setPlayerCards()

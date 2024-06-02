@@ -298,10 +298,10 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, cons
 		Opponent1TableToken.setPixmap(token);
 
 		Opponent1Cash.setText(initial_money);
+		Opponent1Name.setText(game_handler->name_to_string(1).c_str());
 
 		
 		//
-		Opponent1Name.setText("Opponent 1");
 		Opponent1Status.setText("CALL");
 		//
 
@@ -376,11 +376,11 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, cons
 
 		Opponent1Cash.setText(initial_money);
 		Opponent2Cash.setText(initial_money);
+		Opponent1Name.setText(game_handler->name_to_string(1).c_str());
+		Opponent2Name.setText(game_handler->name_to_string(2).c_str());
 
 		//
-		Opponent1Name.setText("Opponent 1");
 		Opponent1Status.setText("CALL");
-		Opponent2Name.setText("Opponent 2");
 		Opponent2Status.setText("CALL");
 		//
 	}
@@ -454,11 +454,11 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, cons
 
 		Opponent2Cash.setText(initial_money);
 		Opponent3Cash.setText(initial_money);
+		Opponent2Name.setText(game_handler->name_to_string(2).c_str());
+		Opponent3Name.setText(game_handler->name_to_string(3).c_str());
 
 		//
-		Opponent2Name.setText("Opponent 2");
 		Opponent2Status.setText("CALL");
-		Opponent3Name.setText("Opponent 3");
 		Opponent3Status.setText("CALL");
 		//
 	}
@@ -532,11 +532,11 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, cons
 
 		Opponent4Cash.setText(initial_money);
 		Opponent3Cash.setText(initial_money);
+		Opponent3Name.setText(game_handler->name_to_string(3).c_str());
+		Opponent4Name.setText(game_handler->name_to_string(4).c_str());
 
 		//
-		Opponent4Name.setText("Opponent 4");
 		Opponent4Status.setText("CALL");
-		Opponent3Name.setText("Opponent 3");
 		Opponent3Status.setText("CALL");
 		//
 	}
@@ -610,11 +610,11 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, cons
 
 		Opponent4Cash.setText(initial_money);
 		Opponent5Cash.setText(initial_money);
+		Opponent4Name.setText(game_handler->name_to_string(4).c_str());
+		Opponent5Name.setText(game_handler->name_to_string(5).c_str());
 
 		//
-		Opponent4Name.setText("Opponent 4");
 		Opponent4Status.setText("CALL");
-		Opponent5Name.setText("Opponent 5");
 		Opponent5Status.setText("CALL");
 		//
 	}
@@ -696,33 +696,36 @@ void MainWindow::createEndLabels(MainWindow* ptr)
 	QPixmap token(":/resources/token.png");
 
 	EndBackground.setParent(ptr);
-	EndBackground.setFixedSize(400, 400);
+	EndBackground.setFixedSize(400, 250);
 	EndBackground.move(518, 144);
 	EndBackground.setFrameStyle(QFrame::Panel | QFrame::Raised);
 	EndBackground.setLineWidth(4);
 
 	EndWinner.setParent(ptr);
 	EndWinner.setFont(WinnerFont);
-	EndWinner.move(610, 185);
+	EndWinner.setFixedWidth(400);
+	EndWinner.setAlignment(Qt::AlignCenter);
+	EndWinner.move(518, 185);
 	EndWinner.setText("WINNER");
 
 	EndWinnerName.setParent(ptr);
 	EndWinnerName.setFont(WinnerNameFont);
-	EndWinnerName.move(610, 230);
+	EndWinnerName.move(518, 230);
+	EndWinnerName.setFixedWidth(400);
 	EndWinnerName.setAlignment(Qt::AlignCenter);
 	
 	EndToken.setParent(ptr);
 	EndToken.setScaledContents(true);
 	EndToken.setFixedSize(30, 30);
-	EndToken.move(640, 300);
+	EndToken.move(660, 300);
 	EndToken.setPixmap(token);
 
 	EndWinnerCash.setParent(ptr);
 	EndWinnerCash.setFont(CashFont);
-	EndWinnerCash.move(675, 300);
+	EndWinnerCash.move(695, 300);
 
 	//
-	EndWinnerCash.setText("1000$");
+	EndWinnerCash.setText("+1000$");
 	EndWinnerName.setText("Player 1");
 	//
 }
@@ -734,11 +737,22 @@ void MainWindow::PlayGame()
 	setCash();
 	setButtons();
 	//setTableCards();
+	showButtons();
+
+	//if player turn
+	//showButtons(true)
 
 	//round end
 	//showEndScreen(true);
 }
 
+void MainWindow::showButtons()
+{
+	ui->BetButton->setVisible(game_handler->game->current_player == 0);
+	ui->CheckButton->setVisible(game_handler->game->current_player == 0);
+	ui->FoldButton->setVisible(game_handler->game->current_player == 0);
+	ui->AllInButton->setVisible(game_handler->game->current_player == 0);
+}
 void MainWindow::showEndScreen(bool visible)
 {
 	EndBackground.setVisible(visible);

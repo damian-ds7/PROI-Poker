@@ -46,6 +46,7 @@ private:
 
     void createEndLabels(MainWindow* ptr);
 
+    void showButtons();
     void showEndScreen(bool visible);
 
 

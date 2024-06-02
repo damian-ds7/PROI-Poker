@@ -11,6 +11,7 @@ void GameHandler::start_game() {
 	game->players[game->current_player]->make_bet(10); //small blind
 	game->next_player();
 	game->players[game->current_player]->make_bet(20); //big blind
+	game->next_player();
 }
 
 void GameHandler::player_make_call() {
@@ -35,4 +36,12 @@ int GameHandler::phase_to_int() {
 	case Phase::Showdown:
 		return 4;
 	}
+}
+
+std::string GameHandler::current_player_to_string() {
+	return game->players[game->current_player]->name();
+}
+
+std::string GameHandler::name_to_string(int index) {
+	return game->players[index]->name();
 }

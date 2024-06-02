@@ -45,3 +45,20 @@ std::string GameHandler::current_player_to_string() {
 std::string GameHandler::name_to_string(int index) {
 	return game->players[index]->name();
 }
+
+std::string GameHandler::status_to_string(int index) {
+	if (game->players[index]->folded()) return "FOLD";
+	if (game->players[index]->all_in()) return "ALL IN";
+	//call
+	//raise
+	//check
+	//bet
+	return "";
+}
+
+std::string GameHandler::begin_status_to_string(int index) {
+	if (game->players[index]->big_blind()) return "BIG B";
+	if (game->players[index]->small_blind()) return "SMALL B";
+	if (game->players[index]->dealer()) return "DEALER";
+	return "";
+}

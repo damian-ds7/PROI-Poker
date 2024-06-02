@@ -16,6 +16,8 @@ public:
     int phase_to_int();
     std::string current_player_to_string();
     std::string name_to_string(int index);
+    std::string status_to_string(int index);
+    std::string begin_status_to_string(int index);
 
 private:
     std::unique_ptr<Game> game;

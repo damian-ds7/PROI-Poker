@@ -737,7 +737,9 @@ void MainWindow::PlayGame()
 	setCash();
 	setButtons();
 	//setTableCards();
+	setInitialStatus();
 	showButtons();
+	
 
 	//if player turn
 	//showButtons(true)
@@ -871,6 +873,31 @@ void MainWindow::setCash()
 	pot.append("$");
 	const char* cpot = pot.c_str();
 	Pot.setText(cpot);
+}
+void MainWindow::setStatus()
+{
+	//TODO
+}
+void MainWindow::setInitialStatus()
+{
+	PlayerStatus.setText(game_handler->begin_status_to_string(0).c_str());
+	Opponent1Status.setText(game_handler->begin_status_to_string(1).c_str());
+	if (game_handler->game_info.player_count > 2)
+	{
+		Opponent2Status.setText(game_handler->begin_status_to_string(2).c_str());
+	}
+	if (game_handler->game_info.player_count > 3)
+	{
+		Opponent3Status.setText(game_handler->begin_status_to_string(3).c_str());
+	}
+	if (game_handler->game_info.player_count > 4)
+	{
+		Opponent4Status.setText(game_handler->begin_status_to_string(4).c_str());
+	}
+	if (game_handler->game_info.player_count > 5)
+	{
+		Opponent5Status.setText(game_handler->begin_status_to_string(5).c_str());
+	}
 }
 
 void MainWindow::setBetButton(bool bet)

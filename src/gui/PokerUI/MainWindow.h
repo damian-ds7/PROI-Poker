@@ -53,6 +53,8 @@ private:
     void setPlayerCards();
     void setTableCards();
     void setCash();
+    void setStatus();
+    void setInitialStatus();
 
     void setButtons();
     void setBetButton(bool bet);

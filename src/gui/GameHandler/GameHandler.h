@@ -13,6 +13,8 @@ public:
     void player_make_call();
     void play_round();
 
+    int phase_to_int();
+
 private:
     std::unique_ptr<Game> game;
     GameInfo game_info;

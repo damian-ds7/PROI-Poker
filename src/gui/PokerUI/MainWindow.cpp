@@ -733,6 +733,10 @@ void MainWindow::PlayGame()
 	setPlayerCards();
 	setCash();
 	setButtons();
+	//setTableCards();
+
+	//round end
+	//showEndScreen(true);
 }
 
 void MainWindow::showEndScreen(bool visible)
@@ -753,16 +757,38 @@ void MainWindow::setPlayerCards()
 }
 void MainWindow::setTableCards()
 {
-	QPixmap qcard1(game_handler->game->table->at(0)->get_file_path().c_str());
-	QPixmap qcard2(game_handler->game->table->at(1)->get_file_path().c_str());
-	QPixmap qcard3(game_handler->game->table->at(2)->get_file_path().c_str());
-	QPixmap qcard4(game_handler->game->table->at(3)->get_file_path().c_str());
-	QPixmap qcard5(game_handler->game->table->at(4)->get_file_path().c_str());
-	TableCard1.setPixmap(qcard1);
-	TableCard2.setPixmap(qcard2);
-	TableCard3.setPixmap(qcard3);
-	TableCard4.setPixmap(qcard4);
-	TableCard5.setPixmap(qcard5);
+	if (game_handler->phase_to_int() == 0)
+	{
+		TableCard1.hide();
+		TableCard2.hide();
+		TableCard3.hide();
+		TableCard4.hide();
+		TableCard5.hide();
+	}
+	else if (game_handler->phase_to_int() == 1)
+	{
+		QPixmap qcard1(game_handler->game->table->at(0)->get_file_path().c_str());
+		QPixmap qcard2(game_handler->game->table->at(1)->get_file_path().c_str());
+		QPixmap qcard3(game_handler->game->table->at(2)->get_file_path().c_str());
+		TableCard1.setPixmap(qcard1);
+		TableCard2.setPixmap(qcard2);
+		TableCard3.setPixmap(qcard3);
+		TableCard1.show();
+		TableCard2.show();
+		TableCard3.show();
+	}
+	else if (game_handler->phase_to_int() == 2)
+	{
+		QPixmap qcard4(game_handler->game->table->at(3)->get_file_path().c_str());
+		TableCard4.setPixmap(qcard4);
+		TableCard4.show();
+	}
+	else if (game_handler->phase_to_int() == 3)
+	{
+		QPixmap qcard5(game_handler->game->table->at(4)->get_file_path().c_str());
+		TableCard5.setPixmap(qcard5);
+		TableCard5.show();
+	}
 }
 void MainWindow::setCash()
 {
@@ -867,6 +893,12 @@ void MainWindow::setButtons()
 		setBetButton(false);
 		setCheckButton(false);
 	}
+}
+
+void MainWindow::setWinnerScreen()
+{
+	//set winner name
+	//set winner cash
 }
 
 void MainWindow::check()

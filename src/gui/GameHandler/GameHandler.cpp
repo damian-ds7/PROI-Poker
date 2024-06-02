@@ -21,3 +21,18 @@ void GameHandler::play_round() {
 	/*game->next_player();*/
 
 }
+
+int GameHandler::phase_to_int() {
+	switch (game->phase) {
+	case Phase::PreFlop:
+		return 0;
+	case Phase::Flop:
+		return 1;
+	case Phase::Turn:
+		return 2;
+	case Phase::River:
+		return 3;
+	case Phase::Showdown:
+		return 4;
+	}
+}

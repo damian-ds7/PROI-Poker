@@ -57,6 +57,8 @@ private:
     void setBetButton(bool bet);
     void setCheckButton(bool check);
 
+    void setWinnerScreen();
+
     //buttons signals
     void check();
     void bet();

@@ -45,6 +45,10 @@ private:
     void createPlayerLabels(MainWindow* ptr, const char* name, const char* initial_money);
     void createTableLabels(MainWindow* ptr);
 
+    void createEndLabels(MainWindow* ptr);
+
+
+
     void setPlayerCards();
     void setTableCards();
     void setCash();
@@ -53,6 +57,7 @@ private:
     void setBetButton(bool bet);
     void setCheckButton(bool check);
 
+    //buttons signals
     void check();
     void bet();
     void fold();
@@ -119,6 +124,12 @@ private:
     QLabel PotToken;
 
     QLabel CurrentPotDecsription;
+
+    QLabel EndBackground;
+    QLabel EndWinner;
+    QLabel EndToken;
+    QLabel EndWinnerName;
+    QLabel EndWinnerCash;
 
     Ui::Widget* ui;
 };

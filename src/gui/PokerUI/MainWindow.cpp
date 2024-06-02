@@ -685,22 +685,41 @@ void MainWindow::createTableLabels(MainWindow* ptr)
 	PotToken.setPixmap(token);
 }
 
-
-void MainWindow::PlayGame()
+void MainWindow::createEndLabels(MainWindow* ptr)
 {
-	game_handler->start_game();
-	setPlayerCards();
-	setCash();
-	setButtons();
+	QFont WinnerFont("Arial", 20, QFont::Bold);
+	QFont WinnerNameFont("Arial", 30, QFont::Bold);
+	QFont CashFont("Arial", 20, QFont::Bold);
+	QPixmap token(":/resources/token.png");
 
-	/*while (game_handler->game->current_player != 0)
-	{
-		game_handler->play_round();
-		setPlayerCards();
-		setTableCards();
-		setCash();
-		setButtons();
-	}*/
+	EndBackground.setParent(ptr);
+	EndBackground.setFixedSize(400, 400);
+	EndBackground.move(518, 144);
+
+	EndWinner.setParent(ptr);
+	EndWinner.setFont(WinnerFont);
+	EndWinner.move(610, 185);
+	EndWinner.setText("WINNER");
+
+	EndWinnerName.setParent(ptr);
+	EndWinnerName.setFont(WinnerNameFont);
+	EndWinnerName.move(610, 230);
+	EndWinnerName.setAlignment(Qt::AlignCenter);
+	
+	EndToken.setParent(ptr);
+	EndToken.setScaledContents(true);
+	EndToken.setFixedSize(30, 30);
+	EndToken.move(640, 300);
+	EndToken.setPixmap(token);
+
+	EndWinnerCash.setParent(ptr);
+	EndWinnerCash.setFont(CashFont);
+	EndWinnerCash.move(675, 300);
+
+	//
+	EndWinnerCash.setText("1000$");
+	EndWinnerName.setText("Player 1");
+	//
 }
 
 void MainWindow::setPlayerCards()

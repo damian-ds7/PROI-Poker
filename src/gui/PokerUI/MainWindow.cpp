@@ -1,18 +1,22 @@
 #include "MainWindow.h"
 #include "./ui_mainwindow.h"
+#include <utility>
 
-MainWindow::MainWindow(QWidget* parent, const short opponents)
+MainWindow::MainWindow(std::shared_ptr<GameHandler> Igame, QWidget* parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
-	, opponents(opponents)
+	, game_handler(std::move(Igame))
 
 {
     ui->setupUi(this);
     //label.hide();
     //label.show();
 	//label.raise();
-
-    
+	connect(ui->CheckButton, &QPushButton::clicked, this, &MainWindow::check);
+	connect(ui->BetButton, &QPushButton::clicked, this, &MainWindow::bet);
+	connect(ui->FoldButton, &QPushButton::clicked, this, &MainWindow::fold);
+	connect(ui->AllInButton, &QPushButton::clicked, this, &MainWindow::all_in);
+	connect(ui->ConfirmButton, &QPushButton::clicked, this, &MainWindow::bet_confirmed);
 }
 
 MainWindow::~MainWindow()
@@ -22,12 +26,23 @@ MainWindow::~MainWindow()
 
 void MainWindow::createWidgets(MainWindow* ptr)
 {
+	std::string str = std::to_string(game_handler->game_info.initial_money);
+	str.append("$");
+	const char* cstr = str.c_str();
+	const char* cplayer_name = game_handler->game_info.player_name.c_str();
+
 	createPlayerCards(ptr);
     createTableCards(ptr);
-    createOpponentCards(ptr);
-	createOpponentLabels(ptr);
-	createPlayerLabels(ptr);
+    createOpponentCards(ptr, game_handler->game_info.player_count - 1);
+	createOpponentLabels(ptr, game_handler->game_info.player_count - 1, cstr);
+	createPlayerLabels(ptr, cplayer_name, cstr);
 	createTableLabels(ptr);
+	createEndLabels(ptr);
+
+
+	//showEndScreen(false);
+	ui->lineEdit->hide();
+	ui->ConfirmButton->hide();
 }
 
 void MainWindow::createPlayerCards(MainWindow* ptr)
@@ -41,14 +56,6 @@ void MainWindow::createPlayerCards(MainWindow* ptr)
 	PlayerCard2.setScaledContents(true);
 	PlayerCard2.setFixedSize(107, 150);
 	PlayerCard2.move(560, 520);
-
-
-	//
-	QPixmap pcard1(":/resources/Deck/clubs_ace.png");
-	PlayerCard1.setPixmap(pcard1);
-	QPixmap pcard2(":/resources/Deck/clubs_two.png");
-	PlayerCard2.setPixmap(pcard2);
-	//
 }
 void MainWindow::createTableCards(MainWindow* ptr)
 {
@@ -99,7 +106,7 @@ void MainWindow::createTableCards(MainWindow* ptr)
 	TableCard5.setPixmap(tcard5);
 	//
 }
-void MainWindow::createOpponentCards(MainWindow* ptr)
+void MainWindow::createOpponentCards(MainWindow* ptr, const int opponents)
 {
 	QPixmap ocard(":/resources/Deck/card_back.png");
 	QTransform transform;
@@ -248,7 +255,7 @@ void MainWindow::createOpponentCards(MainWindow* ptr)
 	}
 }
 
-void MainWindow::createOpponentLabels(MainWindow* ptr) 
+void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, const char* initial_money)
 {
 	QFont NameFont("Arial", 14, QFont::Bold);
 	QFont CashFont("Arial", 13, QFont::Bold);
@@ -290,11 +297,12 @@ void MainWindow::createOpponentLabels(MainWindow* ptr)
 		Opponent1TableToken.move(710, 149);
 		Opponent1TableToken.setPixmap(token);
 
+		Opponent1Cash.setText(initial_money);
+		Opponent1Name.setText(game_handler->name_to_string(1).c_str());
+
+		
 		//
-		Opponent1Name.setText("Opponent 1");
-		Opponent1Cash.setText("1000$");
 		Opponent1Status.setText("CALL");
-		Opponent1Bet.setText("100$");
 		//
 
 	}
@@ -366,15 +374,14 @@ void MainWindow::createOpponentLabels(MainWindow* ptr)
 		Opponent2TableToken.move(1060, 149);
 		Opponent2TableToken.setPixmap(token);
 
+		Opponent1Cash.setText(initial_money);
+		Opponent2Cash.setText(initial_money);
+		Opponent1Name.setText(game_handler->name_to_string(1).c_str());
+		Opponent2Name.setText(game_handler->name_to_string(2).c_str());
+
 		//
-		Opponent1Name.setText("Opponent 1");
-		Opponent1Cash.setText("1000$");
 		Opponent1Status.setText("CALL");
-		Opponent1Bet.setText("100$");
-		Opponent2Name.setText("Opponent 2");
-		Opponent2Cash.setText("1000$");
 		Opponent2Status.setText("CALL");
-		Opponent2Bet.setText("100$");
 		//
 	}
 	if (opponents == 3 || opponents == 5)
@@ -445,15 +452,14 @@ void MainWindow::createOpponentLabels(MainWindow* ptr)
 		Opponent3TableToken.move(1205, 284);
 		Opponent3TableToken.setPixmap(token);
 
+		Opponent2Cash.setText(initial_money);
+		Opponent3Cash.setText(initial_money);
+		Opponent2Name.setText(game_handler->name_to_string(2).c_str());
+		Opponent3Name.setText(game_handler->name_to_string(3).c_str());
+
 		//
-		Opponent2Name.setText("Opponent 2");
-		Opponent2Cash.setText("1000$");
 		Opponent2Status.setText("CALL");
-		Opponent2Bet.setText("100$");
-		Opponent3Name.setText("Opponent 3");
-		Opponent3Cash.setText("1000$");
 		Opponent3Status.setText("CALL");
-		Opponent3Bet.setText("100$");	
 		//
 	}
 	if (opponents == 4)
@@ -524,15 +530,14 @@ void MainWindow::createOpponentLabels(MainWindow* ptr)
 		Opponent4TableToken.move(180, 284);
 		Opponent4TableToken.setPixmap(token);
 
+		Opponent4Cash.setText(initial_money);
+		Opponent3Cash.setText(initial_money);
+		Opponent3Name.setText(game_handler->name_to_string(3).c_str());
+		Opponent4Name.setText(game_handler->name_to_string(4).c_str());
+
 		//
-		Opponent4Name.setText("Opponent 4");
-		Opponent4Cash.setText("1000$");
 		Opponent4Status.setText("CALL");
-		Opponent4Bet.setText("100$");
-		Opponent3Name.setText("Opponent 3");
-		Opponent3Cash.setText("1000$");
 		Opponent3Status.setText("CALL");
-		Opponent3Bet.setText("100$");
 		//
 	}
 	if (opponents == 5)
@@ -603,19 +608,18 @@ void MainWindow::createOpponentLabels(MainWindow* ptr)
 		Opponent5TableToken.move(1060, 149);
 		Opponent5TableToken.setPixmap(token);
 
+		Opponent4Cash.setText(initial_money);
+		Opponent5Cash.setText(initial_money);
+		Opponent4Name.setText(game_handler->name_to_string(4).c_str());
+		Opponent5Name.setText(game_handler->name_to_string(5).c_str());
+
 		//
-		Opponent4Name.setText("Opponent 4");
-		Opponent4Cash.setText("1000$");
 		Opponent4Status.setText("CALL");
-		Opponent4Bet.setText("100$");
-		Opponent5Name.setText("Opponent 5");
-		Opponent5Cash.setText("1000$");
 		Opponent5Status.setText("CALL");
-		Opponent5Bet.setText("100$");
 		//
 	}
 }
-void MainWindow::createPlayerLabels(MainWindow* ptr)
+void MainWindow::createPlayerLabels(MainWindow* ptr, const char* name, const char* initial_money)
 {
 	QFont NameFont("Arial", 20, QFont::Bold);
 	QFont CashFont("Arial", 17, QFont::Bold);
@@ -654,11 +658,11 @@ void MainWindow::createPlayerLabels(MainWindow* ptr)
 	PlayerTableToken.move(460, 415);
 	PlayerTableToken.setPixmap(token);
 
+	PlayerName.setText(name);
+	PlayerCash.setText(initial_money);
+
 	//
-	PlayerName.setText("Player");
-	PlayerCash.setText("1000$");
 	PlayerStatus.setText("CALL");
-	PlayerBet.setText("100$");
 }
 void MainWindow::createTableLabels(MainWindow* ptr)
 {
@@ -682,28 +686,302 @@ void MainWindow::createTableLabels(MainWindow* ptr)
 	PotToken.setFixedSize(30, 30);
 	PotToken.move(1000, 414);
 	PotToken.setPixmap(token);
+}
+
+void MainWindow::createEndLabels(MainWindow* ptr)
+{
+	QFont WinnerFont("Arial", 20, QFont::Bold);
+	QFont WinnerNameFont("Arial", 30, QFont::Bold);
+	QFont CashFont("Arial", 20, QFont::Bold);
+	QPixmap token(":/resources/token.png");
+
+	EndBackground.setParent(ptr);
+	EndBackground.setFixedSize(400, 250);
+	EndBackground.move(518, 144);
+	EndBackground.setFrameStyle(QFrame::Panel | QFrame::Raised);
+	EndBackground.setLineWidth(4);
+
+	EndWinner.setParent(ptr);
+	EndWinner.setFont(WinnerFont);
+	EndWinner.setFixedWidth(400);
+	EndWinner.setAlignment(Qt::AlignCenter);
+	EndWinner.move(518, 185);
+	EndWinner.setText("WINNER");
+
+	EndWinnerName.setParent(ptr);
+	EndWinnerName.setFont(WinnerNameFont);
+	EndWinnerName.move(518, 230);
+	EndWinnerName.setFixedWidth(400);
+	EndWinnerName.setAlignment(Qt::AlignCenter);
+	
+	EndToken.setParent(ptr);
+	EndToken.setScaledContents(true);
+	EndToken.setFixedSize(30, 30);
+	EndToken.move(660, 300);
+	EndToken.setPixmap(token);
+
+	EndWinnerCash.setParent(ptr);
+	EndWinnerCash.setFont(CashFont);
+	EndWinnerCash.move(695, 300);
 
 	//
-	Pot.setText("600$");
+	EndWinnerCash.setText("+1000$");
+	EndWinnerName.setText("Player 1");
 	//
 }
 
-
-
-
-void MainWindow::showPlayerCards(bool visible)
+void MainWindow::PlayGame()
 {
-	if (visible == false)
+	game_handler->start_game();
+	setPlayerCards();
+	setCash();
+	setButtons();
+	//setTableCards();
+	setInitialStatus();
+	showButtons();
+	
+
+	//if player turn
+	//showButtons(true)
+
+	//round end
+	//showEndScreen(true);
+}
+
+void MainWindow::showButtons()
+{
+	ui->BetButton->setVisible(game_handler->game->current_player == 0);
+	ui->CheckButton->setVisible(game_handler->game->current_player == 0);
+	ui->FoldButton->setVisible(game_handler->game->current_player == 0);
+	ui->AllInButton->setVisible(game_handler->game->current_player == 0);
+}
+void MainWindow::showEndScreen(bool visible)
+{
+	EndBackground.setVisible(visible);
+	EndWinner.setVisible(visible);
+	EndWinnerName.setVisible(visible);
+	EndToken.setVisible(visible);
+	EndWinnerCash.setVisible(visible);
+}
+
+void MainWindow::setPlayerCards()
+{
+	QPixmap qcard1(game_handler->game->players[0]->m_hand->at(0)->get_file_path().c_str());
+	QPixmap qcard2(game_handler->game->players[0]->m_hand->at(1)->get_file_path().c_str());
+	PlayerCard1.setPixmap(qcard1);
+	PlayerCard2.setPixmap(qcard2);
+}
+void MainWindow::setTableCards()
+{
+	if (game_handler->phase_to_int() == 0)
 	{
-		PlayerCard1.hide();
-		PlayerCard2.hide();
+		TableCard1.hide();
+		TableCard2.hide();
+		TableCard3.hide();
+		TableCard4.hide();
+		TableCard5.hide();
+	}
+	else if (game_handler->phase_to_int() == 1)
+	{
+		QPixmap qcard1(game_handler->game->table->at(0)->get_file_path().c_str());
+		QPixmap qcard2(game_handler->game->table->at(1)->get_file_path().c_str());
+		QPixmap qcard3(game_handler->game->table->at(2)->get_file_path().c_str());
+		TableCard1.setPixmap(qcard1);
+		TableCard2.setPixmap(qcard2);
+		TableCard3.setPixmap(qcard3);
+		TableCard1.show();
+		TableCard2.show();
+		TableCard3.show();
+	}
+	else if (game_handler->phase_to_int() == 2)
+	{
+		QPixmap qcard4(game_handler->game->table->at(3)->get_file_path().c_str());
+		TableCard4.setPixmap(qcard4);
+		TableCard4.show();
+	}
+	else if (game_handler->phase_to_int() == 3)
+	{
+		QPixmap qcard5(game_handler->game->table->at(4)->get_file_path().c_str());
+		TableCard5.setPixmap(qcard5);
+		TableCard5.show();
+	}
+}
+void MainWindow::setCash()
+{
+	std::string strp = std::to_string(game_handler->game->players[0]->m_money);
+	std::string strpb = std::to_string(game_handler->game->players[0]->m_bet);
+	strp.append("$");
+	strpb.append("$");
+	const char* cstrp = strp.c_str();
+	const char* cstrpb = strpb.c_str();
+	PlayerCash.setText(cstrp);
+	PlayerBet.setText(cstrpb);
+	std::string str1 = std::to_string(game_handler->game->players[1]->m_money);
+	std::string str1b = std::to_string(game_handler->game->players[1]->m_bet);
+	str1.append("$");
+	str1b.append("$");
+	const char* cstr1 = str1.c_str();
+	const char* cstr1b = str1b.c_str();
+	Opponent1Cash.setText(cstr1);
+	Opponent1Bet.setText(cstr1b);
+	if (game_handler->game_info.player_count > 2)
+	{
+		std::string str2 = std::to_string(game_handler->game->players[2]->m_money);
+		std::string str2b = std::to_string(game_handler->game->players[2]->m_bet);
+		str2.append("$");
+		str2b.append("$");
+		const char* cstr2 = str2.c_str();
+		const char* cstr2b = str2b.c_str();
+		Opponent2Cash.setText(cstr2);
+		Opponent2Bet.setText(cstr2b);
+	}
+	if (game_handler->game_info.player_count > 3)
+	{
+		std::string str3 = std::to_string(game_handler->game->players[3]->m_money);
+		std::string str3b = std::to_string(game_handler->game->players[3]->m_bet);
+		str3.append("$");
+		str3b.append("$");
+		const char* cstr3 = str3.c_str();
+		const char* cstr3b = str3b.c_str();
+		Opponent3Cash.setText(cstr3);
+		Opponent3Bet.setText(cstr3b);
+	}
+	if (game_handler->game_info.player_count > 4)
+	{
+		std::string str4 = std::to_string(game_handler->game->players[4]->m_money);
+		std::string str4b = std::to_string(game_handler->game->players[4]->m_bet);
+		str4.append("$");
+		str4b.append("$");
+		const char* cstr4 = str4.c_str();
+		const char* cstr4b = str4b.c_str();
+		Opponent4Cash.setText(cstr4);
+		Opponent4Bet.setText(cstr4b);
+	}
+	if (game_handler->game_info.player_count > 5)
+	{
+		std::string str5 = std::to_string(game_handler->game->players[5]->m_money);
+		std::string str5b = std::to_string(game_handler->game->players[5]->m_bet);
+		str5.append("$");
+		str5b.append("$");
+		const char* cstr5 = str5.c_str();
+		const char* cstr5b = str5b.c_str();
+		Opponent5Cash.setText(cstr5);
+		Opponent5Bet.setText(cstr5b);
+	}
+
+	std::string pot = std::to_string(game_handler->game->pot);
+	pot.append("$");
+	const char* cpot = pot.c_str();
+	Pot.setText(cpot);
+}
+void MainWindow::setStatus()
+{
+	//TODO
+}
+void MainWindow::setInitialStatus()
+{
+	PlayerStatus.setText(game_handler->begin_status_to_string(0).c_str());
+	Opponent1Status.setText(game_handler->begin_status_to_string(1).c_str());
+	if (game_handler->game_info.player_count > 2)
+	{
+		Opponent2Status.setText(game_handler->begin_status_to_string(2).c_str());
+	}
+	if (game_handler->game_info.player_count > 3)
+	{
+		Opponent3Status.setText(game_handler->begin_status_to_string(3).c_str());
+	}
+	if (game_handler->game_info.player_count > 4)
+	{
+		Opponent4Status.setText(game_handler->begin_status_to_string(4).c_str());
+	}
+	if (game_handler->game_info.player_count > 5)
+	{
+		Opponent5Status.setText(game_handler->begin_status_to_string(5).c_str());
+	}
+}
+
+void MainWindow::setBetButton(bool bet)
+{
+	if (bet)
+	{
+		ui->BetButton->setText("Bet");
 	}
 	else
 	{
-		PlayerCard1.show();
-		PlayerCard2.show();
+		ui->BetButton->setText("Raise");
 	}
 }
+void MainWindow::setCheckButton(bool check)
+{
+	if (check)
+	{
+		ui->CheckButton->setText("Check");
+	}
+	else
+	{
+		ui->CheckButton->setText("Call");
+	}
+}
+void MainWindow::setButtons()
+{
+	if (game_handler->game->pot == 0)
+	{
+		setBetButton(true);
+		setCheckButton(true);
+	}
+	else
+	{
+		setBetButton(false);
+		setCheckButton(false);
+	}
+}
+
+void MainWindow::setWinnerScreen()
+{
+	//set winner name
+	//set winner cash
+}
+
+void MainWindow::check()
+{
+	if (game_handler->game->pot == 0)
+	{
+		game_handler->game->players[0]->make_check();
+	}
+	else
+	{
+		game_handler->player_make_call();
+	}
+}
+void MainWindow::bet()
+{
+	ui->lineEdit->show();
+	ui->ConfirmButton->show();
+}
+void MainWindow::fold()
+{
+	game_handler->game->players[0]->make_fold();
+}
+void MainWindow::all_in()
+{
+	game_handler->game->players[0]->make_all_in();
+}
+void MainWindow::bet_confirmed()
+{
+	if (game_handler->game->pot == 0)
+	{
+		game_handler->game->players[0]->make_bet(ui->lineEdit->text().toInt());
+	}
+	else
+	{
+		game_handler->game->players[0]->make_raise(ui->lineEdit->text().toInt());
+	}
+	ui->lineEdit->clear();
+	ui->lineEdit->hide();
+	ui->ConfirmButton->hide();
+}
+
+
 
 void MainWindow::InputNames(std::vector<std::string> names)
 {

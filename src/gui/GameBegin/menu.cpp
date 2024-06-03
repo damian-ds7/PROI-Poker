@@ -55,7 +55,7 @@ void MenuWindow::startGame() {
     emit gameInfoReady(gameInfo);
 
     // Close the window
-    this->close();
+    this->hide();
 }
 
 void MenuWindow::updatePlayerCount(int count){

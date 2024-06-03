@@ -54,5 +54,7 @@ public:
     Cards&& clear_hand() noexcept;
 protected:
     static omp::HandEvaluator eval;
+
+    friend class MainWindow;
 };
 

@@ -1,15 +1,20 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include "GameInfo.h"
+#include "GameHandler.h"
 #include <QPixmap>
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
 #include <QTransform>
 #include <QFont>
-#include <QGridLayout>
 #include <QLineEdit>
-#include <QVBoxLayout>
+#include "GameHandler.h"
+#include "CardsTypedef.h"
+
+
+class GameHandler;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,24 +25,49 @@ QT_END_NAMESPACE
 class MainWindow : public QWidget
 {
     Q_OBJECT
+    std::shared_ptr<GameHandler> game_handler;
 
 public:
-    MainWindow(QWidget* parent = nullptr, const short opponents = 2);
+    MainWindow(std::shared_ptr<GameHandler> Igame, QWidget* parent = nullptr);
     ~MainWindow();
     
-    void showPlayerCards(bool visible);
     void InputNames(std::vector<std::string> names);
     void createWidgets(MainWindow* ptr);
 
-private:
-    const short opponents;
+    void PlayGame();
 
+private:
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);
-    void createOpponentCards(MainWindow* ptr);
-    void createOpponentLabels(MainWindow* ptr);
-    void createPlayerLabels(MainWindow* ptr);
+    void createOpponentCards(MainWindow* ptr, const int opponents);
+    void createOpponentLabels(MainWindow* ptr, const int opponents, const char* initial_money);
+    void createPlayerLabels(MainWindow* ptr, const char* name, const char* initial_money);
     void createTableLabels(MainWindow* ptr);
+
+    void createEndLabels(MainWindow* ptr);
+
+    void showButtons();
+    void showEndScreen(bool visible);
+
+
+    void setPlayerCards();
+    void setTableCards();
+    void setCash();
+    void setStatus();
+    void setInitialStatus();
+
+    void setButtons();
+    void setBetButton(bool bet);
+    void setCheckButton(bool check);
+
+    void setWinnerScreen();
+
+    //buttons signals
+    void check();
+    void bet();
+    void fold();
+    void all_in();
+    void bet_confirmed();
 
     QLabel PlayerCard1;
     QLabel PlayerCard2;
@@ -100,7 +130,12 @@ private:
 
     QLabel CurrentPotDecsription;
 
+    QLabel EndBackground;
+    QLabel EndWinner;
+    QLabel EndToken;
+    QLabel EndWinnerName;
+    QLabel EndWinnerCash;
+
     Ui::Widget* ui;
 };
 #endif // WIDGET_H
-

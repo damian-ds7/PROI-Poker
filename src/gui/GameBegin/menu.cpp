@@ -4,9 +4,9 @@
 #include <QFile>
 #include <utility>
 
-MenuWindow::MenuWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent)
+MenuWindow::MenuWindow(std::unique_ptr<GameHandler> Igame, MainWindow* main_window, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MenuWindow), game_handler(std::move(Igame))
+    , ui(new Ui::MenuWindow), game_handler(std::move(Igame)), main_window(main_window)
 {
     ui->setupUi(this);
 
@@ -50,7 +50,7 @@ void MenuWindow::startGame() {
     // Create the GameInfo object
     GameInfo gameInfo(playerName.toStdString(), numberOfPlayers, initialMoney);
     game_handler->initialize_game(gameInfo);
-
+    main_window->game_handler = std::move(game_handler);
     // Emit the signal with the game info
     emit gameInfoReady(gameInfo);
 

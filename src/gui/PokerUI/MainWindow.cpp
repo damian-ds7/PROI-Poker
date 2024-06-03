@@ -1,12 +1,10 @@
 #include "MainWindow.h"
-#include "./ui_mainwindow.h"
+#include "ui_mainwindow.h"
 #include <utility>
 
-MainWindow::MainWindow(std::shared_ptr<GameHandler> Igame, QWidget* parent)
+MainWindow::MainWindow(QWidget* parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
-	, game_handler(std::move(Igame))
-
 {
     ui->setupUi(this);
     //label.hide();

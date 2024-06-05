@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "BotPlayer.h"
 #include <random>
 #include <string>
 
@@ -57,6 +58,8 @@ void Game::next_phase() {
         case Phase::Showdown:
             break;
     }
+    collect_bets();
+    current_player = (dealer + 1) % player_count;
 }
 
 void Game::collect_bets() {
@@ -70,4 +73,10 @@ void Game::next_player() {
         current_player = (current_player + 1) % player_count;
     } while (players[current_player]->folded());
     players[current_player]->reset_status();
+}
+
+void Game::bot_play() {
+    unsigned int previous_bet = players[(current_player - 1) % player_count]->bet();
+    dynamic_cast<BotPlayer&>(*players[current_player]).make_decision(previous_bet, player_count, table->to_string());
+    next_player();
 }

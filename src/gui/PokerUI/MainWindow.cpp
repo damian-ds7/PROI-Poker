@@ -54,6 +54,10 @@ void MainWindow::createPlayerCards(MainWindow* ptr)
 	PlayerCard2.setScaledContents(true);
 	PlayerCard2.setFixedSize(107, 150);
 	PlayerCard2.move(560, 520);
+
+	QPixmap card(":/resources/Deck/card_back.png");
+	PlayerCard1.setPixmap(card);
+	PlayerCard2.setPixmap(card);
 }
 void MainWindow::createTableCards(MainWindow* ptr)
 {
@@ -738,7 +742,7 @@ void MainWindow::PlayGame()
 	}
 	else
 	{
-		game_handler->play_round("", 0);
+		game_handler->play_round(Decision(0), 0);
 	}
 	setCash();
 	setPlayerCards();
@@ -922,11 +926,11 @@ void MainWindow::check()
 {
 	if (game_handler->game->pot == 0)
 	{
-		game_handler->play_round("CHECK", 0);
+		game_handler->play_round(Decision(2), 0);
 	}
 	else
 	{
-		game_handler->play_round("CALL", 0);
+		game_handler->play_round(Decision(4), 0);
 	}
 }
 void MainWindow::bet()
@@ -936,21 +940,21 @@ void MainWindow::bet()
 }
 void MainWindow::fold()
 {
-	game_handler->play_round("FOLD", 0);
+	game_handler->play_round(Decision(3), 0);
 }
 void MainWindow::all_in()
 {
-	game_handler->play_round("ALL IN", 0);
+	game_handler->play_round(Decision(5), 0);
 }
 void MainWindow::bet_confirmed()
 {
 	if (game_handler->game->pot == 0)
 	{
-		game_handler->play_round("BET", ui->lineEdit->text().toInt());
+		game_handler->play_round(Decision(6), ui->lineEdit->text().toInt());
 	}
 	else
 	{
-		game_handler->play_round("RAISE", ui->lineEdit->text().toInt());
+		game_handler->play_round(Decision(1), ui->lineEdit->text().toInt());
 	}
 	ui->lineEdit->clear();
 	ui->lineEdit->hide();

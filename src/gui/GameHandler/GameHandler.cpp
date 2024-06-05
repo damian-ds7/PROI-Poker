@@ -9,6 +9,7 @@ void GameHandler::start_game() {
     if (game->current_player != 0) {
         game->bot_play();
     }
+    game->next_player();
     unsigned int previous_bet = game->players[(game->current_player - 1) % game->player_count]->bet();
     game->players[game->current_player]->make_bet(2 * previous_bet);
     game->next_player();

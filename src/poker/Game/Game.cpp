@@ -8,12 +8,16 @@ Game::Game(const std::string& name, unsigned int player_count, unsigned int init
     for (unsigned int i = 1; i < player_count; ++i) {
         players.push_back(std::make_unique<BotPlayer>("Bot " + std::to_string(i), initial_money, 0));
     }
-    dealer = 0;
-    current_player = 0;
 
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<unsigned int> dist(0, player_count - 1);
+
+    dealer = dist(gen);
+    current_player = (dealer + 1) % player_count;
+    players[dealer]->set_dealer(true);
+    players[(dealer + 1) % player_count]->set_small_blind(true);
+    players[(dealer + 2) % player_count]->set_big_blind(true);
 }
 
 void Game::add_table_card(unsigned int num_of_cards) {
@@ -65,4 +69,5 @@ void Game::next_player() {
     do {
         current_player = (current_player + 1) % player_count;
     } while (players[current_player]->folded());
+    players[current_player]->reset_status();
 }

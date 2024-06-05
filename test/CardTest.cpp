@@ -93,3 +93,15 @@ TEST(CardTest, CardToString) {
     EXPECT_EQ(card3.to_string(), "Qd");
     EXPECT_EQ(card4.to_string(), "10c");
 }
+
+TEST(CardTest, CardGetFileName){
+    Card card1(Suit::Spades, Value::Ace);
+    Card card2(Suit::Hearts, Value::Three);
+    Card card3(Suit::Diamonds, Value::Queen);
+    Card card4(Suit::Clubs, Value::Ten);
+
+    EXPECT_EQ(card1.get_file_path(), "resources/deck/spades_ace.png");
+    EXPECT_EQ(card2.get_file_path(), "resources/deck/hearts_three.png");
+    EXPECT_EQ(card3.get_file_path(), "resources/deck/diamonds_queen.png");
+    EXPECT_EQ(card4.get_file_path(), "resources/deck/clubs_ten.png");
+}

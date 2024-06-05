@@ -8,11 +8,12 @@ TEST(PlayerTest, Constructor) {
     EXPECT_EQ(player.name(), "Player");
     EXPECT_EQ(player.money(), 1000);
     EXPECT_EQ(player.bet(), 0);
-    EXPECT_EQ(player.folded(), false);
-    EXPECT_EQ(player.all_in(), false);
-    EXPECT_EQ(player.big_blind(), false);
-    EXPECT_EQ(player.small_blind(), false);
-    EXPECT_EQ(player.dealer(), false);
+    ASSERT_FALSE(player.folded());
+    ASSERT_FALSE(player.all_in());
+    ASSERT_FALSE(player.big_blind());
+    ASSERT_FALSE(player.small_blind());
+    ASSERT_FALSE(player.dealer());
+    ASSERT_TRUE(player.can_check());
 }
 
 TEST(PlayerTest, SetName) {
@@ -36,31 +37,37 @@ TEST(PlayerTest, SetBet) {
 TEST(PlayerTest, SetFolded) {
     Player player("Player", 1000, 0);
     player.set_folded(true);
-    EXPECT_EQ(player.folded(), true);
+    ASSERT_TRUE(player.folded());
 }
 
 TEST(PlayerTest, SetAllIn) {
     Player player("Player", 1000, 0);
     player.set_all_in(true);
-    EXPECT_EQ(player.all_in(), true);
+    ASSERT_TRUE(player.all_in());
 }
 
 TEST(PlayerTest, SetBigBlind) {
     Player player("Player", 1000, 0);
     player.set_big_blind(true);
-    EXPECT_EQ(player.big_blind(), true);
+    ASSERT_TRUE(player.big_blind());
 }
 
 TEST(PlayerTest, SetSmallBlind) {
     Player player("Player", 1000, 0);
     player.set_small_blind(true);
-    EXPECT_EQ(player.small_blind(), true);
+    ASSERT_TRUE(player.small_blind());
 }
 
 TEST(PlayerTest, SetDealer) {
     Player player("Player", 1000, 0);
     player.set_dealer(true);
-    EXPECT_EQ(player.dealer(), true);
+    ASSERT_TRUE(player.dealer());
+}
+
+TEST(PlayerTest, SetCanCheck) {
+    Player player("Player", 1000, 0);
+    player.set_can_check(false);
+    ASSERT_FALSE(player.can_check());
 }
 
 TEST(PlayerTest, AddCard) {
@@ -118,7 +125,13 @@ TEST(PlayerTest, MakeCheck) {
     Player player("Player", 1000, 0);
     player.make_check();
     EXPECT_EQ(player.bet(), 0);
+}
 
+TEST(PlayerTest, RemoveBet) {
+    Player player("Player", 1000, 100);
+    EXPECT_EQ(player.remove_bet(), 100);
+    EXPECT_EQ(player.bet(), 0);
+}
 
 typedef std::unique_ptr<Player> PlayerPtr;
 
@@ -680,5 +693,4 @@ TEST(PlayerTest, EvaluateDifferentHighCardEqualSecondKicker) {
     ASSERT_TRUE(p1 == p2);
     ASSERT_EQ(p1 / 4096, 1);
     ASSERT_EQ(p2 / 4096, 1);
->>>>>>> test/PlayerTest.cpp
 }

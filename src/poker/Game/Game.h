@@ -29,6 +29,7 @@ public:
     void next_phase();
     void collect_bets();
     void next_player();
+    void bot_play();
 
     friend class MainWindow;
     friend class GameHandler;

@@ -20,12 +20,12 @@ void handleGameInfo(const GameInfo& gameInfo, MainWindow* ptr) {
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::addLibraryPath(R"(C:\Qt\6.7.1\mingw_64\plugins)");
+//    QCoreApplication::addLibraryPath(R"(C:\Qt\6.7.1\mingw_64\plugins)");
     QApplication a(argc, argv);
-    std::shared_ptr<GameHandler> game_handler = std::make_shared<GameHandler>();
-    MenuWindow w(game_handler);
-    MainWindow Main_Window(game_handler);
+    std::unique_ptr<GameHandler> game_handler = std::make_unique<GameHandler>();
+    MainWindow Main_Window;
     MainWindow* ptr = &Main_Window;
+    MenuWindow w(std::move(game_handler), ptr);
 
     QObject::connect(&w, &MenuWindow::gameInfoReady, [ptr](const GameInfo& gameInfo) {
         handleGameInfo(gameInfo, ptr);

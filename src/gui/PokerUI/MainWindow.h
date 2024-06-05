@@ -12,6 +12,7 @@
 #include <QLineEdit>
 #include "GameHandler.h"
 #include "CardsTypedef.h"
+#include "menu.h"
 
 
 class GameHandler;
@@ -25,10 +26,10 @@ QT_END_NAMESPACE
 class MainWindow : public QWidget
 {
     Q_OBJECT
-    std::shared_ptr<GameHandler> game_handler;
+    std::unique_ptr<GameHandler> game_handler;
 
 public:
-    MainWindow(std::shared_ptr<GameHandler> Igame, QWidget* parent = nullptr);
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
     
     void InputNames(std::vector<std::string> names);
@@ -37,6 +38,8 @@ public:
     void PlayGame();
 
 private:
+    friend class MenuWindow;
+
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);
     void createOpponentCards(MainWindow* ptr, const int opponents);

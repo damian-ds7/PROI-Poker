@@ -4,6 +4,8 @@
 
 BotPlayer::BotPlayer(std::string name, unsigned int money, unsigned int bet) : Player(std::move(name), money, bet) {
     m_equity = 0;
+    engine = std::mt19937(rd());
+    dist = std::uniform_int_distribution<int>(0, 1000);
 };
 
 double BotPlayer::equity() const noexcept {
@@ -43,7 +45,7 @@ void BotPlayer::calc_equity(const std::string& board_cards, int num_of_players){
     set_equity(r.equity[0]);
 }
 
-void BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_players, std::string board_cards){
+void BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards){
     if (small_blind()) {
         make_bet(money()/10);
         set_small_blind(false);
@@ -55,8 +57,19 @@ void BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_pla
     } else if (equity() > 1.0 / static_cast<double>(num_of_players)) {
         (money() <= money_to_bet) ? make_all_in() : make_raise(money_to_bet + static_cast<int>((money() - money_to_bet) * equity()));
     } else if (equity() < 0.5 / static_cast<double>(num_of_players)) {
-        make_fold();
+        auto random_number = dist(engine);
+        if (random_number > 900) {
+            (money() <= money_to_bet) ? make_all_in() : make_bluff(money_to_bet, num_of_players, board_cards);
+        }
+        else if (random_number > 800) {
+            (money()<=money_to_bet) ? make_all_in() : make_call(money_to_bet);
+        }
+        else make_fold();
     } else {
         (money() <= money_to_bet) ? make_all_in() : make_call(money_to_bet);
     }
+}
+
+void BotPlayer::make_bluff(unsigned int money_to_bet, unsigned int num_of_players, const std::string&) {
+    make_raise(money_to_bet + static_cast<int>((money() - money_to_bet) * 0.5));
 }

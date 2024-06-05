@@ -17,6 +17,10 @@ protected:
     bool m_small_blind = false;
     bool m_dealer = false;
     bool m_can_check = true;
+    bool m_called = false;
+    bool m_raised = false;
+    bool m_checked = false;
+    std::string m_status;
     Cards m_hand = std::make_unique<Hand<std::unique_ptr<Card>>>();
     omp::Hand card_eval = omp::Hand::empty();
     virtual void make_helper(unsigned money);
@@ -32,6 +36,10 @@ public:
     [[nodiscard]] virtual bool small_blind() const noexcept;
     [[nodiscard]] virtual bool dealer() const noexcept;
     [[nodiscard]] virtual bool can_check() const noexcept;
+    [[nodiscard]] virtual bool called() const noexcept;
+    [[nodiscard]] virtual bool raised() const noexcept;
+    [[nodiscard]] virtual bool checked() const noexcept;
+    [[nodiscard]] virtual std::string status() const noexcept;
     [[nodiscard]] unsigned int evaluate() const noexcept;
     virtual void set_name(std::string name);
     virtual void set_money(unsigned int money);
@@ -42,6 +50,10 @@ public:
     virtual void set_small_blind(bool small_blind);
     virtual void set_dealer(bool dealer);
     virtual void set_can_check(bool can_check);
+    virtual void set_called(bool called);
+    virtual void set_raised(bool raised);
+    virtual void set_checked(bool checked);
+    virtual void reset_status();
     virtual void add_card(std::unique_ptr<Card>&& card);
     virtual void add_table_card(unsigned int index);
     virtual void make_bet(unsigned bet);

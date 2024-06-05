@@ -25,8 +25,40 @@ void GameHandler::player_make_call() {
 	//TODO
 }
 
-void GameHandler::play_round() {
-	/*game->next_player();*/
+void GameHandler::play_round(Decision player_decision, int player_bet) {
+    switch (player_decision) {
+        case Decision::Bot:
+        {
+            game->bot_play();
+            break;
+        }
+        case Decision::Raise:
+        {
+            break;
+        }
+        case Decision::Fold:
+        {
+			break;
+		}
+        case Decision::Check:
+        {
+			break;
+		}
+		case Decision::Call:
+        {
+			break;
+		}
+		case Decision::AllIn:
+        {
+			break;
+		}
+        case Decision::Bet:
+        {
+            break;
+        }
+        game->next_player();
+        
+    }
 
 }
 
@@ -59,4 +91,8 @@ std::string GameHandler::begin_status_to_string(int index) {
 //	if (game->players[index]->dealer()) return "DEALER";
 //	return "";
 return game->players[index]->status();
+}
+
+QString GameHandler::cash_to_QString(int cash) {
+	return QString(std::to_string(cash).append("$").c_str());
 }

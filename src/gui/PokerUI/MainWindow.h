@@ -13,6 +13,7 @@
 #include "GameHandler.h"
 #include "CardsTypedef.h"
 #include "menu.h"
+#include "Decision.h"
 
 
 class GameHandler;
@@ -65,6 +66,7 @@ private:
 
     void setWinnerScreen();
 
+    void PlayerBlind();
     //buttons signals
     void check();
     void bet();

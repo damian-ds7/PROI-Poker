@@ -54,6 +54,10 @@ void MainWindow::createPlayerCards(MainWindow* ptr)
 	PlayerCard2.setScaledContents(true);
 	PlayerCard2.setFixedSize(107, 150);
 	PlayerCard2.move(560, 520);
+
+	QPixmap card(":/resources/Deck/card_back.png");
+	PlayerCard1.setPixmap(card);
+	PlayerCard2.setPixmap(card);
 }
 void MainWindow::createTableCards(MainWindow* ptr)
 {
@@ -730,12 +734,20 @@ void MainWindow::createEndLabels(MainWindow* ptr)
 
 void MainWindow::PlayGame()
 {
+	setInitialStatus();
 	game_handler->start_game();
-	setPlayerCards();
+	if (game_handler->game->players[0]->small_blind())
+	{
+		PlayerBlind();
+	}
+	else
+	{
+		game_handler->play_round(Decision(0), 0);
+	}
 	setCash();
+	setPlayerCards();
 	setButtons();
 	//setTableCards();
-	setInitialStatus();
 	showButtons();
 	
 
@@ -806,71 +818,31 @@ void MainWindow::setTableCards()
 }
 void MainWindow::setCash()
 {
-	std::string strp = std::to_string(game_handler->game->players[0]->m_money);
-	std::string strpb = std::to_string(game_handler->game->players[0]->m_bet);
-	strp.append("$");
-	strpb.append("$");
-	const char* cstrp = strp.c_str();
-	const char* cstrpb = strpb.c_str();
-	PlayerCash.setText(cstrp);
-	PlayerBet.setText(cstrpb);
-	std::string str1 = std::to_string(game_handler->game->players[1]->m_money);
-	std::string str1b = std::to_string(game_handler->game->players[1]->m_bet);
-	str1.append("$");
-	str1b.append("$");
-	const char* cstr1 = str1.c_str();
-	const char* cstr1b = str1b.c_str();
-	Opponent1Cash.setText(cstr1);
-	Opponent1Bet.setText(cstr1b);
+	PlayerCash.setText(game_handler->cash_to_QString(game_handler->game->players[0]->m_money));
+	PlayerBet.setText(game_handler->cash_to_QString(game_handler->game->players[0]->m_bet));
+	Opponent1Cash.setText(game_handler->cash_to_QString(game_handler->game->players[1]->m_money));
+	Opponent1Bet.setText(game_handler->cash_to_QString(game_handler->game->players[1]->m_bet));
 	if (game_handler->game_info.player_count > 2)
 	{
-		std::string str2 = std::to_string(game_handler->game->players[2]->m_money);
-		std::string str2b = std::to_string(game_handler->game->players[2]->m_bet);
-		str2.append("$");
-		str2b.append("$");
-		const char* cstr2 = str2.c_str();
-		const char* cstr2b = str2b.c_str();
-		Opponent2Cash.setText(cstr2);
-		Opponent2Bet.setText(cstr2b);
+		Opponent2Cash.setText(game_handler->cash_to_QString(game_handler->game->players[2]->m_money));
+		Opponent2Bet.setText(game_handler->cash_to_QString(game_handler->game->players[2]->m_bet));
 	}
 	if (game_handler->game_info.player_count > 3)
 	{
-		std::string str3 = std::to_string(game_handler->game->players[3]->m_money);
-		std::string str3b = std::to_string(game_handler->game->players[3]->m_bet);
-		str3.append("$");
-		str3b.append("$");
-		const char* cstr3 = str3.c_str();
-		const char* cstr3b = str3b.c_str();
-		Opponent3Cash.setText(cstr3);
-		Opponent3Bet.setText(cstr3b);
+		Opponent3Cash.setText(game_handler->cash_to_QString(game_handler->game->players[3]->m_money));
+		Opponent3Bet.setText(game_handler->cash_to_QString(game_handler->game->players[3]->m_bet));
 	}
 	if (game_handler->game_info.player_count > 4)
 	{
-		std::string str4 = std::to_string(game_handler->game->players[4]->m_money);
-		std::string str4b = std::to_string(game_handler->game->players[4]->m_bet);
-		str4.append("$");
-		str4b.append("$");
-		const char* cstr4 = str4.c_str();
-		const char* cstr4b = str4b.c_str();
-		Opponent4Cash.setText(cstr4);
-		Opponent4Bet.setText(cstr4b);
+		Opponent4Cash.setText(game_handler->cash_to_QString(game_handler->game->players[4]->m_money));
+		Opponent4Bet.setText(game_handler->cash_to_QString(game_handler->game->players[4]->m_bet));
 	}
 	if (game_handler->game_info.player_count > 5)
 	{
-		std::string str5 = std::to_string(game_handler->game->players[5]->m_money);
-		std::string str5b = std::to_string(game_handler->game->players[5]->m_bet);
-		str5.append("$");
-		str5b.append("$");
-		const char* cstr5 = str5.c_str();
-		const char* cstr5b = str5b.c_str();
-		Opponent5Cash.setText(cstr5);
-		Opponent5Bet.setText(cstr5b);
+		Opponent5Cash.setText(game_handler->cash_to_QString(game_handler->game->players[5]->m_money));
+		Opponent5Bet.setText(game_handler->cash_to_QString(game_handler->game->players[5]->m_bet));
 	}
-
-	std::string pot = std::to_string(game_handler->game->pot);
-	pot.append("$");
-	const char* cpot = pot.c_str();
-	Pot.setText(cpot);
+	Pot.setText(game_handler->cash_to_QString(game_handler->game->pot));
 }
 void MainWindow::setStatus()
 {
@@ -937,18 +909,28 @@ void MainWindow::setButtons()
 void MainWindow::setWinnerScreen()
 {
 	//set winner name
-	//set winner cash
+	EndWinnerCash.setText(game_handler->cash_to_QString(game_handler->game->pot));
+}
+
+void MainWindow::PlayerBlind()
+{
+	if (game_handler->game->players[0]->small_blind())
+	{
+		ui->CheckButton->hide();
+		ui->FoldButton->hide();
+		ui->AllInButton->hide();
+	}
 }
 
 void MainWindow::check()
 {
 	if (game_handler->game->pot == 0)
 	{
-		game_handler->game->players[0]->make_check();
+		game_handler->play_round(Decision(2), 0);
 	}
 	else
 	{
-		game_handler->player_make_call();
+		game_handler->play_round(Decision(4), 0);
 	}
 }
 void MainWindow::bet()
@@ -958,21 +940,21 @@ void MainWindow::bet()
 }
 void MainWindow::fold()
 {
-	game_handler->game->players[0]->make_fold();
+	game_handler->play_round(Decision(3), 0);
 }
 void MainWindow::all_in()
 {
-	game_handler->game->players[0]->make_all_in();
+	game_handler->play_round(Decision(5), 0);
 }
 void MainWindow::bet_confirmed()
 {
 	if (game_handler->game->pot == 0)
 	{
-		game_handler->game->players[0]->make_bet(ui->lineEdit->text().toInt());
+		game_handler->play_round(Decision(6), ui->lineEdit->text().toInt());
 	}
 	else
 	{
-		game_handler->game->players[0]->make_raise(ui->lineEdit->text().toInt());
+		game_handler->play_round(Decision(1), ui->lineEdit->text().toInt());
 	}
 	ui->lineEdit->clear();
 	ui->lineEdit->hide();

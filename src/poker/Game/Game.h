@@ -22,6 +22,7 @@ private:
     std::vector<std::unique_ptr<Player>> players;
     Cards table = std::make_unique<Table<std::unique_ptr<Card>>>();
     Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>(true);
+    Cards discarded = std::make_unique<Table<std::unique_ptr<Card>>>();
     Phase phase = Phase::PreFlop;
 
     unsigned int find_active_player(unsigned int index);
@@ -35,8 +36,6 @@ public:
     void next_player();
     void bot_play();
     void find_winner();
-    void find_winning_sequence(unsigned int player, unsigned int code);
-
     bool check_round_end();
 
 

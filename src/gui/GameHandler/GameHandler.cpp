@@ -59,3 +59,7 @@ std::string GameHandler::begin_status_to_string(int index) {
 //	return "";
 return game->players[index]->status();
 }
+
+QString GameHandler::cash_to_QString(int cash) {
+	return QString(std::to_string(cash).append("$").c_str());
+}

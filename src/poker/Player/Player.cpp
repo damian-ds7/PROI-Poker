@@ -94,7 +94,7 @@ void Player::set_all_in(bool all_in) {
 void Player::set_big_blind(bool big_blind) {
     m_big_blind = big_blind;
     if (big_blind) {
-        m_status = "BIG BLIND";
+        m_status = "BIG B";
     }
 
 }
@@ -102,7 +102,7 @@ void Player::set_big_blind(bool big_blind) {
 void Player::set_small_blind(bool small_blind) {
     m_small_blind = small_blind;
     if (small_blind) {
-        m_status = "SMALL BLIND";
+        m_status = "SMALL B";
     }
 }
 

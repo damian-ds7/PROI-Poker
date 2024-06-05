@@ -8,6 +8,10 @@ BotPlayer::BotPlayer(std::string name, unsigned int money, unsigned int bet) : P
     dist = std::uniform_int_distribution<int>(0, 1000);
 };
 
+bool BotPlayer::has_enough_money(unsigned int money_to_bet) const noexcept {
+    return money() >= money_to_bet;
+}
+
 double BotPlayer::equity() const noexcept {
     return m_equity;
 }
@@ -45,7 +49,7 @@ void BotPlayer::calc_equity(const std::string& board_cards, int num_of_players){
     set_equity(r.equity[0]);
 }
 
-void BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards){
+void BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards, bool is_bluffing) {
     if (small_blind()) {
         make_bet(money()/10);
         set_small_blind(false);
@@ -55,18 +59,21 @@ void BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_pla
     if (money_to_bet == 0 && equity() < 0.4) {
         make_check();
     } else if (equity() > 1.0 / static_cast<double>(num_of_players)) {
-        (money() <= money_to_bet) ? make_all_in() : make_raise(money_to_bet + static_cast<int>((money() - money_to_bet) * equity()));
+        (has_enough_money(money_to_bet)) ? make_all_in() : make_raise(money_to_bet + static_cast<int>((money() - money_to_bet) * equity()));
     } else if (equity() < 0.5 / static_cast<double>(num_of_players)) {
-        auto random_number = dist(engine);
-        if (random_number > 900) {
-            (money() <= money_to_bet) ? make_all_in() : make_bluff(money_to_bet, num_of_players, board_cards);
+        if (is_bluffing) {
+            auto random_number = dist(engine);
+            if (random_number > 900) {
+                (has_enough_money(money_to_bet)) ? make_bluff(money_to_bet, num_of_players, board_cards) : make_all_in();
+            } else if (random_number > 800) {
+                (has_enough_money(money_to_bet)) ? make_call(money_to_bet) : make_all_in();
+            } else make_fold();
         }
-        else if (random_number > 800) {
-            (money()<=money_to_bet) ? make_all_in() : make_call(money_to_bet);
+        else{
+            make_fold();
         }
-        else make_fold();
     } else {
-        (money() <= money_to_bet) ? make_all_in() : make_call(money_to_bet);
+        (has_enough_money(money_to_bet)) ? make_call(money_to_bet) : make_all_in();
     }
 }
 

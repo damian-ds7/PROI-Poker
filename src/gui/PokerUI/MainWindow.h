@@ -65,6 +65,7 @@ private:
 
     void setWinnerScreen();
 
+    void PlayerBlind();
     //buttons signals
     void check();
     void bet();

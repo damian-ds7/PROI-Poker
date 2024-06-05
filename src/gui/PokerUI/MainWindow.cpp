@@ -732,8 +732,16 @@ void MainWindow::PlayGame()
 {
 	setInitialStatus();
 	game_handler->start_game();
-	setPlayerCards();
+	if (game_handler->game->players[0]->small_blind())
+	{
+		PlayerBlind();
+	}
+	else
+	{
+		game_handler->play_round("", 0);
+	}
 	setCash();
+	setPlayerCards();
 	setButtons();
 	//setTableCards();
 	showButtons();
@@ -900,15 +908,25 @@ void MainWindow::setWinnerScreen()
 	EndWinnerCash.setText(game_handler->cash_to_QString(game_handler->game->pot));
 }
 
+void MainWindow::PlayerBlind()
+{
+	if (game_handler->game->players[0]->small_blind())
+	{
+		ui->CheckButton->hide();
+		ui->FoldButton->hide();
+		ui->AllInButton->hide();
+	}
+}
+
 void MainWindow::check()
 {
 	if (game_handler->game->pot == 0)
 	{
-		game_handler->game->players[0]->make_check();
+		game_handler->play_round("CHECK", 0);
 	}
 	else
 	{
-		game_handler->player_make_call();
+		game_handler->play_round("CALL", 0);
 	}
 }
 void MainWindow::bet()
@@ -918,21 +936,21 @@ void MainWindow::bet()
 }
 void MainWindow::fold()
 {
-	game_handler->game->players[0]->make_fold();
+	game_handler->play_round("FOLD", 0);
 }
 void MainWindow::all_in()
 {
-	game_handler->game->players[0]->make_all_in();
+	game_handler->play_round("ALL IN", 0);
 }
 void MainWindow::bet_confirmed()
 {
 	if (game_handler->game->pot == 0)
 	{
-		game_handler->game->players[0]->make_bet(ui->lineEdit->text().toInt());
+		game_handler->play_round("BET", ui->lineEdit->text().toInt());
 	}
 	else
 	{
-		game_handler->game->players[0]->make_raise(ui->lineEdit->text().toInt());
+		game_handler->play_round("RAISE", ui->lineEdit->text().toInt());
 	}
 	ui->lineEdit->clear();
 	ui->lineEdit->hide();

@@ -42,7 +42,10 @@ void GameHandler::start_game() {
 //        game->bot_play();
 //    }
 //    game->next_player();
-    unsigned int previous_bet = game->players[(game->current_player - 1) % game->player_count]->bet();
+
+    int idx = current_player() - 1;
+    if (idx < 0) idx += player_count();
+    unsigned int previous_bet = player(idx)->bet();
     game->players[current_player()]->make_bet(2 * previous_bet);
     game->next_player();
 	game->deal();

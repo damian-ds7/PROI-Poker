@@ -24,21 +24,22 @@ MainWindow::~MainWindow()
 
 void MainWindow::createWidgets(MainWindow* ptr)
 {
-	std::string str = std::to_string(game_handler->game_info.initial_money);
+	std::string str = std::to_string(game_handler->initial_money());
 	str.append("$");
 	const char* cstr = str.c_str();
-	const char* cplayer_name = game_handler->game_info.player_name.c_str();
+    std::string player_name = game_handler->player_name();
+	const char* cplayer_name = player_name.c_str();
 
 	createPlayerCards(ptr);
     createTableCards(ptr);
-    createOpponentCards(ptr, game_handler->game_info.player_count - 1);
-	createOpponentLabels(ptr, game_handler->game_info.player_count - 1, cstr);
+    createOpponentCards(ptr, game_handler->player_count() - 1);
+	createOpponentLabels(ptr, game_handler->player_count() - 1, cstr);
 	createPlayerLabels(ptr, cplayer_name, cstr);
 	createTableLabels(ptr);
 	createEndLabels(ptr);
 
 
-	//showEndScreen(false);
+	showEndScreen(false);
 	ui->lineEdit->hide();
 	ui->ConfirmButton->hide();
 }
@@ -108,7 +109,7 @@ void MainWindow::createTableCards(MainWindow* ptr)
 	TableCard5.setPixmap(tcard5);
 	//
 }
-void MainWindow::createOpponentCards(MainWindow* ptr, const int opponents)
+void MainWindow::createOpponentCards(MainWindow* ptr, const unsigned int opponents)
 {
 	QPixmap ocard(":/resources/Deck/card_back.png");
 	QTransform transform;
@@ -257,7 +258,7 @@ void MainWindow::createOpponentCards(MainWindow* ptr, const int opponents)
 	}
 }
 
-void MainWindow::createOpponentLabels(MainWindow* ptr, const int opponents, const char* initial_money)
+void MainWindow::createOpponentLabels(MainWindow* ptr, const unsigned int opponents, const char* initial_money)
 {
 	QFont NameFont("Arial", 14, QFont::Bold);
 	QFont CashFont("Arial", 13, QFont::Bold);
@@ -735,16 +736,16 @@ void MainWindow::createEndLabels(MainWindow* ptr)
 void MainWindow::PlayGame()
 {
 	setInitialStatus();
-	game_handler->start_game();
-	if (game_handler->game->players[0]->small_blind())
+	if (game_handler->player(0)->small_blind())
 	{
 		PlayerBlind();
 	}
 	else
 	{
-		game_handler->play_round(Decision(0), 0);
+        game_handler->play_turn(Decision(0), 0);
 	}
-	setCash();
+    game_handler->start_game();
+    setCash();
 	setPlayerCards();
 	setButtons();
 	//setTableCards();
@@ -760,10 +761,10 @@ void MainWindow::PlayGame()
 
 void MainWindow::showButtons()
 {
-	ui->BetButton->setVisible(game_handler->game->current_player == 0);
-	ui->CheckButton->setVisible(game_handler->game->current_player == 0);
-	ui->FoldButton->setVisible(game_handler->game->current_player == 0);
-	ui->AllInButton->setVisible(game_handler->game->current_player == 0);
+	ui->BetButton->setVisible(game_handler->current_player() == 0);
+	ui->CheckButton->setVisible(game_handler->current_player() == 0);
+	ui->FoldButton->setVisible(game_handler->current_player() == 0);
+	ui->AllInButton->setVisible(game_handler->current_player() == 0);
 }
 void MainWindow::showEndScreen(bool visible)
 {
@@ -776,8 +777,8 @@ void MainWindow::showEndScreen(bool visible)
 
 void MainWindow::setPlayerCards()
 {
-	QPixmap qcard1(game_handler->game->players[0]->m_hand->at(0)->get_file_path().c_str());
-	QPixmap qcard2(game_handler->game->players[0]->m_hand->at(1)->get_file_path().c_str());
+	QPixmap qcard1(game_handler->player(0)->m_hand->at(0)->get_file_path().c_str());
+	QPixmap qcard2(game_handler->player(0)->m_hand->at(1)->get_file_path().c_str());
 	PlayerCard1.setPixmap(qcard1);
 	PlayerCard2.setPixmap(qcard2);
 }
@@ -818,31 +819,31 @@ void MainWindow::setTableCards()
 }
 void MainWindow::setCash()
 {
-	PlayerCash.setText(game_handler->cash_to_QString(game_handler->game->players[0]->m_money));
-	PlayerBet.setText(game_handler->cash_to_QString(game_handler->game->players[0]->m_bet));
-	Opponent1Cash.setText(game_handler->cash_to_QString(game_handler->game->players[1]->m_money));
-	Opponent1Bet.setText(game_handler->cash_to_QString(game_handler->game->players[1]->m_bet));
-	if (game_handler->game_info.player_count > 2)
+	PlayerCash.setText(game_handler->cash_to_QString(game_handler->player(0)->m_money));
+	PlayerBet.setText(game_handler->cash_to_QString(game_handler->player(0)->m_bet));
+	Opponent1Cash.setText(game_handler->cash_to_QString(game_handler->player(1)->m_money));
+	Opponent1Bet.setText(game_handler->cash_to_QString(game_handler->player(1)->m_bet));
+	if (game_handler->player_count() > 2)
 	{
-		Opponent2Cash.setText(game_handler->cash_to_QString(game_handler->game->players[2]->m_money));
-		Opponent2Bet.setText(game_handler->cash_to_QString(game_handler->game->players[2]->m_bet));
+		Opponent2Cash.setText(game_handler->cash_to_QString(game_handler->player(2)->m_money));
+		Opponent2Bet.setText(game_handler->cash_to_QString(game_handler->player(2)->m_bet));
 	}
-	if (game_handler->game_info.player_count > 3)
+	if (game_handler->player_count() > 3)
 	{
-		Opponent3Cash.setText(game_handler->cash_to_QString(game_handler->game->players[3]->m_money));
-		Opponent3Bet.setText(game_handler->cash_to_QString(game_handler->game->players[3]->m_bet));
+		Opponent3Cash.setText(game_handler->cash_to_QString(game_handler->player(3)->m_money));
+		Opponent3Bet.setText(game_handler->cash_to_QString(game_handler->player(3)->m_bet));
 	}
-	if (game_handler->game_info.player_count > 4)
+	if (game_handler->player_count() > 4)
 	{
-		Opponent4Cash.setText(game_handler->cash_to_QString(game_handler->game->players[4]->m_money));
-		Opponent4Bet.setText(game_handler->cash_to_QString(game_handler->game->players[4]->m_bet));
+		Opponent4Cash.setText(game_handler->cash_to_QString(game_handler->player(4)->m_money));
+		Opponent4Bet.setText(game_handler->cash_to_QString(game_handler->player(4)->m_bet));
 	}
-	if (game_handler->game_info.player_count > 5)
+	if (game_handler->player_count() > 5)
 	{
-		Opponent5Cash.setText(game_handler->cash_to_QString(game_handler->game->players[5]->m_money));
-		Opponent5Bet.setText(game_handler->cash_to_QString(game_handler->game->players[5]->m_bet));
+		Opponent5Cash.setText(game_handler->cash_to_QString(game_handler->player(5)->m_money));
+		Opponent5Bet.setText(game_handler->cash_to_QString(game_handler->player(5)->m_bet));
 	}
-	Pot.setText(game_handler->cash_to_QString(game_handler->game->pot));
+	Pot.setText(game_handler->cash_to_QString(game_handler->pot()));
 }
 void MainWindow::setStatus()
 {
@@ -852,19 +853,19 @@ void MainWindow::setInitialStatus()
 {
 	PlayerStatus.setText(game_handler->begin_status_to_string(0).c_str());
 	Opponent1Status.setText(game_handler->begin_status_to_string(1).c_str());
-	if (game_handler->game_info.player_count > 2)
+	if (game_handler->player_count() > 2)
 	{
 		Opponent2Status.setText(game_handler->begin_status_to_string(2).c_str());
 	}
-	if (game_handler->game_info.player_count > 3)
+	if (game_handler->player_count() > 3)
 	{
 		Opponent3Status.setText(game_handler->begin_status_to_string(3).c_str());
 	}
-	if (game_handler->game_info.player_count > 4)
+	if (game_handler->player_count() > 4)
 	{
 		Opponent4Status.setText(game_handler->begin_status_to_string(4).c_str());
 	}
-	if (game_handler->game_info.player_count > 5)
+	if (game_handler->player_count() > 5)
 	{
 		Opponent5Status.setText(game_handler->begin_status_to_string(5).c_str());
 	}
@@ -894,7 +895,7 @@ void MainWindow::setCheckButton(bool check)
 }
 void MainWindow::setButtons()
 {
-	if (game_handler->game->pot == 0)
+	if (game_handler->pot() == 0)
 	{
 		setBetButton(true);
 		setCheckButton(true);
@@ -909,12 +910,12 @@ void MainWindow::setButtons()
 void MainWindow::setWinnerScreen()
 {
 	//set winner name
-	EndWinnerCash.setText(game_handler->cash_to_QString(game_handler->game->pot));
+	EndWinnerCash.setText(game_handler->cash_to_QString(game_handler->pot()));
 }
 
 void MainWindow::PlayerBlind()
 {
-	if (game_handler->game->players[0]->small_blind())
+	if (game_handler->player(0)->small_blind())
 	{
 		ui->CheckButton->hide();
 		ui->FoldButton->hide();
@@ -924,13 +925,13 @@ void MainWindow::PlayerBlind()
 
 void MainWindow::check()
 {
-	if (game_handler->game->pot == 0)
+	if (game_handler->pot() == 0)
 	{
-		game_handler->play_round(Decision(2), 0);
+        game_handler->play_turn(Decision(2), 0);
 	}
 	else
 	{
-		game_handler->play_round(Decision(4), 0);
+        game_handler->play_turn(Decision(4), 0);
 	}
 }
 void MainWindow::bet()
@@ -940,21 +941,21 @@ void MainWindow::bet()
 }
 void MainWindow::fold()
 {
-	game_handler->play_round(Decision(3), 0);
+    game_handler->play_turn(Decision(3), 0);
 }
 void MainWindow::all_in()
 {
-	game_handler->play_round(Decision(5), 0);
+    game_handler->play_turn(Decision(5), 0);
 }
 void MainWindow::bet_confirmed()
 {
-	if (game_handler->game->pot == 0)
+	if (game_handler->pot() == 0)
 	{
-		game_handler->play_round(Decision(6), ui->lineEdit->text().toInt());
+        game_handler->play_turn(Decision(6), ui->lineEdit->text().toInt());
 	}
 	else
 	{
-		game_handler->play_round(Decision(1), ui->lineEdit->text().toInt());
+        game_handler->play_turn(Decision(1), ui->lineEdit->text().toInt());
 	}
 	ui->lineEdit->clear();
 	ui->lineEdit->hide();

@@ -40,10 +40,6 @@ bool Player::dealer() const noexcept {
     return m_dealer;
 }
 
-bool Player::can_check() const noexcept {
-    return m_can_check;
-}
-
 bool Player::called() const noexcept {
     return m_called;
 }
@@ -111,10 +107,6 @@ void Player::set_dealer(bool dealer) {
     if (dealer) {
         m_status = "DEALER";
     }
-}
-
-void Player::set_can_check(bool can_check) {
-    m_can_check = can_check;
 }
 
 void Player::set_called(bool called) {

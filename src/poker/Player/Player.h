@@ -17,7 +17,6 @@ protected:
     bool m_big_blind = false;
     bool m_small_blind = false;
     bool m_dealer = false;
-    bool m_can_check = true;
     bool m_called = false;
     bool m_raised = false;
     bool m_checked = false;
@@ -36,7 +35,6 @@ public:
     [[nodiscard]] virtual bool big_blind() const noexcept;
     [[nodiscard]] virtual bool small_blind() const noexcept;
     [[nodiscard]] virtual bool dealer() const noexcept;
-    [[nodiscard]] virtual bool can_check() const noexcept;
     [[nodiscard]] virtual bool called() const noexcept;
     [[nodiscard]] virtual bool raised() const noexcept;
     [[nodiscard]] virtual bool checked() const noexcept;
@@ -50,7 +48,6 @@ public:
     virtual void set_big_blind(bool big_blind);
     virtual void set_small_blind(bool small_blind);
     virtual void set_dealer(bool dealer);
-    virtual void set_can_check(bool can_check);
     virtual void set_called(bool called);
     virtual void set_raised(bool raised);
     virtual void set_checked(bool checked);

@@ -759,22 +759,29 @@ void MainWindow::StartGame()
 void MainWindow::PlayGame()
 {
 	// game until player turn
+	// when player turn -> return and wait for input
 	setCash();
 	setStatus();
-	setPlayerCards();
 	setButtons();
-	//setTableCards();
+	setTableCards();
 	showButtons();
+	showPlayersCards();
+
+	if (game_handler->game->current_player == 0) return;
 	
+	//delay
+
+	game_handler->play_turn(Decision(0), 0);
 
 
-	// when player turn -> return and wait for input
+	PlayGame();
 }
 
 void MainWindow::playerMakeDecision(Decision decision, int bet)
 {
 	//TODO
-	//game_handler->play_turn(decision, bet);
+	game_handler->play_turn(decision, bet);
+	PlayGame();
 }
 void MainWindow::playerMakeSmallBlind(int bet)
 {
@@ -786,6 +793,8 @@ void MainWindow::BigBlind()
 {
 	game_handler->make_big_blind();
 	game_handler->start_game();
+	setPlayerCards();
+	PlayGame();
 }
 
 void MainWindow::showButtons()

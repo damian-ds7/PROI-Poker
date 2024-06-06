@@ -15,7 +15,6 @@ void handleGameInfo(const GameInfo& gameInfo, MainWindow* ptr) {
     ptr->createWidgets(ptr);
     qDebug() << "Game started";
     ptr->StartGame();
-    ptr->show();
 }
 
 void handleDecisionMade(Decision decision, int bet, MainWindow* ptr) {
@@ -30,7 +29,6 @@ void handleSmallBlind(int bet, MainWindow* ptr) {
 
 int main(int argc, char *argv[])
 {
-//    QCoreApplication::addLibraryPath(R"(C:\Qt\6.7.1\mingw_64\plugins)");
     QApplication a(argc, argv);
     MainWindow Main_Window;
     MainWindow* ptr = &Main_Window;

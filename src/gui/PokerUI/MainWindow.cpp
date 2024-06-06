@@ -740,6 +740,7 @@ void MainWindow::createEndLabels(MainWindow* ptr)
 
 void MainWindow::StartGame()
 {
+	this->show();
 	setStatus();
 	setCash();
 	setButtons();
@@ -1084,6 +1085,24 @@ void MainWindow::all_in()
 }
 void MainWindow::bet_confirmed()
 {
+	// int < player money
+	try {
+		bool ok = true;
+		if (ui->lineEdit->text().toInt(&ok) >= game_handler->player(0)->m_money)
+		{
+			throw 1;
+		}
+		if (!ok)
+		{
+			throw 2;
+		}
+	}
+	catch (int x) {
+		QMessageBox::warning(this, "Input Error", "Too much!");
+		ui->lineEdit->clear();
+		return;
+	}
+
 	int a = ui->lineEdit->text().toInt();
 	ui->lineEdit->clear();
 	ui->lineEdit->hide();
@@ -1106,6 +1125,24 @@ void MainWindow::small_blind()
 
 void MainWindow::small_blind_confirmed()
 {
+	// 0.02*initial_money < int < 0.1 *initial_money
+	try {
+		bool ok;
+		if (ui->lineEdit->text().toInt(&ok) < 0.02*game_handler->game_info.initial_money ||
+			ui->lineEdit->text().toInt(&ok) > 0.1 * game_handler->game_info.initial_money)
+		{
+			throw 1;
+		}
+		if (!ok)
+		{
+			throw 2;
+		}
+	}
+	catch (int x) {
+		QMessageBox::warning(this, "Input Error", "It must be between 2% and 10% of initial money");
+		ui->lineEdit->clear();
+		return;
+	}
 	int a = ui->lineEdit->text().toInt();
 	ui->lineEdit->clear();
 	ui->lineEdit->hide();

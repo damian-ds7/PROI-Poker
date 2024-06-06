@@ -779,18 +779,18 @@ void MainWindow::PlayGame()
 
 void MainWindow::playerMakeDecision(Decision decision, int bet)
 {
-	//TODO
 	game_handler->play_turn(decision, bet);
 	PlayGame();
 }
 void MainWindow::playerMakeSmallBlind(int bet)
 {
 	game_handler->play_turn(Decision(6), bet);
-
+	BigBlind();
 }
 
 void MainWindow::BigBlind()
 {
+	setCash();
 	game_handler->make_big_blind();
 	game_handler->start_game();
 	setPlayerCards();
@@ -809,6 +809,7 @@ void MainWindow::showButtons()
 	}
 	else
 	{
+		ui->SmallBlindButton->hide();
 		ui->BetButton->setVisible(game_handler->game->current_player == 0);
 		ui->CheckButton->setVisible(game_handler->game->current_player == 0);
 		ui->FoldButton->setVisible(game_handler->game->current_player == 0);

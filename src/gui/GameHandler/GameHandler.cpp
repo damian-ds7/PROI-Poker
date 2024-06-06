@@ -58,8 +58,8 @@ void GameHandler::play_turn(Decision player_decision, int player_bet) {
         //if small blind dont't change status
         break;
     }
-    game->next_player();
     }
+    game->next_player();
 }
 
 void GameHandler::make_big_blind() {

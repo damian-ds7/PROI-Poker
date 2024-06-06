@@ -20,8 +20,8 @@ public:
     [[nodiscard]] std::vector<omp::CardRange> get_bot_hand(int num_of_players) const noexcept;
     omp::EquityCalculator calc;
     void calc_equity(const std::string& board_cards, int num_of_players);
-    void make_decision(unsigned int money_to_bet, unsigned int num_of_players, const std::string&, bool is_bluffing = true);
-    void make_bluff(unsigned int money_to_bet, unsigned int num_of_players, const std::string&);
+    unsigned int make_decision(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards, bool is_bluffing = true);
+    unsigned int make_bluff(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards);
     //[[nodiscard]] std::vector<string> get_table_hand() const noexcept;
 };
 

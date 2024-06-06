@@ -57,39 +57,51 @@ void GameHandler::player_make_call() {
 	//TODO
 }
 
-void GameHandler::play_turn(Decision player_decision, int player_bet = 0) {
+void GameHandler::play_turn(Decision player_decision, int player_bet) {
     switch (player_decision) {
-        case Decision::Bot:
-        {
-            game->bot_play();
-            break;
-        }
-        case Decision::Raise:
-        {
-            break;
-        }
-        case Decision::Fold:
-        {
-			break;
-		}
-        case Decision::Check:
-        {
-			break;
-		}
-		case Decision::Call:
-        {
-			break;
-		}
-		case Decision::AllIn:
-        {
-			break;
-		}
-        case Decision::Bet:
-        {
-            break;
-        }
+    case Decision::Bot:
+    {
+        game->bot_play();
+        break;
+    }
+    case Decision::Raise:
+    {
+        //if big blind dont't change status
+        break;
+    }
+    case Decision::Fold:
+    {
+        break;
+    }
+    case Decision::Check:
+    {
+        break;
+    }
+    case Decision::Call:
+    {
+        break;
+    }
+    case Decision::AllIn:
+    {
+        break;
+    }
+    case Decision::Bet:
+    {
+        //if small blind dont't change status
+        break;
+    }
     }
     game->next_player();
+}
+
+void GameHandler::make_big_blind() {
+    if (game->current_player != 0) {
+		play_turn(Decision(0), 0);
+	}
+    else
+    {
+        play_turn(Decision(1), 2*previous_bet());
+    }
 }
 
 int GameHandler::phase_to_int() {
@@ -115,14 +127,10 @@ std::string GameHandler::status_to_string(int index) {
     return game->players[index]->status();
 }
 
-std::string GameHandler::begin_status_to_string(int index) {
-//	if (game->players[index]->big_blind()) return "BIG B";
-//	if (game->players[index]->small_blind()) return "SMALL B";
-//	if (game->players[index]->dealer()) return "DEALER";
-//	return "";
-    return game->players[index]->status();
+QString GameHandler::cash_to_QString(int cash) {
+	return QString(std::to_string(cash).append("$").c_str());
 }
 
-QString GameHandler::cash_to_QString(unsigned int cash) {
-	return QString(std::to_string(cash).append("$").c_str());
+int GameHandler::previous_bet() {
+	return game->players[(game->current_player - 1) % game->player_count]->bet();
 }

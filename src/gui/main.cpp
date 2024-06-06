@@ -14,8 +14,18 @@ void handleGameInfo(const GameInfo& gameInfo, MainWindow* ptr) {
 
     ptr->createWidgets(ptr);
     qDebug() << "Game started";
-    ptr->PlayGame();
+    ptr->StartGame();
     ptr->show();
+}
+
+void handleDecisionMade(Decision decision, int bet, MainWindow* ptr) {
+	qDebug() << "Decision made: " << " with bet: " << bet;
+    ptr->playerMakeDecision(decision, bet);
+}
+
+void handleSmallBlind(int bet, MainWindow* ptr) {
+	qDebug() << "Small blind made: " << bet;
+    ptr->playerMakeSmallBlind(bet);
 }
 
 int main(int argc, char *argv[])
@@ -30,7 +40,12 @@ int main(int argc, char *argv[])
         handleGameInfo(gameInfo, ptr);
     });
 
-    w.show();
+    QObject::connect(ptr, &MainWindow::decisionMade, [ptr](Decision decision, int bet) {
+        handleDecisionMade(decision, bet, ptr);
+        });
+    QObject::connect(ptr, &MainWindow::smallBlindMade, [ptr](int bet) {
+        handleSmallBlind(bet, ptr);
+        });
 
 
     w.show();

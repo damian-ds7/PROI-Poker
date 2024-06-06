@@ -27,9 +27,18 @@ MenuWindow::MenuWindow(MainWindow* main_window, QWidget *parent)
     connect(ui->playerSlider, &QSlider::valueChanged, this, &MenuWindow::updatePlayerCount);
     connect(ui->moneySlider, &QSlider::valueChanged, this, &MenuWindow::updateStartMoney);
 
+
     // Set the initial value
     updatePlayerCount(ui->playerSlider->value());
     updateStartMoney(ui->moneySlider->value());
+}
+
+void MenuWindow::keyPressEvent(QKeyEvent *event) {
+    if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return){
+        startGame();
+    } else{
+        QMainWindow::keyPressEvent(event);
+    }
 }
 
 MenuWindow::~MenuWindow()

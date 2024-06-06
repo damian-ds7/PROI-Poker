@@ -32,6 +32,10 @@ const std::unique_ptr<Card>& GameHandler::get_table_card(int index) {
     return game->table->at(index);
 }
 
+const std::unique_ptr<Card>& GameHandler::get_player_hand(int player_index, int card_index) {
+    return player(player_index)->get_hand_card(card_index);
+}
+
 void GameHandler::initialize_game(const GameInfo& game_info) {
     game = std::make_unique<Game>(game_info.player_name, game_info.player_count, game_info.initial_money);
     this->game_info = game_info;

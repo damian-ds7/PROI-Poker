@@ -14,8 +14,8 @@ void handleGameInfo(const GameInfo& gameInfo, MainWindow* ptr) {
 
     ptr->createWidgets(ptr);
     qDebug() << "Game started";
-    ptr->StartGame();
     ptr->show();
+    ptr->StartGame();
 }
 
 void handleDecisionMade(Decision decision, int bet, MainWindow* ptr) {

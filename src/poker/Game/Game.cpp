@@ -8,7 +8,7 @@ Game::Game(const std::string& name, unsigned int player_count, unsigned int init
     this->currently_playing = player_count;
     players.push_back(std::make_unique<HumanPlayer>(name, initial_money, 0));
     auto random_names = Names::get_names(player_count);
-    for (unsigned int i = 1; i < player_count; ++i) {
+    for (unsigned int i = 0; i < player_count; ++i) {
         players.push_back(std::make_unique<BotPlayer>(random_names[i], initial_money, 0));
     }
 
@@ -82,7 +82,7 @@ void Game::next_player() {
     if (players[current_player]->folded()) {
         --currently_playing;
 //        pot += players[current_player]->remove_bet();
-    discarded->add_cards(players[current_player]->clear_hand());
+        discarded->add_cards(players[current_player]->clear_hand());
     }
 
     if (check_round_end()) {

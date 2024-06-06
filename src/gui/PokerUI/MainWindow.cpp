@@ -7,9 +7,6 @@ MainWindow::MainWindow(QWidget* parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
-    //label.hide();
-    //label.show();
-	//label.raise();
 	connect(ui->CheckButton, &QPushButton::clicked, this, &MainWindow::check);
 	connect(ui->BetButton, &QPushButton::clicked, this, &MainWindow::bet);
 	connect(ui->FoldButton, &QPushButton::clicked, this, &MainWindow::fold);
@@ -744,6 +741,7 @@ void MainWindow::StartGame()
 	setStatus();
 	setCash();
 	setButtons();
+	setTableCards();
 	showButtons();
 	//small blind
 	if (game_handler->game->current_player == 0)
@@ -769,14 +767,22 @@ void MainWindow::PlayGame()
 	showButtons();
 	showPlayersCards();
 
-	if (game_handler->game->current_player == 0) return;
-	
-	//delay
+	while (game_handler->current_player() != 0)
+	{
 
-	game_handler->play_turn(Decision(0), 0);
+		//delay
+
+		game_handler->play_turn(Decision(0), 0);
+
+		setCash();
+		setStatus();
+		setButtons();
+		setTableCards();
+		showButtons();
+		showPlayersCards();
+	}
 
 
-	PlayGame();
 }
 
 void MainWindow::playerMakeDecision(Decision decision, int bet)

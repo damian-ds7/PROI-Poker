@@ -43,6 +43,7 @@ void MainWindow::createWidgets(MainWindow* ptr)
 	//showEndScreen(false);
 	ui->lineEdit->hide();
 	ui->ConfirmButton->hide();
+	ui->ConfirmSmallBlindButton->hide();
 }
 
 void MainWindow::createPlayerCards(MainWindow* ptr)
@@ -738,8 +739,10 @@ void MainWindow::createEndLabels(MainWindow* ptr)
 
 void MainWindow::StartGame()
 {
-	setInitialStatus();
+	setStatus();
 	setCash();
+	setButtons();
+	showButtons();
 	//small blind
 	if (game_handler->game->current_player == 0)
 	{
@@ -751,21 +754,13 @@ void MainWindow::StartGame()
 	{
 		game_handler->play_turn(Decision(0), 0);
 	}
-	game_handler->start_game();
+	BigBlind();
 }
 void MainWindow::PlayGame()
 {
-	//big blind
-	/*if (!game_handler->game->current_player == 0)
-	{
-		game_handler->play_turn(Decision(0), 0);
-	}
-	else
-	{
-		game_handler->play_turn(Decision(1), game_handler->previous_bet()*2);
-	}*/
+	// game until player turn
 	setCash();
-	setInitialStatus();
+	setStatus();
 	setPlayerCards();
 	setButtons();
 	//setTableCards();
@@ -773,18 +768,24 @@ void MainWindow::PlayGame()
 	
 
 
-	//round end
-	//showEndScreen(true);
+	// when player turn -> return and wait for input
 }
 
 void MainWindow::playerMakeDecision(Decision decision, int bet)
 {
 	//TODO
-	game_handler->play_turn(decision, bet);
+	//game_handler->play_turn(decision, bet);
 }
 void MainWindow::playerMakeSmallBlind(int bet)
 {
-	//TODO
+	game_handler->play_turn(Decision(6), bet);
+
+}
+
+void MainWindow::BigBlind()
+{
+	game_handler->make_big_blind();
+	game_handler->start_game();
 }
 
 void MainWindow::showButtons()
@@ -930,27 +931,6 @@ void MainWindow::setStatus()
 	if (game_handler->game_info.player_count > 5)
 	{
 		Opponent5Status.setText(game_handler->status_to_string(5).c_str());
-	}
-}
-void MainWindow::setInitialStatus()
-{
-	PlayerStatus.setText(game_handler->begin_status_to_string(0).c_str());
-	Opponent1Status.setText(game_handler->begin_status_to_string(1).c_str());
-	if (game_handler->game_info.player_count > 2)
-	{
-		Opponent2Status.setText(game_handler->begin_status_to_string(2).c_str());
-	}
-	if (game_handler->game_info.player_count > 3)
-	{
-		Opponent3Status.setText(game_handler->begin_status_to_string(3).c_str());
-	}
-	if (game_handler->game_info.player_count > 4)
-	{
-		Opponent4Status.setText(game_handler->begin_status_to_string(4).c_str());
-	}
-	if (game_handler->game_info.player_count > 5)
-	{
-		Opponent5Status.setText(game_handler->begin_status_to_string(5).c_str());
 	}
 }
 

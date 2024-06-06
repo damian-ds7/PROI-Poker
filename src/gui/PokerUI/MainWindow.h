@@ -42,12 +42,15 @@ public:
     void playerMakeDecision(Decision decision, int bet);
     void playerMakeSmallBlind(int bet);
 
+
 signals:
     void decisionMade(Decision decision, int bet);
 signals:
     void smallBlindMade(int bet);
 
 private:
+    void BigBlind();
+
     friend class MenuWindow;
 
     void createPlayerCards(MainWindow* ptr);

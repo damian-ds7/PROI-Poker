@@ -34,6 +34,7 @@ void GameHandler::play_turn(Decision player_decision, int player_bet) {
     }
     case Decision::Raise:
     {
+        //if big blind dont't change status
         break;
     }
     case Decision::Fold:
@@ -54,26 +55,20 @@ void GameHandler::play_turn(Decision player_decision, int player_bet) {
     }
     case Decision::Bet:
     {
+        //if small blind dont't change status
         break;
     }
     game->next_player();
-
-    if (game->players[game->current_player]->status() == "BIG B")
-        {
-            play_big_blind();
-        }
     }
 }
 
-void GameHandler::play_big_blind() {
-    //big blind
-    if (!game->current_player == 0)
-    {
-        play_turn(Decision(0), 0);
-    }
+void GameHandler::make_big_blind() {
+    if (game->current_player != 0) {
+		play_turn(Decision(0), 0);
+	}
     else
     {
-        play_turn(Decision(1), previous_bet() * 2);
+        play_turn(Decision(1), 2*previous_bet());
     }
 }
 
@@ -98,14 +93,6 @@ std::string GameHandler::status_to_string(int index) {
 //	//bet
 //	return "";
     return game->players[index]->status();
-}
-
-std::string GameHandler::begin_status_to_string(int index) {
-//	if (game->players[index]->big_blind()) return "BIG B";
-//	if (game->players[index]->small_blind()) return "SMALL B";
-//	if (game->players[index]->dealer()) return "DEALER";
-//	return "";
-return game->players[index]->status();
 }
 
 QString GameHandler::cash_to_QString(int cash) {

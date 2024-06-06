@@ -137,7 +137,14 @@ bool Game::check_round_end() {
     }
     return equal_bets;
 }
-
+bool Game::check_player_balance() {
+    for (const auto& player : players) {
+        if (player->money() == 0) {
+            return false;
+        }
+    }
+    return true;
+}
 void Game::find_winner() {
 
 }

@@ -137,13 +137,19 @@ bool Game::check_round_end() {
     }
     return equal_bets;
 }
-bool Game::check_player_balance() {
-    for (const auto& player : players) {
-        if (player->money() == 0) {
-            return false;
+
+void Game::delete_broke_players() {
+    while (true) {
+        auto it = std::find_if(players.begin(), players.end(), [](const auto &player) { return player->money() == 0; });
+        if (it != players.end()) {
+            players.erase(it);
+            --player_count;
+            --currently_playing;
+        }
+        else {
+            break;
         }
     }
-    return true;
 }
 void Game::find_winner() {
 

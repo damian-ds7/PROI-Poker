@@ -42,7 +42,7 @@ public:
     void make_move(Decision decision, int bet = 0);
     void find_winner();
     bool check_round_end();
-    bool check_player_balance();
+    void delete_broke_players();
 
     friend class MainWindow;
     friend class GameHandler;

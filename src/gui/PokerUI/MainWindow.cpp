@@ -794,9 +794,9 @@ void MainWindow::setTableCards()
 	}
 	else if (game_handler->phase_to_int() == 1)
 	{
-		QPixmap qcard1(game_handler->game->table->at(0)->get_file_path().c_str());
-		QPixmap qcard2(game_handler->game->table->at(1)->get_file_path().c_str());
-		QPixmap qcard3(game_handler->game->table->at(2)->get_file_path().c_str());
+		QPixmap qcard1(game_handler->get_table_card(1)->get_file_path().c_str());
+		QPixmap qcard2(game_handler->get_table_card(1)->get_file_path().c_str());
+		QPixmap qcard3(game_handler->get_table_card(2)->get_file_path().c_str());
 		TableCard1.setPixmap(qcard1);
 		TableCard2.setPixmap(qcard2);
 		TableCard3.setPixmap(qcard3);
@@ -806,13 +806,13 @@ void MainWindow::setTableCards()
 	}
 	else if (game_handler->phase_to_int() == 2)
 	{
-		QPixmap qcard4(game_handler->game->table->at(3)->get_file_path().c_str());
+		QPixmap qcard4(game_handler->get_table_card(3)->get_file_path().c_str());
 		TableCard4.setPixmap(qcard4);
 		TableCard4.show();
 	}
 	else if (game_handler->phase_to_int() == 3)
 	{
-		QPixmap qcard5(game_handler->game->table->at(4)->get_file_path().c_str());
+		QPixmap qcard5(game_handler->get_table_card(4)->get_file_path().c_str());
 		TableCard5.setPixmap(qcard5);
 		TableCard5.show();
 	}

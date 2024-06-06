@@ -12,9 +12,9 @@ add_executable(HandTest ${COLLECTION_FILES} ${CARD_FILES} ${UTILS_FILES} HandTes
 target_link_libraries(HandTest PRIVATE poker_lib)
 target_link_libraries(HandTest PUBLIC gtest_main)
 
-add_executable(DeckTest ${COLLECTION_FILES} ${CARD_FILES} ${UTILS_FILES} DeckTest.cpp)
-target_link_libraries(DeckTest PRIVATE poker_lib)
-target_link_libraries(DeckTest PUBLIC gtest_main)
+add_executable(CollectionTest ${COLLECTION_FILES} ${CARD_FILES} ${UTILS_FILES} CollectionTest.cpp)
+target_link_libraries(CollectionTest PRIVATE poker_lib)
+target_link_libraries(CollectionTest PUBLIC gtest_main)
 
 add_executable(PlayerTest ${SOURCE_FILES} ${EVALUATOR_FILES} PlayerTest.cpp)
 target_link_libraries(PlayerTest PRIVATE poker_lib)

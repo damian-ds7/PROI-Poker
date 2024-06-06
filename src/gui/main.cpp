@@ -22,10 +22,9 @@ int main(int argc, char *argv[])
 {
 //    QCoreApplication::addLibraryPath(R"(C:\Qt\6.7.1\mingw_64\plugins)");
     QApplication a(argc, argv);
-    std::unique_ptr<GameHandler> game_handler = std::make_unique<GameHandler>();
     MainWindow Main_Window;
     MainWindow* ptr = &Main_Window;
-    MenuWindow w(std::move(game_handler), ptr);
+    MenuWindow w(ptr);
 
     QObject::connect(&w, &MenuWindow::gameInfoReady, [ptr](const GameInfo& gameInfo) {
         handleGameInfo(gameInfo, ptr);

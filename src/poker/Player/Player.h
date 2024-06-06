@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <deque>
 #include "CardCollection.h"
 #include <memory>
 #include "Hand.h"
@@ -63,7 +64,7 @@ public:
     virtual void make_all_in();
     virtual void make_check();
     virtual unsigned int remove_bet() noexcept;
-    Cards&& clear_hand() noexcept;
+    std::deque<std::unique_ptr<Card>> clear_hand() noexcept;
 protected:
     static omp::HandEvaluator eval;
 

@@ -4,9 +4,9 @@
 #include <QFile>
 #include <utility>
 
-MenuWindow::MenuWindow(std::unique_ptr<GameHandler> Igame, MainWindow* main_window, QWidget *parent)
+MenuWindow::MenuWindow(MainWindow* main_window, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MenuWindow), game_handler(std::move(Igame)), main_window(main_window)
+    , ui(new Ui::MenuWindow), main_window(main_window)
 {
     ui->setupUi(this);
 

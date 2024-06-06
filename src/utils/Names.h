@@ -4,9 +4,7 @@
 #include <random>
 #include <algorithm>
 
-
-namespace RandomNames {
-    extern std::vector<std::string> random_names;
-
-    std::vector<std::string> get_random_names(std::vector<std::string> vector_names = random_names);
-}
+struct Names{
+    static std::vector<std::string> names;
+    static std::vector<std::string> get_names(int n);
+};

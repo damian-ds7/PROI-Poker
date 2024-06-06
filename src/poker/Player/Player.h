@@ -40,6 +40,7 @@ public:
     [[nodiscard]] virtual bool checked() const noexcept;
     [[nodiscard]] virtual std::string status() const noexcept;
     [[nodiscard]] unsigned int evaluate() const noexcept;
+    [[nodiscard]] virtual const std::unique_ptr<Card>& get_hand_card(int index);
     virtual void set_name(std::string name);
     virtual void set_money(unsigned int money);
     virtual void set_bet(unsigned int bet);

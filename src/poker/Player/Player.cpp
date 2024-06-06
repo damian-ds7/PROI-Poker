@@ -60,6 +60,10 @@ unsigned int Player::evaluate() const noexcept {
     return eval.evaluate(card_eval);
 }
 
+const std::unique_ptr<Card>& Player::get_hand_card(int index) {
+    return m_hand->at(index);
+}
+
 void Player::set_name(std::string name) {
     m_name = std::move(name);
 }

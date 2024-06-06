@@ -10,6 +10,7 @@
 #include "Deck.h"
 #include "CardsTypedef.h"
 #include "Phase.h"
+#include "Names.h"
 
 class Game {
 private:
@@ -24,7 +25,6 @@ private:
     Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>(true);
     Cards discarded = std::make_unique<Table<std::unique_ptr<Card>>>();
     Phase phase = Phase::PreFlop;
-
     unsigned int find_active_player(unsigned int index);
 public:
     Game(const std::string& name, unsigned int player_count, unsigned int initial_money);

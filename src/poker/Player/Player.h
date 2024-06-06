@@ -64,7 +64,6 @@ public:
     std::deque<std::unique_ptr<Card>> clear_hand() noexcept;
 protected:
     static omp::HandEvaluator eval;
-
-    friend class MainWindow;
+//    friend class MainWindow;
 };
 

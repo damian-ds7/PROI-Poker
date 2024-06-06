@@ -1,12 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include <string>
+#include <memory>
+#include <QMainWindow>
+#include <QKeyEvent>
 #include "GameInfo.h"
 #include "GameHandler.h"
 #include "MainWindow.h"
-#include <memory>
+
+
 
 class GameHandler;
 class MainWindow;
@@ -20,6 +23,8 @@ class MenuWindow : public QMainWindow
     Q_OBJECT
     std::unique_ptr<GameHandler> game_handler = std::make_unique<GameHandler>();
     MainWindow* main_window;
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
 
 public:
     MenuWindow(MainWindow* main_window, QWidget *parent = nullptr);

@@ -42,22 +42,7 @@ void GameHandler::initialize_game(const GameInfo& game_info) {
 }
 
 void GameHandler::start_game() {
-//    if (game->current_player != 0) {
-//        game->bot_play();
-//    }
-//    game->next_player();
-
-    int idx = current_player() - 1;
-    if (idx < 0) idx += player_count();
-    unsigned int previous_bet = player(idx)->bet();
-    game->players[current_player()]->make_bet(2 * previous_bet);
-    game->next_player();
 	game->deal();
-//	game->next_player();
-//	game->players[game->current_player]->make_bet(10); //small blind
-//	game->next_player();
-//	game->players[game->current_player]->make_bet(20); //big blind
-//	game->next_player();
 }
 
 void GameHandler::player_make_call() {
@@ -65,40 +50,7 @@ void GameHandler::player_make_call() {
 }
 
 void GameHandler::play_turn(Decision player_decision, int player_bet) {
-    switch (player_decision) {
-    case Decision::Bot:
-    {
-        game->bot_play();
-        break;
-    }
-    case Decision::Raise:
-    {
-        //if big blind dont't change status
-        break;
-    }
-    case Decision::Fold:
-    {
-        break;
-    }
-    case Decision::Check:
-    {
-        break;
-    }
-    case Decision::Call:
-    {
-        break;
-    }
-    case Decision::AllIn:
-    {
-        break;
-    }
-    case Decision::Bet:
-    {
-        //if small blind dont't change status
-        break;
-    }
-    }
-    game->next_player();
+    game->make_move(player_decision, player_bet);
 }
 
 void GameHandler::make_big_blind() {
@@ -124,20 +76,15 @@ std::string GameHandler::name_to_string(int index) {
 }
 
 std::string GameHandler::status_to_string(int index) {
-//	if (game->players[index]->folded()) return "FOLD";
-//	if (game->players[index]->all_in()) return "ALL IN";
-//	//call
-//	//raise
-//	//check
-//	//bet
-//	return "";
     return game->players[index]->status();
 }
 
-QString GameHandler::cash_to_QString(int cash) {
+QString GameHandler::cash_to_QString(unsigned int cash) {
 	return QString(std::to_string(cash).append("$").c_str());
 }
 
 int GameHandler::previous_bet() {
-	return game->players[(game->current_player - 1) % game->player_count]->bet();
+    int idx = current_player() - 1;
+    if (idx < 0) idx += player_count();
+	return game->players[idx]->bet();
 }

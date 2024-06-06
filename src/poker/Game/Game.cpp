@@ -42,7 +42,6 @@ void Game::deal() {
         for (auto& player : players) {
             player->add_card(std::move(deck->front()));
             deck->pop_front();
-            deck->pop_front();
         }
     }
 }

@@ -726,6 +726,8 @@ void MainWindow::createEndLabels(MainWindow* ptr)
 	EndWinnerCash.setFont(CashFont);
 	EndWinnerCash.move(695, 300);
 
+	showEndScreen(false);
+
 	//
 	EndWinnerCash.setText("+1000$");
 	EndWinnerName.setText("Player 1");
@@ -736,11 +738,7 @@ void MainWindow::PlayGame()
 {
 	setInitialStatus();
 	game_handler->start_game();
-	if (game_handler->game->players[0]->small_blind())
-	{
-		PlayerBlind();
-	}
-	else
+	if (!game_handler->game->players[0]->small_blind())
 	{
 		game_handler->play_round(Decision(0), 0);
 	}
@@ -760,10 +758,20 @@ void MainWindow::PlayGame()
 
 void MainWindow::showButtons()
 {
-	ui->BetButton->setVisible(game_handler->game->current_player == 0);
-	ui->CheckButton->setVisible(game_handler->game->current_player == 0);
-	ui->FoldButton->setVisible(game_handler->game->current_player == 0);
-	ui->AllInButton->setVisible(game_handler->game->current_player == 0);
+	if (game_handler->game->players[0]->small_blind())
+	{
+		ui->BetButton->show();
+		ui->CheckButton->hide();
+		ui->FoldButton->hide();
+		ui->AllInButton->hide();
+	}
+	else
+	{
+		ui->BetButton->setVisible(game_handler->game->current_player == 0);
+		ui->CheckButton->setVisible(game_handler->game->current_player == 0);
+		ui->FoldButton->setVisible(game_handler->game->current_player == 0);
+		ui->AllInButton->setVisible(game_handler->game->current_player == 0);
+	}
 }
 void MainWindow::showEndScreen(bool visible)
 {
@@ -912,15 +920,6 @@ void MainWindow::setWinnerScreen()
 	EndWinnerCash.setText(game_handler->cash_to_QString(game_handler->game->pot));
 }
 
-void MainWindow::PlayerBlind()
-{
-	if (game_handler->game->players[0]->small_blind())
-	{
-		ui->CheckButton->hide();
-		ui->FoldButton->hide();
-		ui->AllInButton->hide();
-	}
-}
 
 void MainWindow::check()
 {

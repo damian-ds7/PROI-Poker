@@ -781,6 +781,33 @@ void MainWindow::showEndScreen(bool visible)
 	EndToken.setVisible(visible);
 	EndWinnerCash.setVisible(visible);
 }
+void MainWindow::showPlayersCards()
+{
+	PlayerCard1.setVisible(!game_handler->game->players[0]->folded());
+	PlayerCard2.setVisible(!game_handler->game->players[0]->folded());
+	Opponent1Card1.setVisible(!game_handler->game->players[1]->folded());
+	Opponent1Card2.setVisible(!game_handler->game->players[1]->folded());
+	if (game_handler->game_info.player_count > 2)
+	{
+		Opponent2Card1.setVisible(!game_handler->game->players[2]->folded());
+		Opponent2Card2.setVisible(!game_handler->game->players[2]->folded());
+	}
+	if (game_handler->game_info.player_count > 3)
+	{
+		Opponent3Card1.setVisible(!game_handler->game->players[3]->folded());
+		Opponent3Card2.setVisible(!game_handler->game->players[3]->folded());
+	}
+	if (game_handler->game_info.player_count > 4)
+	{
+		Opponent4Card1.setVisible(!game_handler->game->players[4]->folded());
+		Opponent4Card2.setVisible(!game_handler->game->players[4]->folded());
+	}
+	if (game_handler->game_info.player_count > 5)
+	{
+		Opponent5Card1.setVisible(!game_handler->game->players[5]->folded());
+		Opponent5Card2.setVisible(!game_handler->game->players[5]->folded());
+	}
+}	
 
 void MainWindow::setPlayerCards()
 {
@@ -854,7 +881,24 @@ void MainWindow::setCash()
 }
 void MainWindow::setStatus()
 {
-	//TODO
+	PlayerStatus.setText(game_handler->status_to_string(0).c_str());
+	Opponent1Status.setText(game_handler->status_to_string(1).c_str());
+	if (game_handler->game_info.player_count > 2)
+	{
+		Opponent2Status.setText(game_handler->status_to_string(2).c_str());
+	}
+	if (game_handler->game_info.player_count > 3)
+	{
+		Opponent3Status.setText(game_handler->status_to_string(3).c_str());
+	}
+	if (game_handler->game_info.player_count > 4)
+	{
+		Opponent4Status.setText(game_handler->status_to_string(4).c_str());
+	}
+	if (game_handler->game_info.player_count > 5)
+	{
+		Opponent5Status.setText(game_handler->status_to_string(5).c_str());
+	}
 }
 void MainWindow::setInitialStatus()
 {

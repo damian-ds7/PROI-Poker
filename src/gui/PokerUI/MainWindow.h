@@ -52,7 +52,7 @@ private:
 
     void showButtons();
     void showEndScreen(bool visible);
-
+    void showPlayersCards();
 
     void setPlayerCards();
     void setTableCards();
@@ -66,7 +66,6 @@ private:
 
     void setWinnerScreen();
 
-    void PlayerBlind();
     //buttons signals
     void check();
     void bet();

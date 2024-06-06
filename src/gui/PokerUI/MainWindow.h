@@ -36,9 +36,21 @@ public:
     void InputNames(std::vector<std::string> names);
     void createWidgets(MainWindow* ptr);
 
+    void StartGame();
     void PlayGame();
 
+    void playerMakeDecision(Decision decision, int bet);
+    void playerMakeSmallBlind(int bet);
+
+
+signals:
+    void decisionMade(Decision decision, int bet);
+signals:
+    void smallBlindMade(int bet);
+
 private:
+    void BigBlind();
+
     friend class MenuWindow;
 
     void createPlayerCards(MainWindow* ptr);
@@ -52,27 +64,30 @@ private:
 
     void showButtons();
     void showEndScreen(bool visible);
-
+    void showPlayersCards();
 
     void setPlayerCards();
     void setTableCards();
     void setCash();
     void setStatus();
-    void setInitialStatus();
 
     void setButtons();
     void setBetButton(bool bet);
     void setCheckButton(bool check);
 
     void setWinnerScreen();
+    void reverseCards(bool front);
 
-    void PlayerBlind();
+
+
     //buttons signals
     void check();
     void bet();
     void fold();
     void all_in();
     void bet_confirmed();
+    void small_blind();
+    void small_blind_confirmed();
 
     QLabel PlayerCard1;
     QLabel PlayerCard2;

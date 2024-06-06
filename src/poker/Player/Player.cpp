@@ -185,8 +185,13 @@ unsigned int Player::remove_bet() noexcept {
     return bet;
 }
 
-Cards&& Player::clear_hand() noexcept {
-    return std::move(m_hand);
+std::deque<std::unique_ptr<Card>> Player::clear_hand() noexcept {
+    std::deque<std::unique_ptr<Card>> temp;
+    for (auto& card : *m_hand) {
+        temp.push_back(std::move(card));
+        m_hand->pop_front();
+    }
+    return std::move(temp);
 }
 
 omp::HandEvaluator Player::eval;

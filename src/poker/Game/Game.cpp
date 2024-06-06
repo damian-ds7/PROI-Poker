@@ -80,6 +80,8 @@ void Game::collect_bets() {
 void Game::next_player() {
     if (players[current_player]->folded()) {
         --currently_playing;
+//        pot += players[current_player]->remove_bet();
+    discarded->add_cards(players[current_player]->clear_hand());
     }
 
     if (check_round_end()) {

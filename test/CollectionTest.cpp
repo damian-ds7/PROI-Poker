@@ -1,10 +1,21 @@
 #include "Deck.h"
+#include "Table.h"
 #include "Card.h"
+#include "Player.h"
 #include "gtest/gtest.h"
 #include <memory>
 #include "CardsTypedef.h"
 
+// Card Collection tests
+TEST(CardCollectionTest, MoveCardsFromPlayerToTable) {
+    Player player("Player", 100, 0);
+    Cards table = std::make_unique<Table<std::unique_ptr<Card>>>();
+    player.add_card(std::move(std::make_unique<Card>(Suit::Hearts, Value::Ace)));
+    table->add_cards(player.clear_hand());
+    ASSERT_EQ(table->size(), 1);
+}
 
+// Deck Tests
 
 TEST(DeckTest, DeckCreate) {
     Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>();

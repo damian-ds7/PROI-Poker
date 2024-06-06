@@ -18,11 +18,11 @@ QT_END_NAMESPACE
 class MenuWindow : public QMainWindow
 {
     Q_OBJECT
-    std::unique_ptr<GameHandler> game_handler;
+    std::unique_ptr<GameHandler> game_handler = std::make_unique<GameHandler>();
     MainWindow* main_window;
 
 public:
-    MenuWindow(std::unique_ptr<GameHandler> Igame, MainWindow* main_window, QWidget *parent = nullptr);
+    MenuWindow(MainWindow* main_window, QWidget *parent = nullptr);
     ~MenuWindow();
 
 signals:

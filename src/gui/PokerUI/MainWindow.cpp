@@ -305,7 +305,9 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const unsigned int oppone
 
 		
 		//
-		Opponent1Status.setText("CALL");
+		Opponent1Status.setText("SMALL B");
+		Opponent1Cash.setText("10000$");
+		Opponent1Bet.setText("10000$");
 		//
 
 	}
@@ -383,8 +385,12 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const unsigned int oppone
 		Opponent2Name.setText(game_handler->name_to_string(2).c_str());
 
 		//
-		Opponent1Status.setText("CALL");
-		Opponent2Status.setText("CALL");
+		Opponent1Status.setText("SMALL B");
+		Opponent1Cash.setText("10000$");
+		Opponent1Bet.setText("10000$");
+		Opponent2Status.setText("SMALL B");
+		Opponent2Cash.setText("10000$");
+		Opponent2Bet.setText("10000$");
 		//
 	}
 	if (opponents == 3 || opponents == 5)
@@ -461,8 +467,12 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const unsigned int oppone
 		Opponent3Name.setText(game_handler->name_to_string(3).c_str());
 
 		//
-		Opponent2Status.setText("CALL");
-		Opponent3Status.setText("CALL");
+		Opponent2Status.setText("SMALL B");
+		Opponent2Cash.setText("10000$");
+		Opponent2Bet.setText("10000$");
+		Opponent3Status.setText("SMALL B");
+		Opponent3Cash.setText("10000$");
+		Opponent3Bet.setText("10000$");
 		//
 	}
 	if (opponents == 4)
@@ -539,8 +549,12 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const unsigned int oppone
 		Opponent4Name.setText(game_handler->name_to_string(4).c_str());
 
 		//
-		Opponent4Status.setText("CALL");
-		Opponent3Status.setText("CALL");
+		Opponent4Status.setText("SMALL B");
+		Opponent4Cash.setText("10000$");
+		Opponent4Bet.setText("10000$");
+		Opponent3Status.setText("SMALL B");
+		Opponent3Cash.setText("10000$");
+		Opponent3Bet.setText("10000$");
 		//
 	}
 	if (opponents == 5)
@@ -617,8 +631,12 @@ void MainWindow::createOpponentLabels(MainWindow* ptr, const unsigned int oppone
 		Opponent5Name.setText(game_handler->name_to_string(5).c_str());
 
 		//
-		Opponent4Status.setText("CALL");
-		Opponent5Status.setText("CALL");
+		Opponent4Status.setText("SMALL B");
+		Opponent4Cash.setText("10000$");
+		Opponent4Bet.setText("10000$");
+		Opponent5Status.setText("SMALL B");
+		Opponent5Cash.setText("10000$");
+		Opponent5Bet.setText("10000$");
 		//
 	}
 }
@@ -665,7 +683,10 @@ void MainWindow::createPlayerLabels(MainWindow* ptr, const char* name, const cha
 	PlayerCash.setText(initial_money);
 
 	//
-	PlayerStatus.setText("CALL");
+	PlayerStatus.setText("SMALL B");
+	PlayerBet.setText("10000$");
+	PlayerCash.setText("10000$");
+	//
 }
 void MainWindow::createTableLabels(MainWindow* ptr)
 {
@@ -689,6 +710,10 @@ void MainWindow::createTableLabels(MainWindow* ptr)
 	PotToken.setFixedSize(30, 30);
 	PotToken.move(1000, 414);
 	PotToken.setPixmap(token);
+
+	//
+	Pot.setText("10000$");
+	//
 }
 
 void MainWindow::createEndLabels(MainWindow* ptr)
@@ -772,6 +797,7 @@ void MainWindow::PlayGame()
 	{
 
 		//delay
+		qDebug() << "Player turn: " << game_handler->current_player() << "\n";
 
 		game_handler->play_turn(Decision(0), 0);
 
@@ -928,6 +954,7 @@ void MainWindow::setCash()
 	{
 		Opponent5Cash.setText(game_handler->cash_to_QString(game_handler->player(5)->money()));
 		Opponent5Bet.setText(game_handler->cash_to_QString(game_handler->player(5)->bet()));
+		//qDebug() << "bet set: " << Opponent5Bet.text();
 	}
 	Pot.setText(game_handler->cash_to_QString(game_handler->pot()));
 }
@@ -977,7 +1004,7 @@ void MainWindow::setCheckButton(bool check)
 }
 void MainWindow::setButtons()
 {
-	if (game_handler->pot() == 0)
+	if (game_handler->previous_bet() == 0)
 	{
 		setBetButton(true);
 		setCheckButton(true);
@@ -1095,7 +1122,7 @@ void MainWindow::bet_confirmed()
 	// int < player money
 	try {
 		bool ok = true;
-		if (ui->lineEdit->text().toInt(&ok) >= game_handler->player(0)->m_money)
+		if (ui->lineEdit->text().toInt(&ok) >= game_handler->player(0)->money())
 		{
 			throw 1;
 		}
@@ -1129,14 +1156,13 @@ void MainWindow::small_blind()
 	ui->lineEdit->show();
 	ui->ConfirmSmallBlindButton->show();
 }
-
 void MainWindow::small_blind_confirmed()
 {
 	// 0.02*initial_money < int < 0.1 *initial_money
 	try {
 		bool ok;
-		if (ui->lineEdit->text().toInt(&ok) < 0.02*game_handler->game_info.initial_money ||
-			ui->lineEdit->text().toInt(&ok) > 0.1 * game_handler->game_info.initial_money)
+		if (ui->lineEdit->text().toInt(&ok) < 0.02*game_handler->initial_money() ||
+			ui->lineEdit->text().toInt(&ok) > 0.1 * game_handler->initial_money())
 		{
 			throw 1;
 		}

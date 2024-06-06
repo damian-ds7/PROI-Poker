@@ -8,8 +8,8 @@ Game::Game(const std::string& name, unsigned int player_count, unsigned int init
     this->currently_playing = player_count;
     players.push_back(std::make_unique<HumanPlayer>(name, initial_money, 0));
     for (unsigned int i = 1; i < player_count; ++i) {
-        std::array<std::string, 2738> names_array = get_random_names();
-        players.push_back(std::make_unique<BotPlayer>(names_array[i], initial_money, 0));
+        auto names = RandomNames::get_random_names();
+        players.push_back(std::make_unique<BotPlayer>(names[i], initial_money, 0));
     }
 
     std::random_device rd;

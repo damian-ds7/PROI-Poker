@@ -35,7 +35,7 @@ public:
 //    QString cash_to_QString(unsigned int cash);
     int previous_bet();
 
-    static QString cash_to_QString(unsigned int cash);
+    //static QString cash_to_QString(unsigned int cash);
 private:
     std::unique_ptr<Game> game;
     GameInfo game_info;

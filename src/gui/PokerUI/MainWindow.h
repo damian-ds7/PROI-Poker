@@ -10,6 +10,7 @@
 #include <QTransform>
 #include <QFont>
 #include <QLineEdit>
+#include <QMessageBox>
 #include "GameHandler.h"
 #include "CardsTypedef.h"
 #include "menu.h"

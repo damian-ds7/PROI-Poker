@@ -40,12 +40,28 @@ bool Player::dealer() const noexcept {
     return m_dealer;
 }
 
-bool Player::can_check() const noexcept {
-    return m_can_check;
+bool Player::called() const noexcept {
+    return m_called;
+}
+
+bool Player::raised() const noexcept {
+    return m_raised;
+}
+
+bool Player::checked() const noexcept {
+    return m_checked;
+}
+
+std::string Player::status() const noexcept {
+    return m_status;
 }
 
 unsigned int Player::evaluate() const noexcept {
     return eval.evaluate(card_eval);
+}
+
+const std::unique_ptr<Card>& Player::get_hand_card(int index) {
+    return m_hand->at(index);
 }
 
 void Player::set_name(std::string name) {
@@ -62,26 +78,67 @@ void Player::set_bet(unsigned int bet) {
 
 void Player::set_folded(bool folded) {
     m_folded = folded;
+    if (folded) {
+        m_status = "FOLD";
+    }
 }
 
 void Player::set_all_in(bool all_in) {
     m_all_in = all_in;
+    if (all_in) {
+        m_status = "ALl IN";
+    }
+
 }
 
 void Player::set_big_blind(bool big_blind) {
     m_big_blind = big_blind;
+    if (big_blind) {
+        m_status = "BIG B";
+    }
+
 }
 
 void Player::set_small_blind(bool small_blind) {
     m_small_blind = small_blind;
+    if (small_blind) {
+        m_status = "SMALL B";
+    }
 }
 
 void Player::set_dealer(bool dealer) {
     m_dealer = dealer;
+    if (dealer) {
+        m_status = "DEALER";
+    }
 }
 
-void Player::set_can_check(bool can_check) {
-    m_can_check = can_check;
+void Player::set_called(bool called) {
+    m_called = called;
+    if (called) {
+        m_status = "CALL";
+    }
+}
+
+void Player::set_raised(bool raised) {
+    m_raised = raised;
+    if (raised) {
+        m_status = "RAISE";
+    }
+}
+
+void Player::set_checked(bool checked) {
+    m_checked = checked;
+    if (checked) {
+        m_status = "CHECK";
+    }
+}
+
+void Player::reset_status() {
+    m_status = "";
+    set_small_blind(false);
+    set_big_blind(false);
+
 }
 
 void Player::add_card(std::unique_ptr<Card>&& card) {
@@ -124,8 +181,13 @@ unsigned int Player::remove_bet() noexcept {
     return bet;
 }
 
-Cards&& Player::clear_hand() noexcept {
-    return std::move(m_hand);
+std::deque<std::unique_ptr<Card>> Player::clear_hand() noexcept {
+    std::deque<std::unique_ptr<Card>> temp;
+    for (auto& card : *m_hand) {
+        temp.push_back(std::move(card));
+        m_hand->pop_front();
+    }
+    return std::move(temp);
 }
 
 omp::HandEvaluator Player::eval;

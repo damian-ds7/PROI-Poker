@@ -2,12 +2,17 @@
 #include "Player.h"
 #include <string>
 #include <vector>
+#include <random>
 #include "EquityCalculator.h"
 #include "CardRange.h"
 
 
 class BotPlayer : public Player{
+    std::random_device rd;
+    std::mt19937 engine;
+    std::uniform_int_distribution<int> dist;
     double m_equity;
+    bool has_enough_money(unsigned int money_to_bet) const noexcept;
 public:
     BotPlayer(std::string name, unsigned int money, unsigned int bet);
     [[nodiscard]] double equity() const noexcept;
@@ -15,7 +20,8 @@ public:
     [[nodiscard]] std::vector<omp::CardRange> get_bot_hand(int num_of_players) const noexcept;
     omp::EquityCalculator calc;
     void calc_equity(const std::string& board_cards, int num_of_players);
-    void make_decision(unsigned int money_to_bet, int num_of_players);
+    unsigned int make_decision(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards, bool is_bluffing = true);
+    unsigned int make_bluff(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards);
     //[[nodiscard]] std::vector<string> get_table_hand() const noexcept;
 };
 

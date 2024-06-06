@@ -4,7 +4,13 @@
 
 BotPlayer::BotPlayer(std::string name, unsigned int money, unsigned int bet) : Player(std::move(name), money, bet) {
     m_equity = 0;
+    engine = std::mt19937(rd());
+    dist = std::uniform_int_distribution<int>(0, 1000);
 };
+
+bool BotPlayer::has_enough_money(unsigned int money_to_bet) const noexcept {
+    return money() >= money_to_bet;
+}
 
 double BotPlayer::equity() const noexcept {
     return m_equity;
@@ -43,14 +49,36 @@ void BotPlayer::calc_equity(const std::string& board_cards, int num_of_players){
     set_equity(r.equity[0]);
 }
 
-void BotPlayer::make_decision(unsigned int money_to_bet, int num_of_players){
-    if (money_to_bet == 0 && equity() < 0.4) {
-        make_check();
-    } else if (equity() > 1.0 / static_cast<double>(num_of_players)) {
-        (money() <= money_to_bet) ? make_all_in() : make_raise(money_to_bet + static_cast<int>((money() - money_to_bet) * equity()));
-    } else if (equity() < 0.5 / static_cast<double>(num_of_players)) {
-        make_fold();
-    } else {
-        (money() <= money_to_bet) ? make_all_in() : make_call(money_to_bet);
+unsigned int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards, bool is_bluffing) {
+    if (small_blind()) {
+        return money() / 10;
+    } else if (big_blind()) {
+        return money_to_bet * 2;
     }
+    calc_equity(board_cards, num_of_players);
+    if (money_to_bet == 0 && equity() < 0.4) {
+        return 0;
+    } else if (equity() > 1.0 / static_cast<double>(num_of_players)) {
+        return (has_enough_money(money_to_bet)) ? money() : money_to_bet + static_cast<int>((money() - money_to_bet) * equity());
+    } else if (equity() < 0.5 / static_cast<double>(num_of_players)) {
+        if (is_bluffing) {
+            auto random_number = dist(engine);
+            if (random_number > 900) {
+                return (has_enough_money(money_to_bet)) ? make_bluff(money_to_bet, num_of_players, board_cards) : money();
+            } else if (random_number > 800) {
+                return (has_enough_money(money_to_bet)) ? money_to_bet : money();
+            } else return 0; // make fold
+        }
+        else{
+            return 0; //make fold
+        }
+    } else {
+        //(has_enough_money(money_to_bet)) ? make_call(money_to_bet) : make_all_in();
+        return (has_enough_money(money_to_bet)) ? money_to_bet : money();
+    }
+}
+
+unsigned int BotPlayer::make_bluff(unsigned int money_to_bet, unsigned int num_of_players, const std::string&) {
+    //make_raise(money_to_bet + static_cast<int>((money() - money_to_bet) * 0.5));
+    return money_to_bet + static_cast<int>((money() - money_to_bet) * 0.5);
 }

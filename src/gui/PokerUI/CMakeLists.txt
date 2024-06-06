@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 # only works if you have Qt installed in the default location
-set(CMAKE_PREFIX_PATH "C:/Qt/6.7.1/msvc2019_64")
+#set(CMAKE_PREFIX_PATH "C:/Qt/6.7.1/msvc2019_64")
 # C:/Qt/6.7.1/msvc2019_64
 # C:/Qt/6.7.0/mingw_64
 # C:/QtMSVC/6.7.1/msvc2019_arm64
@@ -74,7 +74,7 @@ install(TARGETS PokerUI
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-target_compile_options(PokerUI PUBLIC "/Zc:__cplusplus" "-permissive-")
+# target_compile_options(PokerUI PUBLIC "/Zc:__cplusplus" "-permissive-")
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(PokerUI)

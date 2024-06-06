@@ -7,20 +7,45 @@
 #include "GameInfo.h"
 #include <iostream>
 
-void handleGameInfo(const GameInfo& gameInfo) {
+void handleGameInfo(const GameInfo& gameInfo, MainWindow* ptr) {
     qDebug() << "Player Name:" << QString::fromStdString(gameInfo.player_name);
     qDebug() << "Number of Players:" << gameInfo.player_count;
     qDebug() << "Initial Money:" << gameInfo.initial_money;
+
+    ptr->createWidgets(ptr);
+    qDebug() << "Game started";
+    ptr->show();
+    ptr->StartGame();
+}
+
+void handleDecisionMade(Decision decision, int bet, MainWindow* ptr) {
+	qDebug() << "Decision made: " << " with bet: " << bet;
+    ptr->playerMakeDecision(decision, bet);
+}
+
+void handleSmallBlind(int bet, MainWindow* ptr) {
+	qDebug() << "Small blind made: " << bet;
+    ptr->playerMakeSmallBlind(bet);
 }
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::addLibraryPath(R"(C:\Qt\6.7.1\mingw_64\plugins)");
     QApplication a(argc, argv);
-    std::shared_ptr<GameHandler> game_handler = std::make_shared<GameHandler>();
-    MenuWindow w(game_handler);
+    MainWindow Main_Window;
+    MainWindow* ptr = &Main_Window;
+    MenuWindow w(ptr);
 
-    QObject::connect(&w, &MenuWindow::gameInfoReady, &handleGameInfo);
+    QObject::connect(&w, &MenuWindow::gameInfoReady, [ptr](const GameInfo& gameInfo) {
+        handleGameInfo(gameInfo, ptr);
+    });
+
+    QObject::connect(ptr, &MainWindow::decisionMade, [ptr](Decision decision, int bet) {
+        handleDecisionMade(decision, bet, ptr);
+        });
+    QObject::connect(ptr, &MainWindow::smallBlindMade, [ptr](int bet) {
+        handleSmallBlind(bet, ptr);
+        });
+
 
     w.show();
     return a.exec();
@@ -35,5 +60,5 @@ int main(int argc, char *argv[])
 //
 //    Main_Window.show();
 
-    return a.exec();
+//    return a.exec();
 }

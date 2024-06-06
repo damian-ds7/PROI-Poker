@@ -10,17 +10,26 @@
 #include "Deck.h"
 #include "CardsTypedef.h"
 #include "Phase.h"
+#include "Decision.h"
+#include "Names.h"
 
 class Game {
 private:
     unsigned int player_count;
+    unsigned int currently_playing;
     unsigned int current_player;
     unsigned int pot = 0;
+    unsigned int smallest_allin = 0;
     unsigned int dealer;
+    bool can_check = false;
+    std::vector<unsigned int> winners;
     std::vector<std::unique_ptr<Player>> players;
     Cards table = std::make_unique<Table<std::unique_ptr<Card>>>();
     Cards deck = std::make_unique<Deck<std::unique_ptr<Card>>>(true);
+    Cards discarded = std::make_unique<Table<std::unique_ptr<Card>>>();
     Phase phase = Phase::PreFlop;
+
+    unsigned int find_active_player(unsigned int index);
 public:
     Game(const std::string& name, unsigned int player_count, unsigned int initial_money);
     Game() = default;
@@ -29,4 +38,12 @@ public:
     void next_phase();
     void collect_bets();
     void next_player();
+    void bot_play();
+    void make_move(Decision decision, int bet = 0);
+    void find_winner();
+    bool check_round_end();
+
+
+    friend class MainWindow;
+    friend class GameHandler;
 };

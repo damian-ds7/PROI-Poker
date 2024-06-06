@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <deque>
 #include "Card.h"
+#include <string>
 
 template <typename Ptr>
 class CardCollection : public std::deque<Ptr>{
@@ -18,9 +19,22 @@ public:
         std::deque<Ptr>::push_back(std::move(card));
     }
 
+    virtual void add_cards(std::deque<Ptr> cards) {
+        for (auto& card : cards) {
+            std::deque<Ptr>::push_back(std::move(card));
+        }
+    }
+
     virtual Ptr remove_card() {
         Ptr card = std::move(std::deque<Ptr>::front());
         std::deque<Ptr>::pop_front();
         return card;
+    }
+    [[nodiscard]] virtual std::string to_string() const {
+        std::string cards;
+        for (const auto& card : *this) {
+            cards += card->to_string() + " ";
+        }
+        return cards;
     }
 };

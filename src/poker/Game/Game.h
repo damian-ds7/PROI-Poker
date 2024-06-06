@@ -10,6 +10,7 @@
 #include "Deck.h"
 #include "CardsTypedef.h"
 #include "Phase.h"
+#include "Decision.h"
 
 class Game {
 private:
@@ -17,7 +18,9 @@ private:
     unsigned int currently_playing;
     unsigned int current_player;
     unsigned int pot = 0;
+    unsigned int smallest_allin = 0;
     unsigned int dealer;
+    bool can_check = false;
     std::vector<unsigned int> winners;
     std::vector<std::unique_ptr<Player>> players;
     Cards table = std::make_unique<Table<std::unique_ptr<Card>>>();
@@ -35,6 +38,7 @@ public:
     void collect_bets();
     void next_player();
     void bot_play();
+    void make_move(Decision decision, int bet = 0);
     void find_winner();
     bool check_round_end();
 

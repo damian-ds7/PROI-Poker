@@ -16,6 +16,7 @@ Game::Game(const std::string& name, unsigned int player_count, unsigned int init
     std::uniform_int_distribution<unsigned int> dist(0, player_count - 1);
 
     dealer = dist(gen);
+//    dealer = 5;
     current_player = (dealer + 1) % player_count;
     players[dealer]->set_dealer(true);
     players[(dealer + 1) % player_count]->set_small_blind(true);
@@ -41,7 +42,6 @@ void Game::deal() {
     for (int i = 0; i < 2; ++i) {
         for (auto& player : players) {
             player->add_card(std::move(deck->front()));
-            deck->pop_front();
             deck->pop_front();
         }
     }
@@ -95,6 +95,34 @@ void Game::next_player() {
 void Game::bot_play() {
     unsigned int previous_bet = players[(current_player - 1) % player_count]->bet();
     dynamic_cast<BotPlayer&>(*players[current_player]).make_decision(previous_bet, currently_playing    , table->to_string());
+}
+
+void Game::make_move(Decision decision, int bet) {
+    switch (decision) {
+        case Decision::Bot:
+            bot_play();
+            break;
+        case Decision::Bet:
+            players[current_player]->make_bet(bet);
+            break;
+        case Decision::Raise:
+            players[current_player]->make_raise(bet);
+            break;
+        case Decision::Call:
+            players[current_player]->make_call(bet);
+            break;
+        case Decision::Fold:
+            players[current_player]->make_fold();
+            break;
+        case Decision::AllIn:
+            players[current_player]->make_all_in();
+            break;
+        case Decision::Check:
+
+            players[current_player]->make_check();
+            break;
+    }
+    next_player();
 }
 
 bool Game::check_round_end() {

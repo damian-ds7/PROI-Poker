@@ -40,10 +40,6 @@ bool Player::dealer() const noexcept {
     return m_dealer;
 }
 
-bool Player::can_check() const noexcept {
-    return m_can_check;
-}
-
 bool Player::called() const noexcept {
     return m_called;
 }
@@ -62,6 +58,10 @@ std::string Player::status() const noexcept {
 
 unsigned int Player::evaluate() const noexcept {
     return eval.evaluate(card_eval);
+}
+
+const std::unique_ptr<Card>& Player::get_hand_card(int index) {
+    return m_hand->at(index);
 }
 
 void Player::set_name(std::string name) {
@@ -111,10 +111,6 @@ void Player::set_dealer(bool dealer) {
     if (dealer) {
         m_status = "DEALER";
     }
-}
-
-void Player::set_can_check(bool can_check) {
-    m_can_check = can_check;
 }
 
 void Player::set_called(bool called) {

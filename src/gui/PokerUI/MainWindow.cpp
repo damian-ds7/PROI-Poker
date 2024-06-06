@@ -743,8 +743,9 @@ void MainWindow::StartGame()
 	setButtons();
 	setTableCards();
 	showButtons();
+//    this->show();
 	//small blind
-	if (game_handler->game->current_player == 0)
+	if (game_handler->current_player() == 0)
 	{
 		setButtons();
 		showButtons();
@@ -807,7 +808,7 @@ void MainWindow::BigBlind()
 
 void MainWindow::showButtons()
 {
-	if (game_handler->game->players[0]->small_blind())
+	if (game_handler->player(0)->small_blind())
 	{
 		ui->SmallBlindButton->show();
 		ui->BetButton->hide();
@@ -818,10 +819,10 @@ void MainWindow::showButtons()
 	else
 	{
 		ui->SmallBlindButton->hide();
-		ui->BetButton->setVisible(game_handler->game->current_player == 0);
-		ui->CheckButton->setVisible(game_handler->game->current_player == 0);
-		ui->FoldButton->setVisible(game_handler->game->current_player == 0);
-		ui->AllInButton->setVisible(game_handler->game->current_player == 0);
+		ui->BetButton->setVisible(game_handler->current_player() == 0);
+		ui->CheckButton->setVisible(game_handler->current_player() == 0);
+		ui->FoldButton->setVisible(game_handler->current_player() == 0);
+		ui->AllInButton->setVisible(game_handler->current_player() == 0);
 	}
 }
 void MainWindow::showEndScreen(bool visible)
@@ -834,36 +835,36 @@ void MainWindow::showEndScreen(bool visible)
 }
 void MainWindow::showPlayersCards()
 {
-	PlayerCard1.setVisible(!game_handler->game->players[0]->folded());
-	PlayerCard2.setVisible(!game_handler->game->players[0]->folded());
-	Opponent1Card1.setVisible(!game_handler->game->players[1]->folded());
-	Opponent1Card2.setVisible(!game_handler->game->players[1]->folded());
+	PlayerCard1.setVisible(!game_handler->player(0)->folded());
+	PlayerCard2.setVisible(!game_handler->player(0)->folded());
+	Opponent1Card1.setVisible(!game_handler->player(1)->folded());
+	Opponent1Card2.setVisible(!game_handler->player(1)->folded());
 	if (game_handler->game_info.player_count > 2)
 	{
-		Opponent2Card1.setVisible(!game_handler->game->players[2]->folded());
-		Opponent2Card2.setVisible(!game_handler->game->players[2]->folded());
+		Opponent2Card1.setVisible(!game_handler->player(2)->folded());
+		Opponent2Card2.setVisible(!game_handler->player(2)->folded());
 	}
 	if (game_handler->game_info.player_count > 3)
 	{
-		Opponent3Card1.setVisible(!game_handler->game->players[3]->folded());
-		Opponent3Card2.setVisible(!game_handler->game->players[3]->folded());
+		Opponent3Card1.setVisible(!game_handler->player(3)->folded());
+		Opponent3Card2.setVisible(!game_handler->player(3)->folded());
 	}
 	if (game_handler->game_info.player_count > 4)
 	{
-		Opponent4Card1.setVisible(!game_handler->game->players[4]->folded());
-		Opponent4Card2.setVisible(!game_handler->game->players[4]->folded());
+		Opponent4Card1.setVisible(!game_handler->player(4)->folded());
+		Opponent4Card2.setVisible(!game_handler->player(4)->folded());
 	}
 	if (game_handler->game_info.player_count > 5)
 	{
-		Opponent5Card1.setVisible(!game_handler->game->players[5]->folded());
-		Opponent5Card2.setVisible(!game_handler->game->players[5]->folded());
+		Opponent5Card1.setVisible(!game_handler->player(5)->folded());
+		Opponent5Card2.setVisible(!game_handler->player(5)->folded());
 	}
 }	
 
 void MainWindow::setPlayerCards()
 {
-	QPixmap qcard1(game_handler->player(0)->m_hand->at(0)->get_file_path().c_str());
-	QPixmap qcard2(game_handler->player(0)->m_hand->at(1)->get_file_path().c_str());
+	QPixmap qcard1(game_handler->get_player_hand(0, 0)->get_file_path().c_str());
+	QPixmap qcard2(game_handler->get_player_hand(0, 1)->get_file_path().c_str());
 	PlayerCard1.setPixmap(qcard1);
 	PlayerCard2.setPixmap(qcard2);
 }
@@ -904,29 +905,29 @@ void MainWindow::setTableCards()
 }
 void MainWindow::setCash()
 {
-	PlayerCash.setText(game_handler->cash_to_QString(game_handler->player(0)->m_money));
-	PlayerBet.setText(game_handler->cash_to_QString(game_handler->player(0)->m_bet));
-	Opponent1Cash.setText(game_handler->cash_to_QString(game_handler->player(1)->m_money));
-	Opponent1Bet.setText(game_handler->cash_to_QString(game_handler->player(1)->m_bet));
+	PlayerCash.setText(game_handler->cash_to_QString(game_handler->player(0)->money()));
+	PlayerBet.setText(game_handler->cash_to_QString(game_handler->player(0)->bet()));
+	Opponent1Cash.setText(game_handler->cash_to_QString(game_handler->player(1)->money()));
+	Opponent1Bet.setText(game_handler->cash_to_QString(game_handler->player(1)->bet()));
 	if (game_handler->player_count() > 2)
 	{
-		Opponent2Cash.setText(game_handler->cash_to_QString(game_handler->player(2)->m_money));
-		Opponent2Bet.setText(game_handler->cash_to_QString(game_handler->player(2)->m_bet));
+		Opponent2Cash.setText(game_handler->cash_to_QString(game_handler->player(2)->money()));
+		Opponent2Bet.setText(game_handler->cash_to_QString(game_handler->player(2)->bet()));
 	}
 	if (game_handler->player_count() > 3)
 	{
-		Opponent3Cash.setText(game_handler->cash_to_QString(game_handler->player(3)->m_money));
-		Opponent3Bet.setText(game_handler->cash_to_QString(game_handler->player(3)->m_bet));
+		Opponent3Cash.setText(game_handler->cash_to_QString(game_handler->player(3)->money()));
+		Opponent3Bet.setText(game_handler->cash_to_QString(game_handler->player(3)->bet()));
 	}
 	if (game_handler->player_count() > 4)
 	{
-		Opponent4Cash.setText(game_handler->cash_to_QString(game_handler->player(4)->m_money));
-		Opponent4Bet.setText(game_handler->cash_to_QString(game_handler->player(4)->m_bet));
+		Opponent4Cash.setText(game_handler->cash_to_QString(game_handler->player(4)->money()));
+		Opponent4Bet.setText(game_handler->cash_to_QString(game_handler->player(4)->bet()));
 	}
 	if (game_handler->player_count() > 5)
 	{
-		Opponent5Cash.setText(game_handler->cash_to_QString(game_handler->player(5)->m_money));
-		Opponent5Bet.setText(game_handler->cash_to_QString(game_handler->player(5)->m_bet));
+		Opponent5Cash.setText(game_handler->cash_to_QString(game_handler->player(5)->money()));
+		Opponent5Bet.setText(game_handler->cash_to_QString(game_handler->player(5)->bet()));
 	}
 	Pot.setText(game_handler->cash_to_QString(game_handler->pot()));
 }
@@ -997,39 +998,39 @@ void MainWindow::reverseCards(bool front)
 {
 	if (front)
 	{
-		QPixmap pcard1(game_handler->game->players[0]->m_hand->at(0)->get_file_path().c_str());
-		QPixmap pcard2(game_handler->game->players[0]->m_hand->at(1)->get_file_path().c_str());
+		QPixmap pcard1(game_handler->get_player_hand(0, 0)->get_file_path().c_str());
+		QPixmap pcard2(game_handler->get_player_hand(0, 1)->get_file_path().c_str());
 		PlayerCard1.setPixmap(pcard1);
 		PlayerCard2.setPixmap(pcard2);
-		QPixmap o1card1(game_handler->game->players[1]->m_hand->at(0)->get_file_path().c_str());
-		QPixmap o1card2(game_handler->game->players[1]->m_hand->at(1)->get_file_path().c_str());
+		QPixmap o1card1(game_handler->get_player_hand(1, 0)->get_file_path().c_str());
+		QPixmap o1card2(game_handler->get_player_hand(1, 1)->get_file_path().c_str());
 		Opponent1Card1.setPixmap(o1card1);
 		Opponent1Card2.setPixmap(o1card2);
 		if (game_handler->game_info.player_count > 2)
 		{
-			QPixmap o2card1(game_handler->game->players[2]->m_hand->at(0)->get_file_path().c_str());
-			QPixmap o2card2(game_handler->game->players[2]->m_hand->at(1)->get_file_path().c_str());
+			QPixmap o2card1(game_handler->get_player_hand(2, 0)->get_file_path().c_str());
+			QPixmap o2card2(game_handler->get_player_hand(2, 1)->get_file_path().c_str());
 			Opponent2Card1.setPixmap(o2card1);
 			Opponent2Card2.setPixmap(o2card2);
 		}
 		if (game_handler->game_info.player_count > 3)
 		{
-			QPixmap o3card1(game_handler->game->players[3]->m_hand->at(0)->get_file_path().c_str());
-			QPixmap o3card2(game_handler->game->players[3]->m_hand->at(1)->get_file_path().c_str());
+			QPixmap o3card1(game_handler->get_player_hand(3, 0)->get_file_path().c_str());
+			QPixmap o3card2(game_handler->get_player_hand(3, 1)->get_file_path().c_str());
 			Opponent3Card1.setPixmap(o3card1);
 			Opponent3Card2.setPixmap(o3card2);
 		}
 		if (game_handler->game_info.player_count > 4)
 		{
-			QPixmap o4card1(game_handler->game->players[4]->m_hand->at(0)->get_file_path().c_str());
-			QPixmap o4card2(game_handler->game->players[4]->m_hand->at(1)->get_file_path().c_str());
+			QPixmap o4card1(game_handler->get_player_hand(4, 0)->get_file_path().c_str());
+			QPixmap o4card2(game_handler->get_player_hand(4, 1)->get_file_path().c_str());
 			Opponent4Card1.setPixmap(o4card1);
 			Opponent4Card2.setPixmap(o4card2);
 		}
 		if (game_handler->game_info.player_count > 5)
 		{
-			QPixmap o5card1(game_handler->game->players[5]->m_hand->at(0)->get_file_path().c_str());
-			QPixmap o5card2(game_handler->game->players[5]->m_hand->at(1)->get_file_path().c_str());
+			QPixmap o5card1(game_handler->get_player_hand(5, 0)->get_file_path().c_str());
+			QPixmap o5card2(game_handler->get_player_hand(5, 1)->get_file_path().c_str());
 			Opponent5Card1.setPixmap(o5card1);
 			Opponent5Card2.setPixmap(o5card2);
 		}
@@ -1113,7 +1114,7 @@ void MainWindow::bet_confirmed()
 	ui->lineEdit->clear();
 	ui->lineEdit->hide();
 	ui->ConfirmButton->hide();
-	if (game_handler->game->pot == 0)
+	if (game_handler->pot() == 0)
 	{
 		emit decisionMade(Decision(6), a);
 	}

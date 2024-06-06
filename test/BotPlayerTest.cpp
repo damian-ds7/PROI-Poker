@@ -153,3 +153,12 @@ TEST(BotPlayerTest, BotPlayerMakeDecisionCall){
     EXPECT_EQ(res, 100);
 }
 
+TEST(BotPlayerTest, BotPlayerMakeBluff){
+    BotPlayer bot("Bot", 1000, 0);
+    std::unique_ptr<Card> card1 = std::make_unique<Card>(Suit::Hearts, Value::Two);
+    std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::Three);
+    bot.add_card(std::move(card1));
+    bot.add_card(std::move(card2));
+    auto res = bot.make_bluff(100, 2, "7h8h9h");
+    EXPECT_GT(res, 100);
+}

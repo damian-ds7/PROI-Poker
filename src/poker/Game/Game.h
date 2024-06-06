@@ -11,6 +11,7 @@
 #include "CardsTypedef.h"
 #include "Phase.h"
 #include "Decision.h"
+#include "Names.h"
 
 class Game {
 private:

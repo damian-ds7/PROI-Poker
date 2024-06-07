@@ -58,7 +58,7 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
         return money_to_bet * 2;
     }
     calc_equity(board_cards, num_of_players);
-    if(money_to_bet == 0 and can_check){
+    if(money_to_bet == 0 && can_check){
         return 0;
     } else if ( equity() < 0.5 / static_cast<double>(num_of_players)){ //fold
         result = -1;

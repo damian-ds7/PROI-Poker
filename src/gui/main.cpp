@@ -28,6 +28,11 @@ void handleSmallBlind(int bet, MainWindow* ptr) {
     ptr->playerMakeSmallBlind(bet);
 }
 
+void handleNextRound(MainWindow* ptr) {
+	qDebug() << "Next round";
+	ptr->PlayGame();
+}
+
 void handleBotMove(MainWindow* ptr) {
     ptr->botMakeMove();
 }
@@ -52,7 +57,9 @@ int main(int argc, char *argv[])
     QObject::connect(ptr, &MainWindow::botMove, [ptr]() {
         handleBotMove(ptr);
         });
-
+    QObject::connect(ptr, &MainWindow::nextRound, [ptr]() {
+        handleNextRound(ptr);
+        });
 
     w.show();
     return a.exec();

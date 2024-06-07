@@ -16,9 +16,12 @@
 #include "CardsTypedef.h"
 #include "menu.h"
 #include "Decision.h"
+#include "UIPlayer/UIPlayer.h"
+#include <vector>
 
 
 class GameHandler;
+class UIPlayer;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -45,28 +48,26 @@ public:
     void playerMakeSmallBlind(int bet);
     void botMakeMove();
 
-    QTimer* bot_cooldown;
-
 signals:
     void decisionMade(Decision decision, int bet);
 signals:
     void smallBlindMade(int bet);
 signals:
     void botMove();
+signals:
+	void nextRound();
 
 private:
     void BigBlind();
 
     friend class MenuWindow;
 
-    void createPlayerCards(MainWindow* ptr);
-    void createTableCards(MainWindow* ptr);
-    void createOpponentCards(MainWindow* ptr, unsigned int opponents);
-    void createOpponentLabels(MainWindow* ptr, unsigned int opponents, const char* initial_money);
-    void createPlayerLabels(MainWindow* ptr, const char* name, const char* initial_money);
-    void createTableLabels(MainWindow* ptr);
+    void createPlayers(MainWindow* ptr);
 
-    void createEndLabels(MainWindow* ptr);
+    void createTableCards(MainWindow* ptr);
+    void movePlayerLabels();
+    void moveOpponentLabels();
+    void initPlayersInfo();
 
     void showButtons();
     void showEndScreen(bool visible);
@@ -82,7 +83,7 @@ private:
     void setBetButton(bool bet);
     void setCheckButton(bool check);
 
-    void setWinnerScreen();
+    void setEndScreen();
     void reverseCards(bool front);
 
 
@@ -96,76 +97,14 @@ private:
     void small_blind();
     void small_blind_confirmed();
 
+    void next_round();
+
     void bot_timer_ended();
 
-    QLabel PlayerCard1;
-    QLabel PlayerCard2;
-    QLabel TableCard1;
-    QLabel TableCard2;
-    QLabel TableCard3;
-    QLabel TableCard4;
-    QLabel TableCard5;
-    QLabel TableCardBack;
-    QLabel Opponent1Card1;
-    QLabel Opponent1Card2;
-    QLabel Opponent2Card1;
-    QLabel Opponent2Card2;
-    QLabel Opponent3Card1;
-    QLabel Opponent3Card2;
-    QLabel Opponent4Card1;
-    QLabel Opponent4Card2;
-    QLabel Opponent5Card1;
-    QLabel Opponent5Card2;
+    std::vector<std::unique_ptr<UIPlayer>> uiplayers;
+    QLabel* TableCards[6];
 
-    QLabel PlayerName;
-    QLabel Opponent1Name;
-    QLabel Opponent2Name;
-    QLabel Opponent3Name;
-    QLabel Opponent4Name;
-    QLabel Opponent5Name;
-    QLabel PlayerCash;
-    QLabel Opponent1Cash;
-    QLabel Opponent2Cash;
-    QLabel Opponent3Cash;
-    QLabel Opponent4Cash;
-    QLabel Opponent5Cash;
-    QLabel Pot;
-    QLabel PlayerBet;
-    QLabel Opponent1Bet;
-    QLabel Opponent2Bet;
-    QLabel Opponent3Bet;
-    QLabel Opponent4Bet;
-    QLabel Opponent5Bet;
-    QLabel PlayerStatus;
-    QLabel Opponent1Status;
-    QLabel Opponent2Status;
-    QLabel Opponent3Status;
-    QLabel Opponent4Status;
-    QLabel Opponent5Status;
-
-    QLabel PlayerSelfToken;
-    QLabel Opponent1SelfToken;
-    QLabel Opponent2SelfToken;
-    QLabel Opponent3SelfToken;
-    QLabel Opponent4SelfToken;
-    QLabel Opponent5SelfToken;
-    QLabel PlayerTableToken;
-    QLabel Opponent1TableToken;
-    QLabel Opponent2TableToken;
-    QLabel Opponent3TableToken;
-    QLabel Opponent4TableToken;
-    QLabel Opponent5TableToken;
-    QLabel PotToken;
-
-    QLabel CurrentPotDecsription;
-    QLabel CurrentPlayerDescription;
-    QLabel CurrentPlayerName;
-
-    QLabel EndBackground;
-    QLabel EndWinner;
-    QLabel EndToken;
-    QLabel EndWinnerName;
-    QLabel EndWinnerCash;
+    QTimer* bot_cooldown;
 
     Ui::Widget* ui;
 };

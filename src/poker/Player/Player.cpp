@@ -7,12 +7,6 @@ std::string Player::name() const noexcept {
     return m_name;
 }
 
-void Player::make_helper(unsigned money) {
-    m_money -= money;
-    m_bet += money;
-    m_sum_bet += money;
-}
-
 unsigned int Player::money() const noexcept {
     return m_money;
 }
@@ -153,6 +147,12 @@ void Player::set_checked(bool checked) {
 //    set_dealer(false);
 //}
 
+void Player::make_helper(unsigned money) {
+    m_money -= money;
+    m_bet += money;
+    m_sum_bet += money;
+}
+
 void Player::add_card(std::unique_ptr<Card>&& card) {
     card_eval += omp::Hand(card->card_index());
     m_hand->add_card(std::move(card));
@@ -168,6 +168,7 @@ void Player::make_bet(unsigned bet) {
 
 void Player::make_raise(unsigned raise) {
     set_raised(true);
+    raise -= m_bet;
     make_helper(raise);
 }
 

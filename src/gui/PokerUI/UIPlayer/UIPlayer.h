@@ -15,6 +15,7 @@ public:
 	void set_bet(unsigned int bet);
 	void set_cards(std::string path1, std::string path2);
 	void set_status(std::string status);
+	void set_cards_visibility(bool visibility);
 private:
 	QLabel* Name;
 	QLabel* Cash;

@@ -22,6 +22,16 @@ UIPlayer::UIPlayer(MainWindow* ptr) {
 	Bet->setFont(CashFont);
 	Status->setFont(StatusFont);
 
+	SelfToken->setFixedSize(20, 20);
+	TableToken->setFixedSize(20, 20);
+	Cards[0]->setFixedSize(107, 150);
+	Cards[1]->setFixedSize(107, 150);
+
+	SelfToken->setScaledContents(true);
+	TableToken->setScaledContents(true);
+	Cards[0]->setScaledContents(true);
+	Cards[1]->setScaledContents(true);
+
 	SelfToken->setPixmap(token);
 	TableToken->setPixmap(token);
 
@@ -37,15 +47,6 @@ UIPlayer::UIPlayer(MainWindow* ptr) {
 	Cards[0]->setStyleSheet("background: transparent;");
 	Cards[1]->setStyleSheet("background: transparent;");
 
-	SelfToken->setFixedSize(20, 20);
-	TableToken->setFixedSize(20, 20);
-	Cards[0]->setFixedSize(107, 150);
-	Cards[1]->setFixedSize(107, 150);
-
-	SelfToken->setScaledContents(true);
-	TableToken->setScaledContents(true);
-	Cards[0]->setScaledContents(true);
-	Cards[1]->setScaledContents(true);
 
 	Name->setText("Long Initial Name");
 	Cash->setText("100000$");
@@ -76,7 +77,16 @@ void UIPlayer::set_bet(unsigned int bet) {
 	Bet->setText(QString::fromStdString(std::to_string(bet) + "$"));
 }
 
+void UIPlayer::set_status(std::string status) {
+	Status->setText(QString::fromStdString(status));
+}
+
 void UIPlayer::set_cards(std::string path1, std::string path2) {
 	Cards[0]->setPixmap(QPixmap(QString::fromStdString(path1)));
 	Cards[1]->setPixmap(QPixmap(QString::fromStdString(path2)));
+}
+
+void UIPlayer::set_cards_visibility(bool visibility) {
+	Cards[0]->setVisible(visibility);
+	Cards[1]->setVisible(visibility);
 }

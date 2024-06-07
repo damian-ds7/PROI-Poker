@@ -101,59 +101,7 @@ private:
     void bot_timer_ended();
 
     std::vector<std::unique_ptr<UIPlayer>> uiplayers;
-
-    QLabel PlayerCard1;
-    QLabel PlayerCard2;
     QLabel* TableCards[6];
-    QLabel Opponent1Card1;
-    QLabel Opponent1Card2;
-    QLabel Opponent2Card1;
-    QLabel Opponent2Card2;
-    QLabel Opponent3Card1;
-    QLabel Opponent3Card2;
-    QLabel Opponent4Card1;
-    QLabel Opponent4Card2;
-    QLabel Opponent5Card1;
-    QLabel Opponent5Card2;
-
-    QLabel PlayerName;
-    QLabel Opponent1Name;
-    QLabel Opponent2Name;
-    QLabel Opponent3Name;
-    QLabel Opponent4Name;
-    QLabel Opponent5Name;
-    QLabel PlayerCash;
-    QLabel Opponent1Cash;
-    QLabel Opponent2Cash;
-    QLabel Opponent3Cash;
-    QLabel Opponent4Cash;
-    QLabel Opponent5Cash;
-    QLabel PlayerBet;
-    QLabel Opponent1Bet;
-    QLabel Opponent2Bet;
-    QLabel Opponent3Bet;
-    QLabel Opponent4Bet;
-    QLabel Opponent5Bet;
-    QLabel PlayerStatus;
-    QLabel Opponent1Status;
-    QLabel Opponent2Status;
-    QLabel Opponent3Status;
-    QLabel Opponent4Status;
-    QLabel Opponent5Status;
-
-    QLabel PlayerSelfToken;
-    QLabel Opponent1SelfToken;
-    QLabel Opponent2SelfToken;
-    QLabel Opponent3SelfToken;
-    QLabel Opponent4SelfToken;
-    QLabel Opponent5SelfToken;
-    QLabel PlayerTableToken;
-    QLabel Opponent1TableToken;
-    QLabel Opponent2TableToken;
-    QLabel Opponent3TableToken;
-    QLabel Opponent4TableToken;
-    QLabel Opponent5TableToken;
-
 
     QLabel EndBackground;
     QLabel EndWinner;

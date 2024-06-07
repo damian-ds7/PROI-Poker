@@ -32,16 +32,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::createWidgets(MainWindow* ptr)
 {
-	std::string str = std::to_string(game_handler->initial_money());
-	str.append("$");
-	const char* cstr = str.c_str();
-    std::string player_name = game_handler->player_name();
-	const char* cplayer_name = player_name.c_str();
-
     createTableCards(ptr);
 	createPlayers(ptr);
-	movePlayerLabels(ptr);
-	moveOpponentLabels(ptr);
+	movePlayerLabels();
+	moveOpponentLabels();
 	createEndLabels(ptr);
 
 
@@ -116,7 +110,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[1]->Status->move(800, 60);
 		uiplayers[1]->Bet->move(735, 150);
 		uiplayers[1]->SelfToken->move(800, 29);
-		uiplayers[1]->SelfToken->move(710, 149);
+		uiplayers[1]->TableToken->move(710, 149);
 
 		uiplayers[1]->set_name(game_handler->name_to_string(1));
 		uiplayers[1]->set_cash(game_handler->initial_money());
@@ -130,7 +124,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[1]->Status->move(430, 60);
 		uiplayers[1]->Bet->move(335, 150);
 		uiplayers[1]->SelfToken->move(430, 29);
-		uiplayers[1]->SelfToken->move(310, 149);
+		uiplayers[1]->TableToken->move(310, 149);
 		
 		uiplayers[2]->Cards[0]->move(1010, -80);
 		uiplayers[2]->Cards[1]->move(1040, -80);
@@ -139,7 +133,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[2]->Status->move(1140, 60);
 		uiplayers[2]->Bet->move(1085, 150);
 		uiplayers[2]->SelfToken->move(1140, 29);
-		uiplayers[2]->SelfToken->move(1060, 149);
+		uiplayers[2]->TableToken->move(1060, 149);
 
 		uiplayers[1]->set_name(game_handler->name_to_string(1));
 		uiplayers[1]->set_cash(game_handler->initial_money());
@@ -157,7 +151,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[1]->Status->move(5, 165);
 		uiplayers[1]->Bet->move(205, 285);
 		uiplayers[1]->SelfToken->move(5, 134);
-		uiplayers[1]->SelfToken->move(180, 284);
+		uiplayers[1]->TableToken->move(180, 284);
 
 		uiplayers[2]->Cards[0]->move(670, -80);
 		uiplayers[2]->Cards[1]->move(700, -80);
@@ -166,7 +160,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[2]->Status->move(800, 60);
 		uiplayers[2]->Bet->move(735, 150);
 		uiplayers[2]->SelfToken->move(800, 29);
-		uiplayers[2]->SelfToken->move(710, 149);
+		uiplayers[2]->TableToken->move(710, 149);
 
 		uiplayers[3]->Cards[0]->move(1400, 200);
 		uiplayers[3]->Cards[1]->move(1400, 230);
@@ -177,7 +171,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[3]->Status->move(1320, 165);
 		uiplayers[3]->Bet->move(1225, 285);
 		uiplayers[3]->SelfToken->move(1320, 134);
-		uiplayers[3]->SelfToken->move(1205, 284);
+		uiplayers[3]->TableToken->move(1205, 284);
 
 		uiplayers[1]->set_name(game_handler->name_to_string(1));
 		uiplayers[1]->set_cash(game_handler->initial_money());
@@ -198,7 +192,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[1]->Status->move(5, 165);
 		uiplayers[1]->Bet->move(205, 285);
 		uiplayers[1]->SelfToken->move(5, 134);
-		uiplayers[1]->SelfToken->move(180, 284);
+		uiplayers[1]->TableToken->move(180, 284);
 
 		uiplayers[2]->Cards[0]->move(300, -80);
 		uiplayers[2]->Cards[1]->move(330, -80);
@@ -207,7 +201,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[2]->Status->move(430, 60);
 		uiplayers[2]->Bet->move(335, 150);
 		uiplayers[2]->SelfToken->move(430, 29);
-		uiplayers[2]->SelfToken->move(310, 149);
+		uiplayers[2]->TableToken->move(310, 149);
 
 		uiplayers[3]->Cards[0]->move(1010, -80);
 		uiplayers[3]->Cards[1]->move(1040, -80);
@@ -216,7 +210,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[3]->Status->move(1140, 60);
 		uiplayers[3]->Bet->move(1085, 150);
 		uiplayers[3]->SelfToken->move(1140, 29);
-		uiplayers[3]->SelfToken->move(1060, 149);
+		uiplayers[3]->TableToken->move(1060, 149);
 
 		uiplayers[4]->Cards[0]->move(1400, 200);
 		uiplayers[4]->Cards[1]->move(1400, 230);
@@ -227,7 +221,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[4]->Status->move(1320, 165);
 		uiplayers[4]->Bet->move(1225, 285);
 		uiplayers[4]->SelfToken->move(1320, 134);
-		uiplayers[4]->SelfToken->move(1205, 284);
+		uiplayers[4]->TableToken->move(1205, 284);
 
 		uiplayers[1]->set_name(game_handler->name_to_string(1));
 		uiplayers[1]->set_cash(game_handler->initial_money());
@@ -249,7 +243,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[1]->Status->move(5, 165);
 		uiplayers[1]->Bet->move(205, 285);
 		uiplayers[1]->SelfToken->move(5, 134);
-		uiplayers[1]->SelfToken->move(180, 284);
+		uiplayers[1]->TableToken->move(180, 284);
 
 		uiplayers[2]->Cards[0]->move(300, -80);
 		uiplayers[2]->Cards[1]->move(330, -80);
@@ -258,7 +252,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[2]->Status->move(430, 60);
 		uiplayers[2]->Bet->move(335, 150);
 		uiplayers[2]->SelfToken->move(430, 29);
-		uiplayers[2]->SelfToken->move(310, 149);
+		uiplayers[2]->TableToken->move(310, 149);
 
 		uiplayers[3]->Cards[0]->move(670, -80);
 		uiplayers[3]->Cards[1]->move(700, -80);
@@ -267,7 +261,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[3]->Status->move(800, 60);
 		uiplayers[3]->Bet->move(735, 150);
 		uiplayers[3]->SelfToken->move(800, 29);
-		uiplayers[3]->SelfToken->move(710, 149);
+		uiplayers[3]->TableToken->move(710, 149);
 
 		uiplayers[4]->Cards[0]->move(1010, -80);
 		uiplayers[4]->Cards[1]->move(1040, -80);
@@ -276,7 +270,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[4]->Status->move(1140, 60);
 		uiplayers[4]->Bet->move(1085, 150);
 		uiplayers[4]->SelfToken->move(1140, 29);
-		uiplayers[4]->SelfToken->move(1060, 149);
+		uiplayers[4]->TableToken->move(1060, 149);
 
 		uiplayers[5]->Cards[0]->move(1400, 200);
 		uiplayers[5]->Cards[1]->move(1400, 230);
@@ -287,7 +281,7 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[5]->Status->move(1320, 165);
 		uiplayers[5]->Bet->move(1225, 285);
 		uiplayers[5]->SelfToken->move(1320, 134);
-		uiplayers[5]->SelfToken->move(1205, 284);
+		uiplayers[5]->TableToken->move(1205, 284);
 
 		uiplayers[1]->set_name(game_handler->name_to_string(1));
 		uiplayers[1]->set_cash(game_handler->initial_money());
@@ -301,9 +295,6 @@ void MainWindow::moveOpponentLabels()
 		uiplayers[5]->set_cash(game_handler->initial_money());
 	}
 }
-
-
-
 
 void MainWindow::createEndLabels(MainWindow* ptr)
 {
@@ -453,38 +444,15 @@ void MainWindow::showEndScreen(bool visible)
 }
 void MainWindow::showPlayersCards()
 {
-	PlayerCard1.setVisible(!game_handler->player(0)->folded());
-	PlayerCard2.setVisible(!game_handler->player(0)->folded());
-	Opponent1Card1.setVisible(!game_handler->player(1)->folded());
-	Opponent1Card2.setVisible(!game_handler->player(1)->folded());
-	if (game_handler->game_info.player_count > 2)
+	for (int i = 0; i < game_handler->player_count(); i++)
 	{
-		Opponent2Card1.setVisible(!game_handler->player(2)->folded());
-		Opponent2Card2.setVisible(!game_handler->player(2)->folded());
-	}
-	if (game_handler->game_info.player_count > 3)
-	{
-		Opponent3Card1.setVisible(!game_handler->player(3)->folded());
-		Opponent3Card2.setVisible(!game_handler->player(3)->folded());
-	}
-	if (game_handler->game_info.player_count > 4)
-	{
-		Opponent4Card1.setVisible(!game_handler->player(4)->folded());
-		Opponent4Card2.setVisible(!game_handler->player(4)->folded());
-	}
-	if (game_handler->game_info.player_count > 5)
-	{
-		Opponent5Card1.setVisible(!game_handler->player(5)->folded());
-		Opponent5Card2.setVisible(!game_handler->player(5)->folded());
+		uiplayers[i]->set_cards_visibility(!game_handler->player(i)->folded());
 	}
 }	
 
 void MainWindow::setPlayerCards()
 {
-	QPixmap qcard1(game_handler->get_player_hand(0, 0)->get_file_path().c_str());
-	QPixmap qcard2(game_handler->get_player_hand(0, 1)->get_file_path().c_str());
-	PlayerCard1.setPixmap(qcard1);
-	PlayerCard2.setPixmap(qcard2);
+	uiplayers[0]->set_cards(game_handler->get_player_hand(0, 0)->get_file_path(), game_handler->get_player_hand(0, 1)->get_file_path());
 }
 void MainWindow::setTableCards()
 {
@@ -516,52 +484,18 @@ void MainWindow::setTableCards()
 }
 void MainWindow::setCash()
 {
-	PlayerCash.setText(game_handler->cash_to_QString(game_handler->player(0)->money()));
-	PlayerBet.setText(game_handler->cash_to_QString(game_handler->player(0)->bet()));
-	Opponent1Cash.setText(game_handler->cash_to_QString(game_handler->player(1)->money()));
-	Opponent1Bet.setText(game_handler->cash_to_QString(game_handler->player(1)->bet()));
-	if (game_handler->player_count() > 2)
+	for (unsigned int i = 0; i < game_handler->player_count(); ++i)
 	{
-		Opponent2Cash.setText(game_handler->cash_to_QString(game_handler->player(2)->money()));
-		Opponent2Bet.setText(game_handler->cash_to_QString(game_handler->player(2)->bet()));
-	}
-	if (game_handler->player_count() > 3)
-	{
-		Opponent3Cash.setText(game_handler->cash_to_QString(game_handler->player(3)->money()));
-		Opponent3Bet.setText(game_handler->cash_to_QString(game_handler->player(3)->bet()));
-	}
-	if (game_handler->player_count() > 4)
-	{
-		Opponent4Cash.setText(game_handler->cash_to_QString(game_handler->player(4)->money()));
-		Opponent4Bet.setText(game_handler->cash_to_QString(game_handler->player(4)->bet()));
-	}
-	if (game_handler->player_count() > 5)
-	{
-		Opponent5Cash.setText(game_handler->cash_to_QString(game_handler->player(5)->money()));
-		Opponent5Bet.setText(game_handler->cash_to_QString(game_handler->player(5)->bet()));
-		//qDebug() << "bet set: " << Opponent5Bet.text();
+		uiplayers[i]->set_cash(game_handler->player(i)->money());
+		uiplayers[i]->set_bet(game_handler->player(i)->bet());
 	}
 	ui->Pot->setText(game_handler->cash_to_QString(game_handler->pot()));
 }
 void MainWindow::setStatus()
 {
-	PlayerStatus.setText(game_handler->status_to_string(0).c_str());
-	Opponent1Status.setText(game_handler->status_to_string(1).c_str());
-	if (game_handler->game_info.player_count > 2)
+	for (unsigned int i = 0; i < game_handler->player_count(); ++i)
 	{
-		Opponent2Status.setText(game_handler->status_to_string(2).c_str());
-	}
-	if (game_handler->player_count() > 3)
-	{
-		Opponent3Status.setText(game_handler->status_to_string(3).c_str());
-	}
-	if (game_handler->player_count() > 4)
-	{
-		Opponent4Status.setText(game_handler->status_to_string(4).c_str());
-	}
-	if (game_handler->player_count() > 5)
-	{
-		Opponent5Status.setText(game_handler->status_to_string(5).c_str());
+		uiplayers[i]->set_status(game_handler->status_to_string(i));
 	}
 }
 void MainWindow::setCurrentPlayer()
@@ -614,69 +548,16 @@ void MainWindow::reverseCards(bool front)
 {
 	if (front)
 	{
-		QPixmap pcard1(game_handler->get_player_hand(0, 0)->get_file_path().c_str());
-		QPixmap pcard2(game_handler->get_player_hand(0, 1)->get_file_path().c_str());
-		PlayerCard1.setPixmap(pcard1);
-		PlayerCard2.setPixmap(pcard2);
-		QPixmap o1card1(game_handler->get_player_hand(1, 0)->get_file_path().c_str());
-		QPixmap o1card2(game_handler->get_player_hand(1, 1)->get_file_path().c_str());
-		Opponent1Card1.setPixmap(o1card1);
-		Opponent1Card2.setPixmap(o1card2);
-		if (game_handler->game_info.player_count > 2)
+		for (int i = 0; i < game_handler->player_count(); i++)
 		{
-			QPixmap o2card1(game_handler->get_player_hand(2, 0)->get_file_path().c_str());
-			QPixmap o2card2(game_handler->get_player_hand(2, 1)->get_file_path().c_str());
-			Opponent2Card1.setPixmap(o2card1);
-			Opponent2Card2.setPixmap(o2card2);
-		}
-		if (game_handler->game_info.player_count > 3)
-		{
-			QPixmap o3card1(game_handler->get_player_hand(3, 0)->get_file_path().c_str());
-			QPixmap o3card2(game_handler->get_player_hand(3, 1)->get_file_path().c_str());
-			Opponent3Card1.setPixmap(o3card1);
-			Opponent3Card2.setPixmap(o3card2);
-		}
-		if (game_handler->game_info.player_count > 4)
-		{
-			QPixmap o4card1(game_handler->get_player_hand(4, 0)->get_file_path().c_str());
-			QPixmap o4card2(game_handler->get_player_hand(4, 1)->get_file_path().c_str());
-			Opponent4Card1.setPixmap(o4card1);
-			Opponent4Card2.setPixmap(o4card2);
-		}
-		if (game_handler->game_info.player_count > 5)
-		{
-			QPixmap o5card1(game_handler->get_player_hand(5, 0)->get_file_path().c_str());
-			QPixmap o5card2(game_handler->get_player_hand(5, 1)->get_file_path().c_str());
-			Opponent5Card1.setPixmap(o5card1);
-			Opponent5Card2.setPixmap(o5card2);
+			uiplayers[i]->set_cards(game_handler->get_player_hand(i, 0)->get_file_path(), game_handler->get_player_hand(i, 1)->get_file_path());
 		}
 	}
 	else
 	{
-		QPixmap cardr(":/resources/Deck/card_back.png");
-		PlayerCard1.setPixmap(cardr);
-		PlayerCard2.setPixmap(cardr);
-		Opponent1Card1.setPixmap(cardr);
-		Opponent1Card2.setPixmap(cardr);
-		if (game_handler->game_info.player_count > 2)
+		for (int i = 0; i < game_handler->player_count(); i++)
 		{
-			Opponent2Card1.setPixmap(cardr);
-			Opponent2Card2.setPixmap(cardr);
-		}
-		if (game_handler->game_info.player_count > 3)
-		{
-			Opponent3Card1.setPixmap(cardr);
-			Opponent3Card2.setPixmap(cardr);
-		}
-		if (game_handler->game_info.player_count > 4)
-		{
-			Opponent4Card1.setPixmap(cardr);
-			Opponent4Card2.setPixmap(cardr);
-		}
-		if (game_handler->game_info.player_count > 5)
-		{
-			Opponent5Card1.setPixmap(cardr);
-			Opponent5Card2.setPixmap(cardr);
+			uiplayers[i]->set_cards(":/resources/Deck/card_back.png", ":/resources/Deck/card_back.png");
 		}
 	}
 }

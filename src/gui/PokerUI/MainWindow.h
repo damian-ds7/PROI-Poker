@@ -99,12 +99,7 @@ private:
 
     QLabel PlayerCard1;
     QLabel PlayerCard2;
-    QLabel TableCard1;
-    QLabel TableCard2;
-    QLabel TableCard3;
-    QLabel TableCard4;
-    QLabel TableCard5;
-    QLabel TableCardBack;
+    QLabel* TableCards[6];
     QLabel Opponent1Card1;
     QLabel Opponent1Card2;
     QLabel Opponent2Card1;

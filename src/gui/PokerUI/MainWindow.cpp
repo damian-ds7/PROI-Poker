@@ -23,6 +23,10 @@ MainWindow::~MainWindow()
 {
 	delete bot_cooldown;
     delete ui;
+	for (int i = 0; i < 6; i++)
+	{
+		delete TableCards[i];
+	}
 }
 
 void MainWindow::createWidgets(MainWindow* ptr)
@@ -65,52 +69,16 @@ void MainWindow::createPlayerCards(MainWindow* ptr)
 }
 void MainWindow::createTableCards(MainWindow* ptr)
 {
-	TableCard1.setParent(ptr);
-	TableCard1.setScaledContents(true);
-	TableCard1.setFixedSize(107, 150);
-	TableCard1.move(340, 225);
+	for (int i = 0; i < 6; i++)
+	{
+		TableCards[i] = new QLabel(ptr);
+		TableCards[i]->setScaledContents(true);
+		TableCards[i]->setFixedSize(107, 150);
+		TableCards[i]->move(340 + i * 120, 225);
+	}
 
-	TableCard2.setParent(ptr);
-	TableCard2.setScaledContents(true);
-	TableCard2.setFixedSize(107, 150);
-	TableCard2.move(460, 225);
-
-	TableCard3.setParent(ptr);
-	TableCard3.setScaledContents(true);
-	TableCard3.setFixedSize(107, 150);
-	TableCard3.move(580, 225);
-
-	TableCard4.setParent(ptr);
-	TableCard4.setScaledContents(true);
-	TableCard4.setFixedSize(107, 150);
-	TableCard4.move(700, 225);
-
-	TableCard5.setParent(ptr);
-	TableCard5.setScaledContents(true);
-	TableCard5.setFixedSize(107, 150);
-	TableCard5.move(820, 225);
-
-	TableCardBack.setParent(ptr);
-	TableCardBack.setScaledContents(true);
-	TableCardBack.setFixedSize(107, 150);
-	TableCardBack.move(1000, 225);
-	QPixmap tcardback(":/resources/Deck/card_back.png");
-	TableCardBack.setPixmap(tcardback);
-
-
-
-	//
-	QPixmap tcard1(":/resources/Deck/clubs_three.png");
-	TableCard1.setPixmap(tcard1);
-	QPixmap tcard2(":/resources/Deck/clubs_four.png");
-	TableCard2.setPixmap(tcard2);
-	QPixmap tcard3(":/resources/Deck/clubs_five.png");
-	TableCard3.setPixmap(tcard3);
-	QPixmap tcard4(":/resources/Deck/clubs_six.png");
-	TableCard4.setPixmap(tcard4);
-	QPixmap tcard5(":/resources/Deck/clubs_seven.png");
-	TableCard5.setPixmap(tcard5);
-	//
+	TableCards[5]->move(1000, 225);
+	TableCards[5]->setPixmap(QPixmap(":/resources/Deck/card_back.png"));
 }
 void MainWindow::createOpponentCards(MainWindow* ptr, const unsigned int opponents)
 {
@@ -878,35 +846,28 @@ void MainWindow::setTableCards()
 {
 	if (game_handler->phase_to_int() == 0)
 	{
-		TableCard1.hide();
-		TableCard2.hide();
-		TableCard3.hide();
-		TableCard4.hide();
-		TableCard5.hide();
+		for (int i = 0; i < 5; i++)
+		{
+			TableCards[i]->hide();
+		}
 	}
 	else if (game_handler->phase_to_int() == 1)
 	{
-		QPixmap qcard1(game_handler->get_table_card(1)->get_file_path().c_str());
-		QPixmap qcard2(game_handler->get_table_card(1)->get_file_path().c_str());
-		QPixmap qcard3(game_handler->get_table_card(2)->get_file_path().c_str());
-		TableCard1.setPixmap(qcard1);
-		TableCard2.setPixmap(qcard2);
-		TableCard3.setPixmap(qcard3);
-		TableCard1.show();
-		TableCard2.show();
-		TableCard3.show();
+		for (int i = 0; i < 3; i++)
+		{
+			TableCards[i]->setPixmap(QPixmap(game_handler->get_table_card(i)->get_file_path().c_str()));
+			TableCards[i]->show();
+		}
 	}
 	else if (game_handler->phase_to_int() == 2)
 	{
-		QPixmap qcard4(game_handler->get_table_card(3)->get_file_path().c_str());
-		TableCard4.setPixmap(qcard4);
-		TableCard4.show();
+		TableCards[3]->setPixmap(QPixmap(game_handler->get_table_card(3)->get_file_path().c_str()));
+		TableCards[3]->show();
 	}
 	else if (game_handler->phase_to_int() == 3)
 	{
-		QPixmap qcard5(game_handler->get_table_card(4)->get_file_path().c_str());
-		TableCard5.setPixmap(qcard5);
-		TableCard5.show();
+		TableCards[4]->setPixmap(QPixmap(game_handler->get_table_card(4)->get_file_path().c_str()));
+		TableCards[4]->show();
 	}
 }
 void MainWindow::setCash()

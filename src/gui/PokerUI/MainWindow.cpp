@@ -1,7 +1,6 @@
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
 #include <utility>
-//#include <UIPlayer/UIPlayer.h>
 
 MainWindow::MainWindow(QWidget* parent)
     : QWidget(parent)
@@ -300,7 +299,6 @@ void MainWindow::moveOpponentLabels()
 
 void MainWindow::StartGame()
 {
-	this->show();
 	setStatus();
 	setCash();
 	setButtons();

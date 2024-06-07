@@ -204,7 +204,7 @@ void Game::share_pot() {
         });
         smallest_allin = 0;
         for(unsigned int allin_bet : allin_bets) {
-            unsigned int allin_pot = (players[allin_bet]->sum_bet()-smallest_allin) * player_count;
+            unsigned int allin_pot = (players[allin_bet]->sum_bet()-smallest_allin) * currently_playing;
             for (auto& winner : winners) {
                 players[winner]->set_money(players[winner]->money() + allin_pot / winners.size());
             }

@@ -199,5 +199,6 @@ TEST(GameHandlerTest, GameHandlerCurrentPlayerToString){
     GameHandler game_handler;
     GameInfo game_info("Herkules", 2, 1000);
     game_handler.initialize_game(game_info);
-    EXPECT_EQ(game_handler.current_player_to_string(), game_handler.name_to_string(game_handler.dealer()+1));
+    auto idx = (game_handler.dealer() + 1) % game_info.player_count;
+    EXPECT_EQ(game_handler.current_player_to_string(), game_handler.name_to_string(idx));
 }

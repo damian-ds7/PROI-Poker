@@ -7,7 +7,7 @@ Game::Game(const std::string& name, unsigned int player_count, unsigned int init
     this->player_count = player_count;
     this->currently_playing = player_count;
     players.push_back(std::make_unique<HumanPlayer>(name, initial_money, 0));
-    auto random_names = Names::get_names(player_count);
+    auto random_names = Names::get_names(player_count - 1);
     for (unsigned int i = 0; i < player_count - 1; ++i) {
         players.push_back(std::make_unique<BotPlayer>(random_names[i], initial_money, 0));
     }

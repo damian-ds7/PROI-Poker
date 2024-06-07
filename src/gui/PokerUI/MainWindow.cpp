@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget* parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+	bot_cooldown = new QTimer(this);
+	bot_cooldown->setSingleShot(true);
 	connect(ui->CheckButton, &QPushButton::clicked, this, &MainWindow::check);
 	connect(ui->BetButton, &QPushButton::clicked, this, &MainWindow::bet);
 	connect(ui->FoldButton, &QPushButton::clicked, this, &MainWindow::fold);
@@ -14,10 +16,12 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(ui->ConfirmButton, &QPushButton::clicked, this, &MainWindow::bet_confirmed);
 	connect(ui->SmallBlindButton, &QPushButton::clicked, this, &MainWindow::small_blind);
 	connect(ui->ConfirmSmallBlindButton, &QPushButton::clicked, this, &MainWindow::small_blind_confirmed);
+	connect(bot_cooldown, &QTimer::timeout, this, &MainWindow::bot_timer_ended);
 }
 
 MainWindow::~MainWindow()
 {
+	delete bot_cooldown;
     delete ui;
 }
 
@@ -711,8 +715,19 @@ void MainWindow::createTableLabels(MainWindow* ptr)
 	PotToken.move(1000, 414);
 	PotToken.setPixmap(token);
 
+	CurrentPlayerDescription.setParent(ptr);
+	CurrentPlayerDescription.setFont(PotFont);
+	CurrentPlayerDescription.move(10, 620);
+	CurrentPlayerDescription.setText("Current player:");
+
+	CurrentPlayerName.setParent(ptr);
+	CurrentPlayerName.setFont(PotFont);
+	CurrentPlayerName.setStyleSheet("background: transparent;");
+	CurrentPlayerName.move(10, 650);
+
 	//
 	Pot.setText("10000$");
+	CurrentPlayerName.setText("Long Initial Name");
 	//
 }
 
@@ -768,8 +783,7 @@ void MainWindow::StartGame()
 	setButtons();
 	setTableCards();
 	showButtons();
-//    this->show();
-	//small blind
+	setCurrentPlayer();
 	if (game_handler->current_player() == 0)
 	{
 		setButtons();
@@ -784,8 +798,7 @@ void MainWindow::StartGame()
 }
 void MainWindow::PlayGame()
 {
-	// game until player turn
-	// when player turn -> return and wait for input
+	setCurrentPlayer();
 	setCash();
 	setStatus();
 	setButtons();
@@ -793,28 +806,32 @@ void MainWindow::PlayGame()
 	showButtons();
 	showPlayersCards();
 
-	while (game_handler->current_player() != 0)
-	{
+	if (game_handler->current_player() == 0) return;
 
-		//delay
-		qDebug() << "Player turn: " << game_handler->current_player() << "\n";
+	qDebug() << "Player turn: " << game_handler->current_player();
 
-		game_handler->play_turn(Decision(0), 0);
+	//bot delay
+	int time = 0;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<unsigned int> dist(1000, 3000);
 
-		setCash();
-		setStatus();
-		setButtons();
-		setTableCards();
-		showButtons();
-		showPlayersCards();
-	}
+	time = dist(gen);
+	bot_cooldown->start(time);
+	qDebug() << "Bot timer started at: " << time << "ms";
 
 
+	return;
 }
 
 void MainWindow::playerMakeDecision(Decision decision, int bet)
 {
 	game_handler->play_turn(decision, bet);
+	PlayGame();
+}
+void MainWindow::botMakeMove()
+{
+	game_handler->play_turn(Decision(0), 0);
 	PlayGame();
 }
 void MainWindow::playerMakeSmallBlind(int bet)
@@ -829,12 +846,13 @@ void MainWindow::BigBlind()
 	game_handler->make_big_blind();
 	game_handler->start_game();
 	setPlayerCards();
+	setCurrentPlayer();
 	PlayGame();
 }
 
 void MainWindow::showButtons()
 {
-	if (game_handler->player(0)->small_blind())
+	if (game_handler->player(0)->small_blind() && game_handler->previous_bet() == 0)
 	{
 		ui->SmallBlindButton->show();
 		ui->BetButton->hide();
@@ -978,6 +996,10 @@ void MainWindow::setStatus()
 	{
 		Opponent5Status.setText(game_handler->status_to_string(5).c_str());
 	}
+}
+void MainWindow::setCurrentPlayer()
+{
+	CurrentPlayerName.setText(game_handler->name_to_string(game_handler->current_player()).c_str());
 }
 
 void MainWindow::setBetButton(bool bet)
@@ -1182,6 +1204,11 @@ void MainWindow::small_blind_confirmed()
 	ui->ConfirmSmallBlindButton->hide();
 	ui->SmallBlindButton->hide();
 	emit smallBlindMade(a);
+}
+
+void MainWindow::bot_timer_ended()
+{
+	emit botMove();
 }
 
 

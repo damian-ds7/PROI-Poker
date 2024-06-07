@@ -11,6 +11,7 @@
 #include <QFont>
 #include <QLineEdit>
 #include <QMessageBox>
+#include <QTimer>
 #include "GameHandler.h"
 #include "CardsTypedef.h"
 #include "menu.h"
@@ -42,12 +43,16 @@ public:
 
     void playerMakeDecision(Decision decision, int bet);
     void playerMakeSmallBlind(int bet);
+    void botMakeMove();
 
+    QTimer* bot_cooldown;
 
 signals:
     void decisionMade(Decision decision, int bet);
 signals:
     void smallBlindMade(int bet);
+signals:
+    void botMove();
 
 private:
     void BigBlind();
@@ -71,6 +76,7 @@ private:
     void setTableCards();
     void setCash();
     void setStatus();
+    void setCurrentPlayer();
 
     void setButtons();
     void setBetButton(bool bet);
@@ -89,6 +95,8 @@ private:
     void bet_confirmed();
     void small_blind();
     void small_blind_confirmed();
+
+    void bot_timer_ended();
 
     QLabel PlayerCard1;
     QLabel PlayerCard2;
@@ -150,6 +158,8 @@ private:
     QLabel PotToken;
 
     QLabel CurrentPotDecsription;
+    QLabel CurrentPlayerDescription;
+    QLabel CurrentPlayerName;
 
     QLabel EndBackground;
     QLabel EndWinner;

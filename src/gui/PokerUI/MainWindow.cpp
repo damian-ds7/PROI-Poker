@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(ui->ConfirmButton, &QPushButton::clicked, this, &MainWindow::bet_confirmed);
 	connect(ui->SmallBlindButton, &QPushButton::clicked, this, &MainWindow::small_blind);
 	connect(ui->ConfirmSmallBlindButton, &QPushButton::clicked, this, &MainWindow::small_blind_confirmed);
+	connect(ui->NextRoundButton, &QPushButton::clicked, this, &MainWindow::next_round);
 	connect(bot_cooldown, &QTimer::timeout, this, &MainWindow::bot_timer_ended);
 }
 
@@ -38,7 +39,7 @@ void MainWindow::createWidgets(MainWindow* ptr)
 	moveOpponentLabels();
 
 
-	//showEndScreen(false);
+	showEndScreen(false);
 	ui->lineEdit->hide();
 	ui->ConfirmButton->hide();
 	ui->ConfirmSmallBlindButton->hide();
@@ -398,6 +399,7 @@ void MainWindow::showEndScreen(bool visible)
 	ui->EndWinnerName->setVisible(visible);
 	ui->EndToken->setVisible(visible);
 	ui->EndWinnerCash->setVisible(visible);
+	ui->NextRoundButton->setVisible(visible);
 }
 void MainWindow::showPlayersCards()
 {
@@ -609,6 +611,11 @@ void MainWindow::small_blind_confirmed()
 	ui->ConfirmSmallBlindButton->hide();
 	ui->SmallBlindButton->hide();
 	emit smallBlindMade(a);
+}
+
+void MainWindow::next_round()
+{
+	emit nextRound();
 }
 
 void MainWindow::bot_timer_ended()

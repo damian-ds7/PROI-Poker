@@ -343,7 +343,7 @@
 					<x>518</x>
 					<y>144</y>
 					<width>400</width>
-					<height>250</height>
+					<height>300</height>
 				</rect>
 			</property>
 			<property name="lineWidth">
@@ -442,6 +442,22 @@
 			</property>
 			<property name="pixmap">
 				<pixmap resource="cards.qrc">:/resources/token.png</pixmap>
+			</property>
+		</widget>
+		<widget class="QPushButton" name="NextRoundButton">
+			<property name="geometry">
+				<rect>
+					<x>618</x>
+					<y>350</y>
+					<width>200</width>
+					<height>50</height>
+				</rect>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">background-color: rgb(240, 240, 240);</string>
+			</property>
+			<property name="text">
+				<string>Next round</string>
 			</property>
 		</widget>
 	</widget>

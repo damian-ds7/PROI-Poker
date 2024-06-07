@@ -56,6 +56,8 @@ signals:
     void smallBlindMade(int bet);
 signals:
     void botMove();
+signals:
+	void nextRound();
 
 private:
     void BigBlind();
@@ -95,6 +97,8 @@ private:
     void bet_confirmed();
     void small_blind();
     void small_blind_confirmed();
+
+    void next_round();
 
     void bot_timer_ended();
 

@@ -111,6 +111,10 @@ QString GameHandler::cash_to_QString(unsigned int cash) {
 
 int GameHandler::previous_bet() {
     int idx = current_player() - 1;
-    if (idx < 0) idx += player_count();
+    do {
+        if (idx < 0) idx += player_count();
+        if (!player(idx)->folded()) break;
+        --idx;
+    } while (true);
 	return game->players[idx]->bet();
 }

@@ -50,38 +50,67 @@ void BotPlayer::calc_equity(const std::string& board_cards, int num_of_players){
 }
 
 int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards, bool is_bluffing) {
+    int result = 0;
     if (small_blind()) {
-        return money() / 10;
+        return money() / 20;
+    }
+    if (big_blind()){
+        return money_to_bet * 2;
     }
     calc_equity(board_cards, num_of_players);
-    if ((money_to_bet - bet()) == 0 && equity() < 0.4) {
-        return 0;
-    } else if (equity() > 1.0 / static_cast<double>(num_of_players)) {
+    if (money_to_bet == 0 || equity() < 0.5 / static_cast<double>(num_of_players)){ //fold
+        result = -1;
+    } else if (equity() > 1.2 / static_cast<double>(num_of_players)) { // raise or call
         auto random_number = dist(engine);
-        if (random_number % 17) {
-            return (has_enough_money(money_to_bet - bet())) ? money_to_bet + static_cast<int>(((money() - money_to_bet) * equity())) : money();
+        if (random_number % 17) { // raise
+            result = (has_enough_money(money_to_bet - bet())) ? money_to_bet + static_cast<int>(((money() - money_to_bet) * equity())) : money();
         }
-        else{
-            return (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
+        else{ // call
+            result = (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
         }
-
-    } else if (equity() < 0.5 / static_cast<double>(num_of_players)) {
-        if (is_bluffing) {
-            auto random_number = dist(engine);
-            if (random_number % 17) {
-                return has_enough_money(money_to_bet - bet()) ? make_bluff(money_to_bet, num_of_players, board_cards) : money();
-            } else if (random_number % 13) {
-                return (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
-            } else return 0; // make fold
-        }
-        else{
-            return -1; //make fold
-        }
-    } else {
-        //(has_enough_money(money_to_bet)) ? make_call(money_to_bet) : make_all_in();
-        return (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
+    } else { // call
+        result = (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
     }
+    if (result > money_to_bet){
+        result = money_to_bet + 50;
+    }
+    else {
+        result = (result < money()) ? result : money();
+    }
+    return result;
 }
+//    if (small_blind()) {
+//        return money() / 10;
+//    }
+//    calc_equity(board_cards, num_of_players);
+//    if ((money_to_bet - bet()) == 0 && equity() < 0.4) {
+//        return 0;
+//    } else if (equity() > 1.5 / static_cast<double>(num_of_players)) {
+//        auto random_number = dist(engine);
+//        if (random_number % 17) {
+//            return (has_enough_money(money_to_bet - bet())) ? money_to_bet + static_cast<int>(((money() - money_to_bet) * equity())) : money();
+//        }
+//        else{
+//            return (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
+//        }
+//
+//    } else if (equity() < 0.5 / static_cast<double>(num_of_players)) {
+//        if (is_bluffing) {
+//            auto random_number = dist(engine);
+//            if (random_number % 17) {
+//                return has_enough_money(money_to_bet - bet()) ? make_bluff(money_to_bet, num_of_players, board_cards) : money();
+//            } else if (random_number % 13) {
+//                return (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
+//            } else return 0; // make fold
+//        }
+//        else{
+//            return -1; //make fold
+//        }
+//    } else {
+//        //(has_enough_money(money_to_bet)) ? make_call(money_to_bet) : make_all_in();
+//        return (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
+//    }
+//}
 
 unsigned int BotPlayer::make_bluff(unsigned int money_to_bet, unsigned int num_of_players, const std::string&) {
     //make_raise(money_to_bet + static_cast<int>((money() - money_to_bet) * 0.5));

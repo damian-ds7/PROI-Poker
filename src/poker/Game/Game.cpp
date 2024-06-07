@@ -204,18 +204,20 @@ void Game::share_pot() {
         });
         smallest_allin = 0;
         for(unsigned int allin_bet : allin_bets) {
+            unsigned int allin_pot = (players[allin_bet]->sum_bet()-smallest_allin) * player_count;
             for (auto& winner : winners) {
-                players[winner]->set_money(players[winner]->money() + (players[allin_bet]->sum_bet()-smallest_allin)*player_count / winners.size());
+                players[winner]->set_money(players[winner]->money() + allin_pot / winners.size());
             }
-            pot -= players[allin_bet]->sum_bet() * winners.size();
-            winners.erase(std::remove(winners.begin(), winners.end(), smallest_allin), winners.end());
+            pot -= allin_pot;
+            winners.erase(std::remove_if(winners.begin(), winners.end(), [&](unsigned int winner) {
+                return players[winner]->sum_bet() == smallest_allin;
+            }), winners.end());
             smallest_allin = players[allin_bet]->sum_bet();
         }
         for (auto& winner : winners) {
             players[winner]->set_money(players[winner]->money() + pot / winners.size());
         }
     }
-
 }
 void Game::find_winner() {
     unsigned int max = 0;

@@ -16,9 +16,11 @@ TEST(GameHandlerTest, GameHandlerPlayTurn){
     GameInfo game_info("Herkules", 6, 1000);
     game_handler.initialize_game(game_info);
     game_handler.play_turn(Decision::AllIn, 1000);
-    EXPECT_EQ(game_handler.current_player(), game_handler.dealer() + 2);
-    EXPECT_EQ(game_handler.player(0)->money(), 0);
-    EXPECT_EQ(game_handler.pot(), 1000);
+    auto idx = (game_handler.dealer() + 2) % game_info.player_count;
+    auto prev_idx = (idx == 0) ? game_info.player_count - 1 : idx - 1;
+    EXPECT_EQ(game_handler.current_player(), idx);
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
 }
 
 TEST(GameHandlerTest, GameHandlerPlayTurnTwoPlayers){
@@ -27,10 +29,14 @@ TEST(GameHandlerTest, GameHandlerPlayTurnTwoPlayers){
     game_handler.initialize_game(game_info);
     game_handler.play_turn(Decision::AllIn, 1000);
     game_handler.play_turn(Decision::AllIn, 1000);
-    EXPECT_EQ(game_handler.current_player(), game_handler.dealer() + 3);
-    EXPECT_EQ(game_handler.player(0)->money(), 0);
-    EXPECT_EQ(game_handler.player(1)->money(), 0);
-    EXPECT_EQ(game_handler.pot(), 2000);
+    auto idx = (game_handler.dealer() + 3) % game_info.player_count;
+    auto prev_idx = (idx == 0) ? game_info.player_count - 1 : idx - 1;
+    EXPECT_EQ(game_handler.current_player(), idx);
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
+    prev_idx = (prev_idx == 0) ? game_info.player_count - 1 : prev_idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
 }
 
 TEST(GameHandlerTest, GameHandlerPlayTurnThreePlayers){
@@ -40,11 +46,17 @@ TEST(GameHandlerTest, GameHandlerPlayTurnThreePlayers){
     game_handler.play_turn(Decision::AllIn, 1000);
     game_handler.play_turn(Decision::AllIn, 1000);
     game_handler.play_turn(Decision::AllIn, 1000);
-    EXPECT_EQ(game_handler.current_player(), game_handler.dealer() + 4);
-    EXPECT_EQ(game_handler.player(0)->money(), 0);
-    EXPECT_EQ(game_handler.player(1)->money(), 0);
-    EXPECT_EQ(game_handler.player(2)->money(), 0);
-    EXPECT_EQ(game_handler.pot(), 3000);
+    auto idx = (game_handler.dealer() + 4) % game_info.player_count;
+    EXPECT_EQ(game_handler.current_player(), idx);
+    auto prev_idx = (idx == 0) ? game_info.player_count - 1 : idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
+    prev_idx = (prev_idx == 0) ? game_info.player_count - 1 : prev_idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
+    prev_idx = (prev_idx == 0) ? game_info.player_count - 1 : prev_idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
 }
 
 TEST(GameHandlerTest, GameHandlerPlayTurnFourPlayers){
@@ -55,12 +67,20 @@ TEST(GameHandlerTest, GameHandlerPlayTurnFourPlayers){
     game_handler.play_turn(Decision::AllIn, 1000);
     game_handler.play_turn(Decision::AllIn, 1000);
     game_handler.play_turn(Decision::AllIn, 1000);
-    EXPECT_EQ(game_handler.current_player(), game_handler.dealer() + 5);
-    EXPECT_EQ(game_handler.player(0)->money(), 0);
-    EXPECT_EQ(game_handler.player(1)->money(), 0);
-    EXPECT_EQ(game_handler.player(2)->money(), 0);
-    EXPECT_EQ(game_handler.player(3)->money(), 0);
-    EXPECT_EQ(game_handler.pot(), 4000);
+    auto idx = (game_handler.dealer() + 4) % game_info.player_count;
+    EXPECT_EQ(game_handler.current_player(), idx);
+    auto prev_idx = (idx == 0) ? game_info.player_count - 1 : idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
+    prev_idx = (prev_idx == 0) ? game_info.player_count - 1 : prev_idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
+    prev_idx = (prev_idx == 0) ? game_info.player_count - 1 : prev_idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
+    prev_idx = (prev_idx == 0) ? game_info.player_count - 1 : prev_idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
 }
 
 TEST(GameHandlerTest, GameHandlerPlayTurnFivePlayers){
@@ -72,13 +92,23 @@ TEST(GameHandlerTest, GameHandlerPlayTurnFivePlayers){
     game_handler.play_turn(Decision::AllIn, 1000);
     game_handler.play_turn(Decision::AllIn, 1000);
     game_handler.play_turn(Decision::AllIn, 1000);
-    EXPECT_EQ(game_handler.current_player(), game_handler.dealer());
-    EXPECT_EQ(game_handler.player(0)->money(), 0);
-    EXPECT_EQ(game_handler.player(1)->money(), 0);
-    EXPECT_EQ(game_handler.player(2)->money(), 0);
-    EXPECT_EQ(game_handler.player(3)->money(), 0);
-    EXPECT_EQ(game_handler.player(4)->money(), 0);
-    EXPECT_EQ(game_handler.pot(), 5000);
+    auto idx = (game_handler.dealer() + 4) % game_info.player_count;
+    EXPECT_EQ(game_handler.current_player(), idx);
+    auto prev_idx = (idx == 0) ? game_info.player_count - 1 : idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
+    prev_idx = (prev_idx == 0) ? game_info.player_count - 1 : prev_idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
+    prev_idx = (prev_idx == 0) ? game_info.player_count - 1 : prev_idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
+    prev_idx = (prev_idx == 0) ? game_info.player_count - 1 : prev_idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
+    prev_idx = (prev_idx == 0) ? game_info.player_count - 1 : prev_idx - 1;
+    EXPECT_EQ(game_handler.player(prev_idx)->money(), 0);
+    EXPECT_EQ(game_handler.player(prev_idx)->bet(), 1000);
 }
 
 TEST(GameHandlerTest, GameHandlerPlayTurnSixPlayers){
@@ -91,14 +121,20 @@ TEST(GameHandlerTest, GameHandlerPlayTurnSixPlayers){
     game_handler.play_turn(Decision::AllIn, 1000);
     game_handler.play_turn(Decision::AllIn, 1000);
     game_handler.play_turn(Decision::AllIn, 1000);
-    EXPECT_EQ(game_handler.current_player(), game_handler.dealer() + 1);
+    auto idx = (game_handler.dealer() + 6) % game_info.player_count;
+    EXPECT_EQ(game_handler.current_player(), idx);
     EXPECT_EQ(game_handler.player(0)->money(), 0);
+    EXPECT_EQ(game_handler.player(0)->bet(), 1000);
     EXPECT_EQ(game_handler.player(1)->money(), 0);
+    EXPECT_EQ(game_handler.player(1)->bet(), 1000);
     EXPECT_EQ(game_handler.player(2)->money(), 0);
+    EXPECT_EQ(game_handler.player(2)->bet(), 1000);
     EXPECT_EQ(game_handler.player(3)->money(), 0);
+    EXPECT_EQ(game_handler.player(3)->bet(), 1000);
     EXPECT_EQ(game_handler.player(4)->money(), 0);
+    EXPECT_EQ(game_handler.player(4)->bet(), 1000);
     EXPECT_EQ(game_handler.player(5)->money(), 0);
-    EXPECT_EQ(game_handler.pot(), 6000);
+    EXPECT_EQ(game_handler.player(5)->bet(), 1000);
 }
 
 TEST(GameHandlerTest, GameHandlerStartGame){

@@ -171,3 +171,33 @@ void Game::find_winner() {
         }
     }
 }
+
+void Game::restart_game() {
+    for (auto& player : players) {
+        player->reset_after_phase();
+    }
+    for (auto& card : *table) {
+        deck->push_back(std::move(card));
+    }
+    table->clear();
+    for (auto& player : players) {
+        for (auto& card : player->clear_hand()) {
+            deck->push_back(std::move(card));
+        }
+    }
+    ++dealer;
+    dealer %= player_count;
+    current_player = (dealer + 1) % player_count;
+    players[dealer]->set_dealer(true);
+    players[(dealer + 1) % player_count]->set_small_blind(true);
+    players[(dealer + 2) % player_count]->set_big_blind(true);
+    pot = 0;
+    phase = Phase::PreFlop;
+    smallest_allin = 0;
+    winners.clear();
+    for (auto& player : players) {
+        player->reset_status();
+    }
+}
+
+

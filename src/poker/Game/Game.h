@@ -43,7 +43,7 @@ public:
     void find_winner();
     bool check_round_end();
     void delete_broke_players();
-
+    void restart_game();
     friend class MainWindow;
     friend class GameHandler;
 };

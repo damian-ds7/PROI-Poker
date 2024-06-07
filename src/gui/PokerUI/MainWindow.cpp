@@ -38,7 +38,6 @@ void MainWindow::createWidgets(MainWindow* ptr)
     createOpponentCards(ptr, game_handler->player_count() - 1);
 	createOpponentLabels(ptr, game_handler->player_count() - 1, cstr);
 	createPlayerLabels(ptr, cplayer_name, cstr);
-	createTableLabels(ptr);
 	createEndLabels(ptr);
 
 
@@ -692,44 +691,7 @@ void MainWindow::createPlayerLabels(MainWindow* ptr, const char* name, const cha
 	PlayerCash.setText("10000$");
 	//
 }
-void MainWindow::createTableLabels(MainWindow* ptr)
-{
-	QFont PotFont("Arial", 17, QFont::Bold);
-	QPixmap token(":/resources/token.png");
 
-	Pot.setParent(ptr);
-	Pot.setFont(PotFont);
-	Pot.setStyleSheet("background: transparent;");
-	Pot.move(1035, 415);
-
-	CurrentPotDecsription.setParent(ptr);
-	CurrentPotDecsription.setFont(PotFont);
-	CurrentPotDecsription.setStyleSheet("background: transparent;");
-	CurrentPotDecsription.move(860, 415);
-	CurrentPotDecsription.setText("Current pot:");
-
-	PotToken.setParent(ptr);
-	PotToken.setScaledContents(true);
-	PotToken.setStyleSheet("background: transparent;");
-	PotToken.setFixedSize(30, 30);
-	PotToken.move(1000, 414);
-	PotToken.setPixmap(token);
-
-	CurrentPlayerDescription.setParent(ptr);
-	CurrentPlayerDescription.setFont(PotFont);
-	CurrentPlayerDescription.move(10, 620);
-	CurrentPlayerDescription.setText("Current player:");
-
-	CurrentPlayerName.setParent(ptr);
-	CurrentPlayerName.setFont(PotFont);
-	CurrentPlayerName.setStyleSheet("background: transparent;");
-	CurrentPlayerName.move(10, 650);
-
-	//
-	Pot.setText("10000$");
-	CurrentPlayerName.setText("Long Initial Name");
-	//
-}
 
 void MainWindow::createEndLabels(MainWindow* ptr)
 {
@@ -974,7 +936,7 @@ void MainWindow::setCash()
 		Opponent5Bet.setText(game_handler->cash_to_QString(game_handler->player(5)->bet()));
 		//qDebug() << "bet set: " << Opponent5Bet.text();
 	}
-	Pot.setText(game_handler->cash_to_QString(game_handler->pot()));
+	ui->Pot->setText(game_handler->cash_to_QString(game_handler->pot()));
 }
 void MainWindow::setStatus()
 {
@@ -999,7 +961,7 @@ void MainWindow::setStatus()
 }
 void MainWindow::setCurrentPlayer()
 {
-	CurrentPlayerName.setText(game_handler->name_to_string(game_handler->current_player()).c_str());
+	ui->CurrentPlayerName->setText(game_handler->name_to_string(game_handler->current_player()).c_str());
 }
 
 void MainWindow::setBetButton(bool bet)

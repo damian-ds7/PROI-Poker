@@ -64,7 +64,6 @@ private:
     void createOpponentCards(MainWindow* ptr, unsigned int opponents);
     void createOpponentLabels(MainWindow* ptr, unsigned int opponents, const char* initial_money);
     void createPlayerLabels(MainWindow* ptr, const char* name, const char* initial_money);
-    void createTableLabels(MainWindow* ptr);
 
     void createEndLabels(MainWindow* ptr);
 
@@ -129,7 +128,6 @@ private:
     QLabel Opponent3Cash;
     QLabel Opponent4Cash;
     QLabel Opponent5Cash;
-    QLabel Pot;
     QLabel PlayerBet;
     QLabel Opponent1Bet;
     QLabel Opponent2Bet;
@@ -155,11 +153,7 @@ private:
     QLabel Opponent3TableToken;
     QLabel Opponent4TableToken;
     QLabel Opponent5TableToken;
-    QLabel PotToken;
 
-    QLabel CurrentPotDecsription;
-    QLabel CurrentPlayerDescription;
-    QLabel CurrentPlayerName;
 
     QLabel EndBackground;
     QLabel EndWinner;

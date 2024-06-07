@@ -16,8 +16,10 @@ public:
     [[nodiscard]] unsigned int current_player() const noexcept;
     [[nodiscard]] unsigned int pot() const noexcept;
     [[nodiscard]] unsigned int initial_money() const noexcept;
+    [[nodiscard]] unsigned int previous_bet() const noexcept;
     [[nodiscard]] std::string player_name() const noexcept;
-    [[nodiscard]] const std::unique_ptr<Player>& player(int index);
+    [[nodiscard]] bool can_check() const noexcept;
+    [[nodiscard]] const std::unique_ptr<Player> & player(int index) const;
     [[nodiscard]] const std::unique_ptr<Card>& get_table_card(int index);
     [[nodiscard]] const std::unique_ptr<Card>& get_player_hand(int player_index, int card_index);
     [[nodiscard]] unsigned int dealer();

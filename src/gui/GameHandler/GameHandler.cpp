@@ -20,11 +20,21 @@ unsigned int GameHandler::initial_money() const noexcept {
     return game_info.initial_money;
 }
 
+unsigned int GameHandler::previous_bet() const noexcept {
+    int idx = current_player() - 1;
+    if (idx < 0) idx += player_count();
+    return player(idx)->bet();
+}
+
 std::string GameHandler::player_name() const noexcept {
     return game_info.player_name;
 }
 
-const std::unique_ptr<Player>& GameHandler::player(int index) {
+bool GameHandler::can_check() const noexcept {
+    return game->can_check;
+}
+
+const std::unique_ptr<Player> & GameHandler::player(int index) const {
     return game->players[index];
 }
 

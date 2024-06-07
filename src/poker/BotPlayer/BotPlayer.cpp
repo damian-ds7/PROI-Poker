@@ -58,8 +58,12 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
         return money_to_bet * 2;
     }
     calc_equity(board_cards, num_of_players);
-    if (money_to_bet == 0 || equity() < 0.5 / static_cast<double>(num_of_players)){ //fold
+    if(money_to_bet == 0){
+        return 0;
+    }
+    else if ( equity() < 0.5 / static_cast<double>(num_of_players)){ //fold
         result = -1;
+        return result;
     } else if (equity() > 1.2 / static_cast<double>(num_of_players)) { // raise or call
         auto random_number = dist(engine);
         if (random_number % 17) { // raise
@@ -67,11 +71,13 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
         }
         else{ // call
             result = (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
+            return result;
         }
     } else { // call
         result = (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
+        return result;
     }
-    if (result > money_to_bet){
+    if (result > money_to_bet + 50){
         result = money_to_bet + 50;
     }
     else {

@@ -715,8 +715,19 @@ void MainWindow::createTableLabels(MainWindow* ptr)
 	PotToken.move(1000, 414);
 	PotToken.setPixmap(token);
 
+	CurrentPlayerDescription.setParent(ptr);
+	CurrentPlayerDescription.setFont(PotFont);
+	CurrentPlayerDescription.move(10, 620);
+	CurrentPlayerDescription.setText("Current player:");
+
+	CurrentPlayerName.setParent(ptr);
+	CurrentPlayerName.setFont(PotFont);
+	CurrentPlayerName.setStyleSheet("background: transparent;");
+	CurrentPlayerName.move(10, 650);
+
 	//
 	Pot.setText("10000$");
+	CurrentPlayerName.setText("Long Initial Name");
 	//
 }
 
@@ -772,8 +783,7 @@ void MainWindow::StartGame()
 	setButtons();
 	setTableCards();
 	showButtons();
-//    this->show();
-	//small blind
+	setCurrentPlayer();
 	if (game_handler->current_player() == 0)
 	{
 		setButtons();
@@ -788,8 +798,7 @@ void MainWindow::StartGame()
 }
 void MainWindow::PlayGame()
 {
-	// game until player turn
-	// when player turn -> return and wait for input
+	setCurrentPlayer();
 	setCash();
 	setStatus();
 	setButtons();
@@ -799,9 +808,9 @@ void MainWindow::PlayGame()
 
 	if (game_handler->current_player() == 0) return;
 
-	qDebug() << "Player turn: " << game_handler->current_player() << "\n";
+	qDebug() << "Player turn: " << game_handler->current_player();
 
-	//delay
+	//bot delay
 	int time = 0;
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -809,6 +818,7 @@ void MainWindow::PlayGame()
 
 	time = dist(gen);
 	bot_cooldown->start(time);
+	qDebug() << "Bot timer started at: " << time << "ms";
 
 
 	return;
@@ -819,13 +829,11 @@ void MainWindow::playerMakeDecision(Decision decision, int bet)
 	game_handler->play_turn(decision, bet);
 	PlayGame();
 }
-
 void MainWindow::botMakeMove()
 {
 	game_handler->play_turn(Decision(0), 0);
 	PlayGame();
 }
-
 void MainWindow::playerMakeSmallBlind(int bet)
 {
 	game_handler->play_turn(Decision(6), bet);
@@ -838,6 +846,7 @@ void MainWindow::BigBlind()
 	game_handler->make_big_blind();
 	game_handler->start_game();
 	setPlayerCards();
+	setCurrentPlayer();
 	PlayGame();
 }
 
@@ -987,6 +996,10 @@ void MainWindow::setStatus()
 	{
 		Opponent5Status.setText(game_handler->status_to_string(5).c_str());
 	}
+}
+void MainWindow::setCurrentPlayer()
+{
+	CurrentPlayerName.setText(game_handler->name_to_string(game_handler->current_player()).c_str());
 }
 
 void MainWindow::setBetButton(bool bet)

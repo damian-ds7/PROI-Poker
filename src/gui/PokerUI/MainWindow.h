@@ -76,6 +76,7 @@ private:
     void setTableCards();
     void setCash();
     void setStatus();
+    void setCurrentPlayer();
 
     void setButtons();
     void setBetButton(bool bet);
@@ -157,6 +158,8 @@ private:
     QLabel PotToken;
 
     QLabel CurrentPotDecsription;
+    QLabel CurrentPlayerDescription;
+    QLabel CurrentPlayerName;
 
     QLabel EndBackground;
     QLabel EndWinner;

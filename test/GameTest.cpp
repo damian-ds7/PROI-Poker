@@ -28,3 +28,20 @@ TEST(GameTest, GameFindWinner) {
     game.next_phase();
     game.find_winner();
 }
+
+TEST(GameTest, GameSharePot){
+    Game game("Herkules", 6, 1000);
+    game.deal();
+    game.make_move(Decision::AllIn);
+    game.make_move(Decision::AllIn);
+    game.make_move(Decision::AllIn);
+    game.make_move(Decision::AllIn);
+    game.make_move(Decision::AllIn);
+    game.make_move(Decision::AllIn);
+    game.next_phase();
+    game.next_phase();
+    game.next_phase();
+    game.next_phase();
+    game.find_winner();
+    game.share_pot();
+}

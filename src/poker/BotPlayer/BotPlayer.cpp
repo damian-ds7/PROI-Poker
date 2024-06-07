@@ -9,7 +9,7 @@ BotPlayer::BotPlayer(std::string name, unsigned int money, unsigned int bet) : P
 };
 
 bool BotPlayer::has_enough_money(unsigned int money_to_bet) const noexcept {
-    return money() >= money_to_bet;
+    return money() <= money_to_bet;
 }
 
 double BotPlayer::equity() const noexcept {

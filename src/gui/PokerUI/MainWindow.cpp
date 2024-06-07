@@ -36,7 +36,7 @@ void MainWindow::createWidgets(MainWindow* ptr)
 	createPlayers(ptr);
 	movePlayerLabels();
 	moveOpponentLabels();
-
+	initPlayersInfo();
 
 	showEndScreen(false);
 	ui->lineEdit->hide();
@@ -98,202 +98,44 @@ void MainWindow::movePlayerLabels()
 }
 void MainWindow::moveOpponentLabels()
 {
-	QTransform transform;
-	transform.rotate(90);
-	QPixmap ocardr = QPixmap(":/resources/Deck/card_back.png").transformed(transform);
 
 	if (game_handler->player_count() == 2)
 	{
-		uiplayers[1]->Cards[0]->move(670, -80);
-		uiplayers[1]->Cards[1]->move(700, -80);
-		uiplayers[1]->Name->move(800, 5);
-		uiplayers[1]->Cash->move(825, 30);
-		uiplayers[1]->Status->move(800, 60);
-		uiplayers[1]->Bet->move(735, 150);
-		uiplayers[1]->SelfToken->move(800, 29);
-		uiplayers[1]->TableToken->move(710, 149);
-
-		uiplayers[1]->set_name(game_handler->name_to_string(1));
-		uiplayers[1]->set_cash(game_handler->initial_money());
+		uiplayers[1]->move_to_position(3);
 	}
 	if (game_handler->player_count() == 3)
 	{
-		uiplayers[1]->Cards[0]->move(300, -80);
-		uiplayers[1]->Cards[1]->move(330, -80);
-		uiplayers[1]->Name->move(430, 5);
-		uiplayers[1]->Cash->move(455, 30);
-		uiplayers[1]->Status->move(430, 60);
-		uiplayers[1]->Bet->move(335, 150);
-		uiplayers[1]->SelfToken->move(430, 29);
-		uiplayers[1]->TableToken->move(310, 149);
-		
-		uiplayers[2]->Cards[0]->move(1010, -80);
-		uiplayers[2]->Cards[1]->move(1040, -80);
-		uiplayers[2]->Name->move(1140, 5);
-		uiplayers[2]->Cash->move(1165, 30);
-		uiplayers[2]->Status->move(1140, 60);
-		uiplayers[2]->Bet->move(1085, 150);
-		uiplayers[2]->SelfToken->move(1140, 29);
-		uiplayers[2]->TableToken->move(1060, 149);
-
-		uiplayers[1]->set_name(game_handler->name_to_string(1));
-		uiplayers[1]->set_cash(game_handler->initial_money());
-		uiplayers[2]->set_name(game_handler->name_to_string(2));
-		uiplayers[2]->set_cash(game_handler->initial_money());
+		uiplayers[1]->move_to_position(2);
+		uiplayers[2]->move_to_position(4);
 	}
 	if (game_handler->player_count() == 4)
 	{
-		uiplayers[1]->Cards[0]->move(-50, 200);
-		uiplayers[1]->Cards[1]->move(-50, 230);
-		uiplayers[1]->Cards[0]->setPixmap(ocardr);
-		uiplayers[1]->Cards[1]->setPixmap(ocardr);
-		uiplayers[1]->Name->move(5, 110);
-		uiplayers[1]->Cash->move(30, 135);
-		uiplayers[1]->Status->move(5, 165);
-		uiplayers[1]->Bet->move(205, 285);
-		uiplayers[1]->SelfToken->move(5, 134);
-		uiplayers[1]->TableToken->move(180, 284);
-
-		uiplayers[2]->Cards[0]->move(670, -80);
-		uiplayers[2]->Cards[1]->move(700, -80);
-		uiplayers[2]->Name->move(800, 5);
-		uiplayers[2]->Cash->move(825, 30);
-		uiplayers[2]->Status->move(800, 60);
-		uiplayers[2]->Bet->move(735, 150);
-		uiplayers[2]->SelfToken->move(800, 29);
-		uiplayers[2]->TableToken->move(710, 149);
-
-		uiplayers[3]->Cards[0]->move(1400, 200);
-		uiplayers[3]->Cards[1]->move(1400, 230);
-		uiplayers[3]->Cards[0]->setPixmap(ocardr);
-		uiplayers[3]->Cards[1]->setPixmap(ocardr);
-		uiplayers[3]->Name->move(1320, 110);
-		uiplayers[3]->Cash->move(1345, 135);
-		uiplayers[3]->Status->move(1320, 165);
-		uiplayers[3]->Bet->move(1225, 285);
-		uiplayers[3]->SelfToken->move(1320, 134);
-		uiplayers[3]->TableToken->move(1205, 284);
-
-		uiplayers[1]->set_name(game_handler->name_to_string(1));
-		uiplayers[1]->set_cash(game_handler->initial_money());
-		uiplayers[2]->set_name(game_handler->name_to_string(2));
-		uiplayers[2]->set_cash(game_handler->initial_money());
-		uiplayers[3]->set_name(game_handler->name_to_string(3));
-		uiplayers[3]->set_cash(game_handler->initial_money());
-
+		uiplayers[1]->move_to_position(1);
+		uiplayers[2]->move_to_position(3);
+		uiplayers[3]->move_to_position(5);
 	}
 	if (game_handler->player_count() == 5) 
 	{
-		uiplayers[1]->Cards[0]->move(-50, 200);
-		uiplayers[1]->Cards[1]->move(-50, 230);
-		uiplayers[1]->Cards[0]->setPixmap(ocardr);
-		uiplayers[1]->Cards[1]->setPixmap(ocardr);
-		uiplayers[1]->Name->move(5, 110);
-		uiplayers[1]->Cash->move(30, 135);
-		uiplayers[1]->Status->move(5, 165);
-		uiplayers[1]->Bet->move(205, 285);
-		uiplayers[1]->SelfToken->move(5, 134);
-		uiplayers[1]->TableToken->move(180, 284);
-
-		uiplayers[2]->Cards[0]->move(300, -80);
-		uiplayers[2]->Cards[1]->move(330, -80);
-		uiplayers[2]->Name->move(430, 5);
-		uiplayers[2]->Cash->move(455, 30);
-		uiplayers[2]->Status->move(430, 60);
-		uiplayers[2]->Bet->move(335, 150);
-		uiplayers[2]->SelfToken->move(430, 29);
-		uiplayers[2]->TableToken->move(310, 149);
-
-		uiplayers[3]->Cards[0]->move(1010, -80);
-		uiplayers[3]->Cards[1]->move(1040, -80);
-		uiplayers[3]->Name->move(1140, 5);
-		uiplayers[3]->Cash->move(1165, 30);
-		uiplayers[3]->Status->move(1140, 60);
-		uiplayers[3]->Bet->move(1085, 150);
-		uiplayers[3]->SelfToken->move(1140, 29);
-		uiplayers[3]->TableToken->move(1060, 149);
-
-		uiplayers[4]->Cards[0]->move(1400, 200);
-		uiplayers[4]->Cards[1]->move(1400, 230);
-		uiplayers[4]->Cards[0]->setPixmap(ocardr);
-		uiplayers[4]->Cards[1]->setPixmap(ocardr);
-		uiplayers[4]->Name->move(1320, 110);
-		uiplayers[4]->Cash->move(1345, 135);
-		uiplayers[4]->Status->move(1320, 165);
-		uiplayers[4]->Bet->move(1225, 285);
-		uiplayers[4]->SelfToken->move(1320, 134);
-		uiplayers[4]->TableToken->move(1205, 284);
-
-		uiplayers[1]->set_name(game_handler->name_to_string(1));
-		uiplayers[1]->set_cash(game_handler->initial_money());
-		uiplayers[2]->set_name(game_handler->name_to_string(2));
-		uiplayers[2]->set_cash(game_handler->initial_money());
-		uiplayers[3]->set_name(game_handler->name_to_string(3));
-		uiplayers[3]->set_cash(game_handler->initial_money());
-		uiplayers[4]->set_name(game_handler->name_to_string(4));
-		uiplayers[4]->set_cash(game_handler->initial_money());
+		uiplayers[1]->move_to_position(1);
+		uiplayers[2]->move_to_position(2);
+		uiplayers[3]->move_to_position(4);
+		uiplayers[4]->move_to_position(5);
 	}
 	if (game_handler->player_count() == 6)
 	{
-		uiplayers[1]->Cards[0]->move(-50, 200);
-		uiplayers[1]->Cards[1]->move(-50, 230);
-		uiplayers[1]->Cards[0]->setPixmap(ocardr);
-		uiplayers[1]->Cards[1]->setPixmap(ocardr);
-		uiplayers[1]->Name->move(5, 110);
-		uiplayers[1]->Cash->move(30, 135);
-		uiplayers[1]->Status->move(5, 165);
-		uiplayers[1]->Bet->move(205, 285);
-		uiplayers[1]->SelfToken->move(5, 134);
-		uiplayers[1]->TableToken->move(180, 284);
-
-		uiplayers[2]->Cards[0]->move(300, -80);
-		uiplayers[2]->Cards[1]->move(330, -80);
-		uiplayers[2]->Name->move(430, 5);
-		uiplayers[2]->Cash->move(455, 30);
-		uiplayers[2]->Status->move(430, 60);
-		uiplayers[2]->Bet->move(335, 150);
-		uiplayers[2]->SelfToken->move(430, 29);
-		uiplayers[2]->TableToken->move(310, 149);
-
-		uiplayers[3]->Cards[0]->move(670, -80);
-		uiplayers[3]->Cards[1]->move(700, -80);
-		uiplayers[3]->Name->move(800, 5);
-		uiplayers[3]->Cash->move(825, 30);
-		uiplayers[3]->Status->move(800, 60);
-		uiplayers[3]->Bet->move(735, 150);
-		uiplayers[3]->SelfToken->move(800, 29);
-		uiplayers[3]->TableToken->move(710, 149);
-
-		uiplayers[4]->Cards[0]->move(1010, -80);
-		uiplayers[4]->Cards[1]->move(1040, -80);
-		uiplayers[4]->Name->move(1140, 5);
-		uiplayers[4]->Cash->move(1165, 30);
-		uiplayers[4]->Status->move(1140, 60);
-		uiplayers[4]->Bet->move(1085, 150);
-		uiplayers[4]->SelfToken->move(1140, 29);
-		uiplayers[4]->TableToken->move(1060, 149);
-
-		uiplayers[5]->Cards[0]->move(1400, 200);
-		uiplayers[5]->Cards[1]->move(1400, 230);
-		uiplayers[5]->Cards[0]->setPixmap(ocardr);
-		uiplayers[5]->Cards[1]->setPixmap(ocardr);
-		uiplayers[5]->Name->move(1320, 110);
-		uiplayers[5]->Cash->move(1345, 135);
-		uiplayers[5]->Status->move(1320, 165);
-		uiplayers[5]->Bet->move(1225, 285);
-		uiplayers[5]->SelfToken->move(1320, 134);
-		uiplayers[5]->TableToken->move(1205, 284);
-
-		uiplayers[1]->set_name(game_handler->name_to_string(1));
-		uiplayers[1]->set_cash(game_handler->initial_money());
-		uiplayers[2]->set_name(game_handler->name_to_string(2));
-		uiplayers[2]->set_cash(game_handler->initial_money());
-		uiplayers[3]->set_name(game_handler->name_to_string(3));
-		uiplayers[3]->set_cash(game_handler->initial_money());
-		uiplayers[4]->set_name(game_handler->name_to_string(4));
-		uiplayers[4]->set_cash(game_handler->initial_money());
-		uiplayers[5]->set_name(game_handler->name_to_string(5));
-		uiplayers[5]->set_cash(game_handler->initial_money());
+		uiplayers[1]->move_to_position(1);
+		uiplayers[2]->move_to_position(2);
+		uiplayers[3]->move_to_position(3);
+		uiplayers[4]->move_to_position(4);
+		uiplayers[5]->move_to_position(5);
+	}
+}
+void MainWindow::initPlayersInfo()
+{
+	for (int i = 0; i < game_handler->player_count(); i++)
+	{
+		uiplayers[i]->set_name(game_handler->name_to_string(i));
+		uiplayers[i]->set_cash(game_handler->initial_money());
 	}
 }
 

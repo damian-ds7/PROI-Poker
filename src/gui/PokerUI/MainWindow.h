@@ -69,6 +69,7 @@ private:
     void createTableCards(MainWindow* ptr);
     void movePlayerLabels();
     void moveOpponentLabels();
+    void initPlayersInfo();
 
     void showButtons();
     void showEndScreen(bool visible);

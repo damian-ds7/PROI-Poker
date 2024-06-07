@@ -3,6 +3,7 @@
 #include <MainWindow.h>
 #include <QFont>
 #include <QPixmap>
+#include <QTransform>
 
 class UIPlayer
 {
@@ -16,6 +17,7 @@ public:
 	void set_cards(std::string path1, std::string path2);
 	void set_status(std::string status);
 	void set_cards_visibility(bool visibility);
+	void move_to_position(int pos);
 private:
 	QLabel* Name;
 	QLabel* Cash;

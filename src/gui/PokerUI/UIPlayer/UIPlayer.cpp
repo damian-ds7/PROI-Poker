@@ -90,3 +90,68 @@ void UIPlayer::set_cards_visibility(bool visibility) {
 	Cards[0]->setVisible(visibility);
 	Cards[1]->setVisible(visibility);
 }
+
+void UIPlayer::move_to_position(int pos)
+{
+	QTransform transform;
+	transform.rotate(90);
+	QPixmap ocardr = QPixmap(":/resources/Deck/card_back.png").transformed(transform);
+
+	switch (pos)
+	{
+	case 1:
+		Cards[0]->move(-50, 200);
+		Cards[1]->move(-50, 230);
+		Cards[0]->setPixmap(ocardr);
+		Cards[1]->setPixmap(ocardr);
+		Name->move(5, 110);
+		Cash->move(30, 135);
+		Status->move(5, 165);
+		Bet->move(205, 285);
+		SelfToken->move(5, 134);
+		TableToken->move(180, 284);
+		break;
+	case 2:
+		Cards[0]->move(300, -80);
+		Cards[1]->move(330, -80);
+		Name->move(430, 5);
+		Cash->move(455, 30);
+		Status->move(430, 60);
+		Bet->move(335, 150);
+		SelfToken->move(430, 29);
+		TableToken->move(310, 149);
+		break;
+	case 3:
+		Cards[0]->move(670, -80);
+		Cards[1]->move(700, -80);
+		Name->move(800, 5);
+		Cash->move(825, 30);
+		Status->move(800, 60);
+		Bet->move(735, 150);
+		SelfToken->move(800, 29);
+		TableToken->move(710, 149);
+		break;
+	case 4:
+		Cards[0]->move(1010, -80);
+		Cards[1]->move(1040, -80);
+		Name->move(1140, 5);
+		Cash->move(1165, 30);
+		Status->move(1140, 60);
+		Bet->move(1085, 150);
+		SelfToken->move(1140, 29);
+		TableToken->move(1060, 149);
+		break;
+	case 5:
+		Cards[0]->move(1400, 200);
+		Cards[1]->move(1400, 230);
+		Cards[0]->setPixmap(ocardr);
+		Cards[1]->setPixmap(ocardr);
+		Name->move(1320, 110);
+		Cash->move(1345, 135);
+		Status->move(1320, 165);
+		Bet->move(1225, 285);
+		SelfToken->move(1320, 134);
+		TableToken->move(1205, 284);
+		break;
+	}
+}

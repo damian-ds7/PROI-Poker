@@ -54,7 +54,6 @@ public:
     virtual void set_called(bool called);
     virtual void set_raised(bool raised);
     virtual void set_checked(bool checked);
-    virtual void reset_status();
     virtual void add_card(std::unique_ptr<Card>&& card);
     virtual void add_table_card(unsigned int index);
     virtual void make_bet(unsigned bet);

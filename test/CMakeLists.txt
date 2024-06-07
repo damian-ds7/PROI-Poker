@@ -27,3 +27,10 @@ target_link_libraries(BotPlayerTest PUBLIC gtest_main)
 add_executable(GameTest ${SOURCE_FILES} ${PLAYERS_FILES} ${UTILS_FILES} ${OMP_FILES} GameTest.cpp)
 target_link_libraries(GameTest PRIVATE poker_lib)
 target_link_libraries(GameTest PUBLIC gtest_main)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../src/gui/GameHandler)
+
+add_executable(GameHandlerTest ${SOURCE_FILES} ${PLAYERS_FILES} ${UTILS_FILES} ${OMP_FILES} GameHandlerTest.cpp ../src/gui/GameHandler/GameHandler.cpp ../src/gui/GameHandler/GameHandler.h)
+target_link_libraries(GameHandlerTest PRIVATE poker_lib)
+target_link_libraries(GameHandlerTest PUBLIC gtest_main)
+target_link_libraries(GameHandlerTest PRIVATE poker_lib Qt::Core)

@@ -21,7 +21,7 @@ public:
     [[nodiscard]] const std::unique_ptr<Player>& player(int index);
     [[nodiscard]] const std::unique_ptr<Card>& get_table_card(int index);
     [[nodiscard]] const std::unique_ptr<Card>& get_player_hand(int player_index, int card_index);
-
+    [[nodiscard]] unsigned int dealer();
     void initialize_game(const GameInfo& game_info);
     void start_game();
     void player_make_call();

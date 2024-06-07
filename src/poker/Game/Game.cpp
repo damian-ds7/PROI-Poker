@@ -7,8 +7,8 @@ Game::Game(const std::string& name, unsigned int player_count, unsigned int init
     this->player_count = player_count;
     this->currently_playing = player_count;
     players.push_back(std::make_unique<HumanPlayer>(name, initial_money, 0));
-    auto random_names = Names::get_names(player_count);
-    for (unsigned int i = 0; i < player_count; ++i) {
+    auto random_names = Names::get_names(player_count - 1);
+    for (unsigned int i = 0; i < player_count - 1; ++i) {
         players.push_back(std::make_unique<BotPlayer>(random_names[i], initial_money, 0));
     }
 
@@ -88,6 +88,9 @@ void Game::next_player() {
     if (check_round_end()) {
         next_phase();
         currently_playing = find_active_player(dealer);
+        for (auto& player : players) {
+            player->reset_after_phase();
+        }
     }
 
     current_player = find_active_player(current_player);
@@ -130,7 +133,7 @@ bool Game::check_round_end() {
     bool equal_bets = true;
     auto current_bet = players[current_player]->bet();
     for (const auto& player : players) {
-        if (!player->folded() && player->bet() < current_bet) {
+        if (!player->folded() && !player->called()) {
             equal_bets = false;
             break;
         }
@@ -167,5 +170,4 @@ void Game::find_winner() {
             winners.push_back(i);
         }
     }
-
 }

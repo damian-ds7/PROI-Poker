@@ -19,13 +19,17 @@ void handleGameInfo(const GameInfo& gameInfo, MainWindow* ptr) {
 }
 
 void handleDecisionMade(Decision decision, int bet, MainWindow* ptr) {
-	qDebug() << "Decision made: " << " with bet: " << bet;
+	qDebug() << "Decision made: " << int(decision) << " with bet: " << bet;
     ptr->playerMakeDecision(decision, bet);
 }
 
 void handleSmallBlind(int bet, MainWindow* ptr) {
 	qDebug() << "Small blind made: " << bet;
     ptr->playerMakeSmallBlind(bet);
+}
+
+void handleBotMove(MainWindow* ptr) {
+    ptr->botMakeMove();
 }
 
 int main(int argc, char *argv[])
@@ -44,6 +48,9 @@ int main(int argc, char *argv[])
         });
     QObject::connect(ptr, &MainWindow::smallBlindMade, [ptr](int bet) {
         handleSmallBlind(bet, ptr);
+        });
+    QObject::connect(ptr, &MainWindow::botMove, [ptr]() {
+        handleBotMove(ptr);
         });
 
 

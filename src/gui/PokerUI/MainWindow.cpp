@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget* parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+	bot_cooldown = new QTimer(this);
+	bot_cooldown->setSingleShot(true);
 	connect(ui->CheckButton, &QPushButton::clicked, this, &MainWindow::check);
 	connect(ui->BetButton, &QPushButton::clicked, this, &MainWindow::bet);
 	connect(ui->FoldButton, &QPushButton::clicked, this, &MainWindow::fold);
@@ -14,10 +16,12 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(ui->ConfirmButton, &QPushButton::clicked, this, &MainWindow::bet_confirmed);
 	connect(ui->SmallBlindButton, &QPushButton::clicked, this, &MainWindow::small_blind);
 	connect(ui->ConfirmSmallBlindButton, &QPushButton::clicked, this, &MainWindow::small_blind_confirmed);
+	connect(bot_cooldown, &QTimer::timeout, this, &MainWindow::bot_timer_ended);
 }
 
 MainWindow::~MainWindow()
 {
+	delete bot_cooldown;
     delete ui;
 }
 
@@ -793,23 +797,21 @@ void MainWindow::PlayGame()
 	showButtons();
 	showPlayersCards();
 
-	while (game_handler->current_player() != 0)
-	{
+	if (game_handler->current_player() == 0) return;
 
-		//delay
-		qDebug() << "Player turn: " << game_handler->current_player() << "\n";
+	qDebug() << "Player turn: " << game_handler->current_player() << "\n";
 
-		game_handler->play_turn(Decision(0), 0);
+	//delay
+	int time = 0;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<unsigned int> dist(1000, 3000);
 
-		setCash();
-		setStatus();
-		setButtons();
-		setTableCards();
-		showButtons();
-		showPlayersCards();
-	}
+	time = dist(gen);
+	bot_cooldown->start(time);
 
 
+	return;
 }
 
 void MainWindow::playerMakeDecision(Decision decision, int bet)
@@ -817,6 +819,13 @@ void MainWindow::playerMakeDecision(Decision decision, int bet)
 	game_handler->play_turn(decision, bet);
 	PlayGame();
 }
+
+void MainWindow::botMakeMove()
+{
+	game_handler->play_turn(Decision(0), 0);
+	PlayGame();
+}
+
 void MainWindow::playerMakeSmallBlind(int bet)
 {
 	game_handler->play_turn(Decision(6), bet);
@@ -834,7 +843,7 @@ void MainWindow::BigBlind()
 
 void MainWindow::showButtons()
 {
-	if (game_handler->player(0)->small_blind())
+	if (game_handler->player(0)->small_blind() && game_handler->previous_bet() == 0)
 	{
 		ui->SmallBlindButton->show();
 		ui->BetButton->hide();
@@ -1182,6 +1191,11 @@ void MainWindow::small_blind_confirmed()
 	ui->ConfirmSmallBlindButton->hide();
 	ui->SmallBlindButton->hide();
 	emit smallBlindMade(a);
+}
+
+void MainWindow::bot_timer_ended()
+{
+	emit botMove();
 }
 
 

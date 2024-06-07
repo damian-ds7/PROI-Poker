@@ -6,6 +6,7 @@
 
 class UIPlayer
 {
+public:
 	UIPlayer(MainWindow* ptr);
 	~UIPlayer();
 private:

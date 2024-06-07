@@ -16,7 +16,7 @@
 #include "CardsTypedef.h"
 #include "menu.h"
 #include "Decision.h"
-#include "UIplayer/UIPlayer.h"
+#include "UIPlayer/UIPlayer.h"
 #include <vector>
 
 

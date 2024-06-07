@@ -153,8 +153,8 @@ void Game::delete_broke_players() {
 }
 void Game::find_winner() {
     for(auto& player : players) {
-        for (unsigned int i = 0; i < table->size(); ++i) {
-            player->add_table_card(table->at(i)->card_index());
+        for (const auto & i : *table) {
+            player->add_table_card(i->card_index());
         }
     }
     unsigned int max = 0;
@@ -167,5 +167,4 @@ void Game::find_winner() {
             winners.push_back(i);
         }
     }
-
 }

@@ -28,7 +28,7 @@ unsigned int Game::find_active_player(unsigned int index) {
     unsigned int active_player = index;
     do {
         active_player = (active_player + 1) % player_count;
-    } while (players[active_player]->folded());
+    } while (players[active_player]->folded() && players[active_player]->all_in());
     return active_player;
 }
 
@@ -104,8 +104,17 @@ void Game::next_player() {
     current_player = find_active_player(current_player);
 }
 
+unsigned int Game::get_previous_bet() {
+    int idx = current_player - 1;
+    while (players[idx]->folded() || (players[idx]->all_in() && players[idx]->bet() == 0)) {
+        --idx;
+        if (idx < 0) idx += player_count;
+    }
+    return players[idx]->bet();
+}
+
 int Game::bot_play() {
-    unsigned int previous_bet = players[(current_player - 1) % player_count]->bet();
+    unsigned int previous_bet = get_previous_bet();
     return dynamic_cast<BotPlayer&>(*players[current_player]).make_decision(previous_bet, player_count    , table->to_string(), can_check, false);
 }
 

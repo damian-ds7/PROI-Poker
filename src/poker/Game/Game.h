@@ -38,6 +38,7 @@ public:
     void next_phase();
     void collect_bets();
     void next_player();
+    unsigned int get_previous_bet();
     int bot_play();
     void make_move(Decision decision, int bet = 0);
     Decision convert_bot_decision(int bet);

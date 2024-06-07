@@ -59,11 +59,18 @@ void GameHandler::start_game() {
 	game->deal();
 }
 
-void GameHandler::player_make_call() {
-	//TODO
+void GameHandler::finish_game() {
+    game->find_winner();
+    game->share_pot();
+    game->delete_broke_players();
+    game->restart_game();
 }
 
 void GameHandler::play_turn(Decision player_decision, int player_bet) {
+    if (game->phase == Phase::Showdown || game->currently_playing == 1) {
+        finish_game();
+        return;
+    }
     game->make_move(player_decision, player_bet);
 }
 

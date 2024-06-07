@@ -25,7 +25,7 @@ public:
     [[nodiscard]] unsigned int dealer();
     void initialize_game(const GameInfo& game_info);
     void start_game();
-    void player_make_call();
+    void finish_game();
     void play_turn(Decision player_decision, int player_bet);
     void make_big_blind();
 

@@ -69,6 +69,7 @@ void GameHandler::play_turn(Decision player_decision, int player_bet) {
 
 void GameHandler::make_big_blind() {
     play_turn(Decision(6), 2*previous_bet());
+    game->reset_initial_status();
 }
 
 int GameHandler::phase_to_int() {

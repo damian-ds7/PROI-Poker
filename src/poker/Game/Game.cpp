@@ -264,9 +264,14 @@ void Game::reset_winners() {
     winners.clear();
 }
 
+void Game::reset_initial_status() {
+    players[dealer]->set_dealer(false);
+    players[(dealer + 1) % player_count]->set_small_blind(false);
+    players[(dealer + 2) % player_count]->set_big_blind(false);
+}
+
 void Game::reset_players_status() {
     for (auto& player : players) {
-        player->reset_status();
         player->reset_after_phase();
     }
 }

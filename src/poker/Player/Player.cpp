@@ -101,6 +101,8 @@ void Player::set_big_blind(bool big_blind) {
     m_big_blind = big_blind;
     if (big_blind) {
         m_status = "BIG B";
+    } else {
+        m_status = "";
     }
 
 }
@@ -109,6 +111,8 @@ void Player::set_small_blind(bool small_blind) {
     m_small_blind = small_blind;
     if (small_blind) {
         m_status = "SMALL B";
+    } else {
+        m_status = "";
     }
 }
 
@@ -116,6 +120,8 @@ void Player::set_dealer(bool dealer) {
     m_dealer = dealer;
     if (dealer) {
         m_status = "DEALER";
+    } else {
+        m_status = "";
     }
 }
 
@@ -140,12 +146,12 @@ void Player::set_checked(bool checked) {
     }
 }
 
-void Player::reset_status() {
-    m_status = "";
-    set_small_blind(false);
-    set_big_blind(false);
-
-}
+//void Player::reset_status() {
+//    m_status = "";
+//    set_small_blind(false);
+//    set_big_blind(false);
+//    set_dealer(false);
+//}
 
 void Player::add_card(std::unique_ptr<Card>&& card) {
     card_eval += omp::Hand(card->card_index());

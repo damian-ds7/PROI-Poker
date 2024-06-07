@@ -44,6 +44,7 @@ public:
     void find_winner();
     bool check_round_end();
     void delete_broke_players();
+    void share_pot();
     void collect_cards();
     void set_new_dealer();
     void reset_phase();

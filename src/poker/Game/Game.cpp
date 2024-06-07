@@ -177,6 +177,43 @@ void Game::delete_broke_players() {
         }
     }
 }
+
+void Game::share_pot() {
+    bool all_in = false;
+    std::vector<unsigned int> allin_bets;
+    int idx = 0;
+    for (const auto& player : players) {
+        if (player->all_in()) {
+            allin_bets.push_back(idx);
+            all_in = true;
+        }
+        ++idx;
+    }
+    if (!all_in)
+    {
+        for (auto& winner : winners) {
+            players[winner]->set_money(players[winner]->money() + pot / winners.size());
+        }
+        pot = 0;
+    } else{
+        std::sort(allin_bets.begin(), allin_bets.end(), [&](unsigned int a, unsigned int b) {
+            return players[a]->sum_bet() < players[b]->sum_bet();
+        });
+        smallest_allin = 0;
+        for(unsigned int allin_bet : allin_bets) {
+            for (auto& winner : winners) {
+                players[winner]->set_money(players[winner]->money() + (players[allin_bet]->sum_bet()-smallest_allin));
+            }
+            pot -= players[allin_bet]->sum_bet() * winners.size();
+            winners.erase(std::remove(winners.begin(), winners.end(), smallest_allin), winners.end());
+            smallest_allin = players[allin_bet]->sum_bet();
+        }
+        for (auto& winner : winners) {
+            players[winner]->set_money(players[winner]->money() + pot / winners.size());
+        }
+    }
+
+}
 void Game::find_winner() {
     for(auto& player : players) {
         for (const auto & i : *table) {

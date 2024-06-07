@@ -20,6 +20,10 @@ unsigned int Player::bet() const noexcept {
     return m_bet;
 }
 
+unsigned int Player::sum_bet() const noexcept {
+    return m_sum_bet;
+}
+
 bool Player::folded() const noexcept {
     return m_folded;
 }
@@ -74,6 +78,7 @@ void Player::set_money(unsigned int money) {
 
 void Player::set_bet(unsigned int bet) {
     m_bet = bet;
+    m_sum_bet += bet;
 }
 
 void Player::set_folded(bool folded) {

@@ -12,6 +12,7 @@ protected:
     std::string m_name;
     unsigned int m_money;
     unsigned int m_bet;
+    unsigned int m_sum_bet = 0;
     bool m_folded = false;
     bool m_all_in = false;
     bool m_big_blind = false;
@@ -30,6 +31,7 @@ public:
     [[nodiscard]] virtual std::string name() const noexcept;
     [[nodiscard]] virtual unsigned int money() const noexcept;
     [[nodiscard]] virtual unsigned int bet() const noexcept;
+    [[nodiscard]] virtual unsigned int sum_bet() const noexcept;
     [[nodiscard]] virtual bool folded() const noexcept;
     [[nodiscard]] virtual bool all_in() const noexcept;
     [[nodiscard]] virtual bool big_blind() const noexcept;

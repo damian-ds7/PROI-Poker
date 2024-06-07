@@ -179,7 +179,7 @@ void Game::share_pot() {
         smallest_allin = 0;
         for(unsigned int allin_bet : allin_bets) {
             for (auto& winner : winners) {
-                players[winner]->set_money(players[winner]->money() + (players[allin_bet]->bet()-smallest_allin) / winners.size());
+                players[winner]->set_money(players[winner]->money() + (players[allin_bet]->bet()-smallest_allin));
             }
             pot -= players[allin_bet]->bet() * winners.size();
             winners.erase(std::remove(winners.begin(), winners.end(), allin_bet), winners.end());

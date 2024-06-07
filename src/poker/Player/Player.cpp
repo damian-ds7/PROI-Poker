@@ -10,6 +10,7 @@ std::string Player::name() const noexcept {
 void Player::make_helper(unsigned money) {
     m_money -= money;
     m_bet += money;
+    m_sum_bet += money;
 }
 
 unsigned int Player::money() const noexcept {

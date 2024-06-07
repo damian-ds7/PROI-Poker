@@ -102,5 +102,65 @@ TEST(GameHandlerTest, GameHandlerPlayTurnSixPlayers){
 }
 
 TEST(GameHandlerTest, GameHandlerStartGame){
+    GameHandler game_handler;
+    GameInfo game_info("Herkules", 6, 1000);
+    game_handler.initialize_game(game_info);
+    game_handler.start_game();
+    EXPECT_EQ(game_handler.current_player(), game_handler.dealer());
+    EXPECT_EQ(game_handler.player(0)->money(), 1000);
+    EXPECT_EQ(game_handler.player(1)->money(), 1000);
+    EXPECT_EQ(game_handler.player(2)->money(), 1000);
+    EXPECT_EQ(game_handler.player(3)->money(), 1000);
+    EXPECT_EQ(game_handler.player(4)->money(), 1000);
+    EXPECT_EQ(game_handler.player(5)->money(), 1000);
+    EXPECT_EQ(game_handler.pot(), 0);
+    EXPECT_EQ(game_handler.player(0)->clear_hand().size(), 2);
+    EXPECT_EQ(game_handler.player(1)->clear_hand().size(), 2);
+    EXPECT_EQ(game_handler.player(2)->clear_hand().size(), 2);
+    EXPECT_EQ(game_handler.player(3)->clear_hand().size(), 2);
+    EXPECT_EQ(game_handler.player(4)->clear_hand().size(), 2);
+    EXPECT_EQ(game_handler.player(5)->clear_hand().size(), 2);
+}
 
+//TEST(GameHandlerTest, GameHandlerMakeBigBlind){
+//    GameHandler game_handler;
+//    GameInfo game_info("Herkules", 6, 1000);
+//    game_handler.initialize_game(game_info);
+//    game_handler.start_game();
+//    game_handler.make_big_blind();
+//    EXPECT_EQ(game_handler.current_player(), game_handler.dealer() + 1);
+//    EXPECT_EQ(game_handler.player(0)->money(), 998);
+//    EXPECT_EQ(game_handler.player(1)->money(), 1000);
+//    EXPECT_EQ(game_handler.pot(), 2);
+//}
+
+TEST(GameHandlerTest, GameHandlerPhaseToInt){
+    GameHandler game_handler;
+    GameInfo game_info("Herkules", 2, 1000);
+    game_handler.initialize_game(game_info);
+    EXPECT_EQ(game_handler.phase_to_int(), 0);
+    game_handler.start_game();
+    game_handler.play_turn(Decision::Raise, 10);
+    game_handler.play_turn(Decision::Call, 10);
+    game_handler.play_turn(Decision::Check, 0);
+    EXPECT_EQ(game_handler.phase_to_int(), 1);
+    game_handler.play_turn(Decision::Raise, 10);
+    game_handler.play_turn(Decision::Call, 10);
+    game_handler.play_turn(Decision::Check, 0);
+    EXPECT_EQ(game_handler.phase_to_int(), 2);
+    game_handler.play_turn(Decision::Raise, 10);
+    game_handler.play_turn(Decision::Call, 10);
+    game_handler.play_turn(Decision::Check, 0);
+    EXPECT_EQ(game_handler.phase_to_int(), 3);
+    game_handler.play_turn(Decision::Raise, 10);
+    game_handler.play_turn(Decision::Call, 10);
+    game_handler.play_turn(Decision::Check, 0);
+    EXPECT_EQ(game_handler.phase_to_int(), 4);
+}
+
+TEST(GameHandlerTest, GameHandlerCurrentPlayerToString){
+    GameHandler game_handler;
+    GameInfo game_info("Herkules", 2, 1000);
+    game_handler.initialize_game(game_info);
+    EXPECT_EQ(game_handler.current_player_to_string(), game_handler.name_to_string(game_handler.dealer()+1));
 }

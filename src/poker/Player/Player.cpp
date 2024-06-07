@@ -92,7 +92,7 @@ void Player::set_folded(bool folded) {
 void Player::set_all_in(bool all_in) {
     m_all_in = all_in;
     if (all_in) {
-        m_status = "ALl IN";
+        m_status = "ALL IN";
     }
 
 }
@@ -178,11 +178,11 @@ void Player::make_call(unsigned previous_bet) {
 }
 
 void Player::make_fold() {
-    m_folded = true;
+    set_folded(true);
 }
 
 void Player::make_all_in() {
-    m_all_in = true;
+    set_all_in(true);
     make_helper(m_money);
 }
 

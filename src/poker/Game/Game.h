@@ -11,6 +11,7 @@
 #include "CardsTypedef.h"
 #include "Phase.h"
 #include "Decision.h"
+#include "Names.h"
 
 class Game {
 private:
@@ -41,7 +42,7 @@ public:
     void make_move(Decision decision, int bet = 0);
     void find_winner();
     bool check_round_end();
-
+    void delete_broke_players();
 
     friend class MainWindow;
     friend class GameHandler;

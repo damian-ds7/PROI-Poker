@@ -7,8 +7,9 @@ Game::Game(const std::string& name, unsigned int player_count, unsigned int init
     this->player_count = player_count;
     this->currently_playing = player_count;
     players.push_back(std::make_unique<HumanPlayer>(name, initial_money, 0));
-    for (unsigned int i = 1; i < player_count; ++i) {
-        players.push_back(std::make_unique<BotPlayer>("Bot " + std::to_string(i), initial_money, 0));
+    auto random_names = Names::get_names(player_count - 1);
+    for (unsigned int i = 0; i < player_count - 1; ++i) {
+        players.push_back(std::make_unique<BotPlayer>(random_names[i], initial_money, 0));
     }
 
     std::random_device rd;
@@ -81,12 +82,15 @@ void Game::next_player() {
     if (players[current_player]->folded()) {
         --currently_playing;
 //        pot += players[current_player]->remove_bet();
-    discarded->add_cards(players[current_player]->clear_hand());
+        discarded->add_cards(players[current_player]->clear_hand());
     }
 
     if (check_round_end()) {
         next_phase();
         currently_playing = find_active_player(dealer);
+        for (auto& player : players) {
+            player->reset_after_phase();
+        }
     }
 
     current_player = find_active_player(current_player);
@@ -129,7 +133,7 @@ bool Game::check_round_end() {
     bool equal_bets = true;
     auto current_bet = players[current_player]->bet();
     for (const auto& player : players) {
-        if (!player->folded() && player->bet() < current_bet) {
+        if (!player->folded() && !player->called()) {
             equal_bets = false;
             break;
         }
@@ -137,6 +141,33 @@ bool Game::check_round_end() {
     return equal_bets;
 }
 
+void Game::delete_broke_players() {
+    while (true) {
+        auto it = std::find_if(players.begin(), players.end(), [](const auto &player) { return player->money() == 0; });
+        if (it != players.end()) {
+            players.erase(it);
+            --player_count;
+            --currently_playing;
+        }
+        else {
+            break;
+        }
+    }
+}
 void Game::find_winner() {
-
+    for(auto& player : players) {
+        for (const auto & i : *table) {
+            player->add_table_card(i->card_index());
+        }
+    }
+    unsigned int max = 0;
+    for (unsigned int i = 0; i < player_count; ++i) {
+        if (!players[i]->folded() && players[i]->evaluate() > max) {
+            winners.clear();
+            max = players[i]->evaluate();
+            winners.push_back(i);
+        } else if (!players[i]->folded() && players[i]->evaluate() == max) {
+            winners.push_back(i);
+        }
+    }
 }

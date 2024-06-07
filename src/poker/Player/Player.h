@@ -59,7 +59,7 @@ public:
     virtual void add_table_card(unsigned int index);
     virtual void make_bet(unsigned bet);
     virtual void make_raise(unsigned raise);
-    virtual void make_call(unsigned call);
+    virtual void make_call(unsigned previous_bet);
     virtual void make_fold();
     virtual void make_all_in();
     virtual void make_check();

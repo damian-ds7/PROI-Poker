@@ -98,9 +98,10 @@ void Game::next_player() {
             }
             player->reset_after_phase();
         }
+        return;
     }
 
-//    current_player = find_active_player(current_player);
+    current_player = find_active_player(current_player);
 }
 
 int Game::bot_play() {

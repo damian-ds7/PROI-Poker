@@ -144,7 +144,7 @@ void Player::reset_status() {
     m_status = "";
     set_small_blind(false);
     set_big_blind(false);
-
+    set_dealer(false);
 }
 
 void Player::add_card(std::unique_ptr<Card>&& card) {

@@ -54,24 +54,24 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
         return money() / 10;
     }
     calc_equity(board_cards, num_of_players);
-    if (money_to_bet == 0 && equity() < 0.4) {
+    if ((money_to_bet - bet()) == 0 && equity() < 0.4) {
         return 0;
     } else if (equity() > 1.0 / static_cast<double>(num_of_players)) {
         auto random_number = dist(engine);
         if (random_number % 17) {
-            return (has_enough_money(money_to_bet)) ? money_to_bet + static_cast<int>((money() - money_to_bet) * equity()) : money();
+            return (has_enough_money(money_to_bet - bet())) ? (money_to_bet - bet()) + static_cast<int>((money() - money_to_bet + bet() * equity())) : money();
         }
         else{
-            return (has_enough_money(money_to_bet)) ? money_to_bet : money();
+            return (has_enough_money(money_to_bet - bet())) ? (money_to_bet - bet()) : money();
         }
 
     } else if (equity() < 0.5 / static_cast<double>(num_of_players)) {
         if (is_bluffing) {
             auto random_number = dist(engine);
             if (random_number % 17) {
-                return (has_enough_money(money_to_bet)) ? make_bluff(money_to_bet, num_of_players, board_cards) : money();
+                return (has_enough_money(money_to_bet - bet())) ? make_bluff(money_to_bet - bet(), num_of_players, board_cards) : money();
             } else if (random_number % 13) {
-                return (has_enough_money(money_to_bet)) ? money_to_bet : money();
+                return (has_enough_money(money_to_bet - bet())) ? (money_to_bet - bet()) : money();
             } else return 0; // make fold
         }
         else{
@@ -79,7 +79,7 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
         }
     } else {
         //(has_enough_money(money_to_bet)) ? make_call(money_to_bet) : make_all_in();
-        return (has_enough_money(money_to_bet)) ? money_to_bet : money();
+        return (has_enough_money(money_to_bet - bet())) ? money_to_bet - bet() : money();
     }
 }
 

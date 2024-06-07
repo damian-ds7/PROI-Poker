@@ -48,8 +48,6 @@ public:
     void playerMakeSmallBlind(int bet);
     void botMakeMove();
 
-    QTimer* bot_cooldown;
-
 signals:
     void decisionMade(Decision decision, int bet);
 signals:
@@ -105,6 +103,8 @@ private:
 
     std::vector<std::unique_ptr<UIPlayer>> uiplayers;
     QLabel* TableCards[6];
+
+    QTimer* bot_cooldown;
 
     Ui::Widget* ui;
 };

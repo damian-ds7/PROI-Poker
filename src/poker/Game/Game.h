@@ -43,6 +43,11 @@ public:
     void find_winner();
     bool check_round_end();
     void delete_broke_players();
+    void collect_cards();
+    void set_new_dealer();
+    void reset_phase();
+    void reset_winners();
+    void reset_players_status();
     void restart_game();
     friend class MainWindow;
     friend class GameHandler;

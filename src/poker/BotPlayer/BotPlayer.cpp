@@ -49,7 +49,7 @@ void BotPlayer::calc_equity(const std::string& board_cards, int num_of_players){
     set_equity(r.equity[0]);
 }
 
-int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards, bool is_bluffing) {
+int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards, bool can_check, bool is_bluffing) {
     int result = 0;
     if (small_blind()) {
         return money() / 20;
@@ -58,10 +58,9 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
         return money_to_bet * 2;
     }
     calc_equity(board_cards, num_of_players);
-    if(money_to_bet == 0){
+    if(money_to_bet == 0 and can_check){
         return 0;
-    }
-    else if ( equity() < 0.5 / static_cast<double>(num_of_players)){ //fold
+    } else if ( equity() < 0.5 / static_cast<double>(num_of_players)){ //fold
         result = -1;
         return result;
     } else if (equity() > 1.2 / static_cast<double>(num_of_players)) { // raise or call

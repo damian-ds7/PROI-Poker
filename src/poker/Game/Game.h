@@ -38,7 +38,7 @@ public:
     void next_phase();
     void collect_bets();
     void next_player();
-    void bot_play();
+    int bot_play();
     void make_move(Decision decision, int bet = 0);
     void find_winner();
     bool check_round_end();

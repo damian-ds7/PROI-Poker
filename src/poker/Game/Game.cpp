@@ -96,9 +96,9 @@ void Game::next_player() {
     current_player = find_active_player(current_player);
 }
 
-void Game::bot_play() {
+int Game::bot_play() {
     unsigned int previous_bet = players[(current_player - 1) % player_count]->bet();
-    dynamic_cast<BotPlayer&>(*players[current_player]).make_decision(previous_bet, currently_playing    , table->to_string());
+    return dynamic_cast<BotPlayer&>(*players[current_player]).make_decision(previous_bet, currently_playing    , table->to_string(), false);
 }
 
 void Game::make_move(Decision decision, int bet) {

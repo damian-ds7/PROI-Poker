@@ -33,7 +33,7 @@ public:
     [[nodiscard]] virtual std::string to_string() const {
         std::string cards;
         for (const auto& card : *this) {
-            cards += card->to_string() + " ";
+            cards += card->to_string();
         }
         return cards;
     }

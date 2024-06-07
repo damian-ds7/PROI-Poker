@@ -100,8 +100,8 @@ TEST(CardTest, CardGetFileName){
     Card card3(Suit::Diamonds, Value::Queen);
     Card card4(Suit::Clubs, Value::Ten);
 
-    EXPECT_EQ(card1.get_file_path(), "resources/deck/spades_ace.png");
-    EXPECT_EQ(card2.get_file_path(), "resources/deck/hearts_three.png");
-    EXPECT_EQ(card3.get_file_path(), "resources/deck/diamonds_queen.png");
-    EXPECT_EQ(card4.get_file_path(), "resources/deck/clubs_ten.png");
+    EXPECT_EQ(card1.get_file_path(), ":/resources/Deck/spades_ace.png");
+    EXPECT_EQ(card2.get_file_path(), ":/resources/Deck/hearts_three.png");
+    EXPECT_EQ(card3.get_file_path(), ":/resources/Deck/diamonds_queen.png");
+    EXPECT_EQ(card4.get_file_path(), ":/resources/Deck/clubs_ten.png");
 }

@@ -7,17 +7,16 @@ std::string Player::name() const noexcept {
     return m_name;
 }
 
-void Player::make_helper(unsigned money) {
-    m_money -= money;
-    m_bet += money;
-}
-
 unsigned int Player::money() const noexcept {
     return m_money;
 }
 
 unsigned int Player::bet() const noexcept {
     return m_bet;
+}
+
+unsigned int Player::sum_bet() const noexcept {
+    return m_sum_bet;
 }
 
 bool Player::folded() const noexcept {
@@ -74,6 +73,7 @@ void Player::set_money(unsigned int money) {
 
 void Player::set_bet(unsigned int bet) {
     m_bet = bet;
+    m_sum_bet += bet;
 }
 
 void Player::set_folded(bool folded) {
@@ -86,7 +86,7 @@ void Player::set_folded(bool folded) {
 void Player::set_all_in(bool all_in) {
     m_all_in = all_in;
     if (all_in) {
-        m_status = "ALl IN";
+        m_status = "ALL IN";
     }
 
 }
@@ -95,6 +95,8 @@ void Player::set_big_blind(bool big_blind) {
     m_big_blind = big_blind;
     if (big_blind) {
         m_status = "BIG B";
+    } else {
+        m_status = "";
     }
 
 }
@@ -103,6 +105,8 @@ void Player::set_small_blind(bool small_blind) {
     m_small_blind = small_blind;
     if (small_blind) {
         m_status = "SMALL B";
+    } else {
+        m_status = "";
     }
 }
 
@@ -110,6 +114,8 @@ void Player::set_dealer(bool dealer) {
     m_dealer = dealer;
     if (dealer) {
         m_status = "DEALER";
+    } else {
+        m_status = "";
     }
 }
 
@@ -134,11 +140,17 @@ void Player::set_checked(bool checked) {
     }
 }
 
-void Player::reset_status() {
-    m_status = "";
-    set_small_blind(false);
-    set_big_blind(false);
+//void Player::reset_status() {
+//    m_status = "";
+//    set_small_blind(false);
+//    set_big_blind(false);
+//    set_dealer(false);
+//}
 
+void Player::make_helper(unsigned money) {
+    m_money -= money;
+    m_bet += money;
+    m_sum_bet += money;
 }
 
 void Player::add_card(std::unique_ptr<Card>&& card) {
@@ -155,23 +167,28 @@ void Player::make_bet(unsigned bet) {
 }
 
 void Player::make_raise(unsigned raise) {
-   make_helper(raise);
+    set_raised(true);
+    raise -= m_bet;
+    make_helper(raise);
 }
 
-void Player::make_call(unsigned call) {
-    make_helper(call);
+void Player::make_call(unsigned previous_bet) {
+    set_called(true);
+    previous_bet -= m_bet;
+    make_helper(previous_bet);
 }
 
 void Player::make_fold() {
-    m_folded = true;
+    set_folded(true);
 }
 
 void Player::make_all_in() {
-    m_all_in = true;
+    set_all_in(true);
     make_helper(m_money);
 }
 
 void Player::make_check() {
+    set_checked(true);
     // Do nothing.
 }
 
@@ -188,6 +205,14 @@ std::deque<std::unique_ptr<Card>> Player::clear_hand() noexcept {
         m_hand->pop_front();
     }
     return std::move(temp);
+}
+
+void Player::reset_after_phase() noexcept {
+    m_bet = 0;
+    set_called(false);
+    set_raised(false);
+    set_checked(false);
+    m_status = "";
 }
 
 omp::HandEvaluator Player::eval;

@@ -12,6 +12,7 @@ protected:
     std::string m_name;
     unsigned int m_money;
     unsigned int m_bet;
+    unsigned int m_sum_bet = 0;
     bool m_folded = false;
     bool m_all_in = false;
     bool m_big_blind = false;
@@ -30,6 +31,7 @@ public:
     [[nodiscard]] virtual std::string name() const noexcept;
     [[nodiscard]] virtual unsigned int money() const noexcept;
     [[nodiscard]] virtual unsigned int bet() const noexcept;
+    [[nodiscard]] virtual unsigned int sum_bet() const noexcept;
     [[nodiscard]] virtual bool folded() const noexcept;
     [[nodiscard]] virtual bool all_in() const noexcept;
     [[nodiscard]] virtual bool big_blind() const noexcept;
@@ -52,16 +54,16 @@ public:
     virtual void set_called(bool called);
     virtual void set_raised(bool raised);
     virtual void set_checked(bool checked);
-    virtual void reset_status();
     virtual void add_card(std::unique_ptr<Card>&& card);
     virtual void add_table_card(unsigned int index);
     virtual void make_bet(unsigned bet);
     virtual void make_raise(unsigned raise);
-    virtual void make_call(unsigned call);
+    virtual void make_call(unsigned previous_bet);
     virtual void make_fold();
     virtual void make_all_in();
     virtual void make_check();
     virtual unsigned int remove_bet() noexcept;
+    virtual void reset_after_phase() noexcept;
     std::deque<std::unique_ptr<Card>> clear_hand() noexcept;
 protected:
     static omp::HandEvaluator eval;

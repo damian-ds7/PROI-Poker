@@ -286,6 +286,7 @@ void Game::reset_winners() {
 void Game::reset_players_status() {
     for (auto& player : players) {
         player->reset_after_phase();
+        player->set_sum_bet(0);
     }
 }
 

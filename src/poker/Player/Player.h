@@ -46,6 +46,7 @@ public:
     virtual void set_name(std::string name);
     virtual void set_money(unsigned int money);
     virtual void set_bet(unsigned int bet);
+    virtual void set_sum_bet(unsigned int sum_bet);
     virtual void set_folded(bool folded);
     virtual void set_all_in(bool all_in);
     virtual void set_big_blind(bool big_blind);

@@ -219,4 +219,8 @@ void Player::reset_after_phase() noexcept {
     m_status = "";
 }
 
+void Player::set_sum_bet(unsigned int sum_bet) {
+    m_sum_bet = sum_bet;
+}
+
 omp::HandEvaluator Player::eval;

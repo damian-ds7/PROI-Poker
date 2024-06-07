@@ -178,15 +178,19 @@ TEST(GameHandlerTest, GameHandlerPhaseToInt){
     game_handler.start_game();
     game_handler.play_turn(Decision::Raise, 10);
     game_handler.play_turn(Decision::Call, 10);
+    game_handler.play_turn(Decision::Call, 0);
     EXPECT_EQ(game_handler.phase_to_int(), 1);
     game_handler.play_turn(Decision::Raise, 10);
     game_handler.play_turn(Decision::Call, 10);
+    game_handler.play_turn(Decision::Call, 0);
     EXPECT_EQ(game_handler.phase_to_int(), 2);
     game_handler.play_turn(Decision::Raise, 10);
     game_handler.play_turn(Decision::Call, 10);
+    game_handler.play_turn(Decision::Call, 0);
     EXPECT_EQ(game_handler.phase_to_int(), 3);
     game_handler.play_turn(Decision::Raise, 10);
     game_handler.play_turn(Decision::Call, 10);
+    game_handler.play_turn(Decision::Call, 0);
     EXPECT_EQ(game_handler.phase_to_int(), 4);
 }
 

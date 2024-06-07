@@ -220,11 +220,12 @@ void Game::share_pot() {
 void Game::find_winner() {
     unsigned int max = 0;
     for (unsigned int i = 0; i < player_count; ++i) {
-        if (!players[i]->folded() && players[i]->evaluate() > max) {
+        auto eval = players[i]->evaluate();
+        if (!players[i]->folded() && eval > max) {
             winners.clear();
-            max = players[i]->evaluate();
+            max = eval;
             winners.push_back(i);
-        } else if (!players[i]->folded() && players[i]->evaluate() == max) {
+        } else if (!players[i]->folded() && eval == max) {
             winners.push_back(i);
         }
     }

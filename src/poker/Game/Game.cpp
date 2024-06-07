@@ -152,5 +152,20 @@ void Game::delete_broke_players() {
     }
 }
 void Game::find_winner() {
+    for(auto& player : players) {
+        for (unsigned int i = 0; i < table->size(); ++i) {
+            player->add_table_card(table->at(i)->card_index());
+        }
+    }
+    unsigned int max = 0;
+    for (unsigned int i = 0; i < player_count; ++i) {
+        if (!players[i]->folded() && players[i]->evaluate() > max) {
+            winners.clear();
+            max = players[i]->evaluate();
+            winners.push_back(i);
+        } else if (!players[i]->folded() && players[i]->evaluate() == max) {
+            winners.push_back(i);
+        }
+    }
 
 }

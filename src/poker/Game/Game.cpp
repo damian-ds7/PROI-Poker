@@ -34,6 +34,9 @@ unsigned int Game::find_active_player(unsigned int index) {
 
 void Game::add_table_card(unsigned int num_of_cards) {
     for (unsigned int i = 0; i < num_of_cards; ++i) {
+        for (auto& player : players) {
+            player->add_table_card(deck->front()->card_index());
+        }
         table->push_back(std::move(deck->front()));
         deck->pop_front();
     }
@@ -215,11 +218,6 @@ void Game::share_pot() {
 
 }
 void Game::find_winner() {
-    for(auto& player : players) {
-        for (const auto & i : *table) {
-            player->add_table_card(i->card_index());
-        }
-    }
     unsigned int max = 0;
     for (unsigned int i = 0; i < player_count; ++i) {
         if (!players[i]->folded() && players[i]->evaluate() > max) {

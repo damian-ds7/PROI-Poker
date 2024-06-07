@@ -79,6 +79,8 @@ void MainWindow::movePlayerLabels()
 
 	uiplayers[0]->Cards[0]->move(440, 520);
 	uiplayers[0]->Cards[1]->move(560, 520);
+	uiplayers[0]->Cards[0]->setFixedSize(107, 150);
+	uiplayers[0]->Cards[1]->setFixedSize(107, 150);
 
 	uiplayers[0]->Name->setFont(NameFont);
 	uiplayers[0]->Name->move(280, 520);

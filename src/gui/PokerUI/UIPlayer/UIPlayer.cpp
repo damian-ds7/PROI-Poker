@@ -24,8 +24,8 @@ UIPlayer::UIPlayer(MainWindow* ptr) {
 
 	SelfToken->setFixedSize(20, 20);
 	TableToken->setFixedSize(20, 20);
-	Cards[0]->setFixedSize(107, 150);
-	Cards[1]->setFixedSize(107, 150);
+	Cards[0]->setFixedSize(80, 110);
+	Cards[1]->setFixedSize(80, 110);
 
 	SelfToken->setScaledContents(true);
 	TableToken->setScaledContents(true);

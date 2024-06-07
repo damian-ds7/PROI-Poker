@@ -1,8 +1,8 @@
 file(GLOB TEST_FILES *.cpp)
 
-add_executable(PokerTest ${SOURCE_FILES} ${TEST_FILES})
-target_link_libraries(PokerTest PRIVATE poker_lib)
+add_executable(PokerTest ${SOURCE_FILES} ${TEST_FILES} ../src/gui/GameHandler/GameHandler.cpp ../src/gui/GameHandler/GameHandler.h)
 target_link_libraries(PokerTest PUBLIC gtest_main)
+target_link_libraries(PokerTest PRIVATE poker_lib Qt::Core)
 
 add_executable(CardTest ${CARD_FILES} ${UTILS_FILES} CardTest.cpp)
 target_link_libraries(CardTest PRIVATE poker_lib)

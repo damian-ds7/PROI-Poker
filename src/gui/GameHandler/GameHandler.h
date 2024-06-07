@@ -37,7 +37,7 @@ public:
     std::string name_to_string(int index);
     std::string status_to_string(int index);
     QString cash_to_QString(unsigned int cash);
-    int previous_bet();
+    unsigned int previous_bet();
 
     //static QString cash_to_QString(unsigned int cash);
 private:

@@ -106,6 +106,7 @@ void Game::next_player() {
 
 unsigned int Game::get_previous_bet() {
     int idx = current_player - 1;
+    if (idx < 0) idx += player_count;
     while (players[idx]->folded() || (players[idx]->all_in() && players[idx]->bet() == 0)) {
         --idx;
         if (idx < 0) idx += player_count;
@@ -172,7 +173,11 @@ bool Game::check_round_end() {
     bool equal_bets = true;
     auto current_bet = players[current_player]->bet();
     for (const auto& player : players) {
-        if (!player->folded() && !player->called() && !player->all_in()) {
+//        if (!player->folded() && !player->called()) {
+//            equal_bets = false;
+//            break;
+//        }
+        if ((!player->folded() && player->bet() != current_bet) || !player->all_in()) {
             equal_bets = false;
             break;
         }

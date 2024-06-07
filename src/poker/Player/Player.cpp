@@ -159,6 +159,7 @@ void Player::make_raise(unsigned raise) {
 }
 
 void Player::make_call(unsigned call) {
+    set_called(true);
     make_helper(call);
 }
 
@@ -188,6 +189,14 @@ std::deque<std::unique_ptr<Card>> Player::clear_hand() noexcept {
         m_hand->pop_front();
     }
     return std::move(temp);
+}
+
+void Player::reset_after_phase() noexcept {
+    m_bet = 0;
+    set_called(false);
+    set_raised(false);
+    set_checked(false);
+    m_status = "";
 }
 
 omp::HandEvaluator Player::eval;

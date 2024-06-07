@@ -8,7 +8,8 @@ TEST(GameHandlerTest, GameHandlerCreate){
     game_handler.initialize_game(game_info);
     EXPECT_EQ(game_handler.player_count(), 6);
     EXPECT_EQ(game_handler.currently_playing(), 6);
-    EXPECT_EQ(game_handler.current_player(), game_handler.dealer() + 1);
+    auto idx = (game_handler.dealer() + 1) % game_info.player_count;
+    EXPECT_EQ(game_handler.current_player(), idx);
 }
 
 TEST(GameHandlerTest, GameHandlerPlayTurn){

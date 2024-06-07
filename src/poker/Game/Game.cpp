@@ -88,6 +88,9 @@ void Game::next_player() {
     if (check_round_end()) {
         next_phase();
         currently_playing = find_active_player(dealer);
+        for (auto& player : players) {
+            player->reset_after_phase();
+        }
     }
 
     current_player = find_active_player(current_player);
@@ -130,7 +133,7 @@ bool Game::check_round_end() {
     bool equal_bets = true;
     auto current_bet = players[current_player]->bet();
     for (const auto& player : players) {
-        if (!player->folded() && player->bet() < current_bet) {
+        if (!player->folded() && !player->called()) {
             equal_bets = false;
             break;
         }

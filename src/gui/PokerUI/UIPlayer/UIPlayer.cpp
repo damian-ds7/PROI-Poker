@@ -11,9 +11,9 @@ UIPlayer::UIPlayer(MainWindow* ptr) {
 	TableToken = new QLabel(ptr);
 
 
-	QFont NameFont("Arial", 20, QFont::Bold);
-	QFont CashFont("Arial", 17, QFont::Bold);
-	QFont StatusFont("Arial", 26, QFont::Bold);
+	QFont NameFont("Arial", 14, QFont::Bold);
+	QFont CashFont("Arial", 13, QFont::Bold);
+	QFont StatusFont("Arial", 18, QFont::Bold);
 	QPixmap token(":/resources/token.png");
 	QPixmap card(":/resources/Deck/card_back.png");
 
@@ -37,8 +37,8 @@ UIPlayer::UIPlayer(MainWindow* ptr) {
 	Cards[0]->setStyleSheet("background: transparent;");
 	Cards[1]->setStyleSheet("background: transparent;");
 
-	SelfToken->setFixedSize(30, 30);
-	TableToken->setFixedSize(30, 30);
+	SelfToken->setFixedSize(20, 20);
+	TableToken->setFixedSize(20, 20);
 	Cards[0]->setFixedSize(107, 150);
 	Cards[1]->setFixedSize(107, 150);
 
@@ -62,4 +62,21 @@ UIPlayer::~UIPlayer() {
 	delete Status;
 	delete SelfToken;
 	delete TableToken;
+}
+
+void UIPlayer::set_name(std::string name) {
+	Name->setText(QString::fromStdString(name));
+}
+
+void UIPlayer::set_cash(unsigned int cash) {
+	Cash->setText(QString::fromStdString(std::to_string(cash) + "$"));
+}
+
+void UIPlayer::set_bet(unsigned int bet) {
+	Bet->setText(QString::fromStdString(std::to_string(bet) + "$"));
+}
+
+void UIPlayer::set_cards(std::string path1, std::string path2) {
+	Cards[0]->setPixmap(QPixmap(QString::fromStdString(path1)));
+	Cards[1]->setPixmap(QPixmap(QString::fromStdString(path2)));
 }

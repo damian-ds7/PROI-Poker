@@ -21,6 +21,7 @@
 
 
 class GameHandler;
+class UIPlayer;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -61,13 +62,11 @@ private:
 
     friend class MenuWindow;
 
-    void createPlayers(MainWindow* ptr, unsigned int opponents, const char* initial_money);
+    void createPlayers(MainWindow* ptr);
 
-    void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);
-    void createOpponentCards(MainWindow* ptr, unsigned int opponents);
-    void createOpponentLabels(MainWindow* ptr, unsigned int opponents, const char* initial_money);
-    void createPlayerLabels(MainWindow* ptr, const char* name, const char* initial_money);
+    void movePlayerLabels();
+    void moveOpponentLabels();
 
     void createEndLabels(MainWindow* ptr);
 

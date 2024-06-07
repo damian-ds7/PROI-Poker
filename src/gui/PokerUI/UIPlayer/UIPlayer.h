@@ -9,6 +9,12 @@ class UIPlayer
 public:
 	UIPlayer(MainWindow* ptr);
 	~UIPlayer();
+
+	void set_name(std::string name);
+	void set_cash(unsigned int cash);
+	void set_bet(unsigned int bet);
+	void set_cards(std::string path1, std::string path2);
+	void set_status(std::string status);
 private:
 	QLabel* Name;
 	QLabel* Cash;

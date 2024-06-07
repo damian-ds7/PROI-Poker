@@ -38,11 +38,10 @@ void MainWindow::createWidgets(MainWindow* ptr)
     std::string player_name = game_handler->player_name();
 	const char* cplayer_name = player_name.c_str();
 
-	createPlayerCards(ptr);
     createTableCards(ptr);
-    createOpponentCards(ptr, game_handler->player_count() - 1);
-	createOpponentLabels(ptr, game_handler->player_count() - 1, cstr);
-	createPlayerLabels(ptr, cplayer_name, cstr);
+	createPlayers(ptr);
+	movePlayerLabels(ptr);
+	moveOpponentLabels(ptr);
 	createEndLabels(ptr);
 
 
@@ -52,27 +51,19 @@ void MainWindow::createWidgets(MainWindow* ptr)
 	ui->ConfirmSmallBlindButton->hide();
 }
 
-void MainWindow::createPlayers(MainWindow* ptr, const unsigned int opponents, const char* initial_money)
+void MainWindow::createPlayers(MainWindow* ptr)
 {
 	uiplayers.push_back(std::make_unique<UIPlayer>(ptr));
+	uiplayers[0]->set_name(game_handler->player_name());
+	uiplayers[0]->set_cash(game_handler->initial_money());
+
+	for (unsigned int i = 1; i < game_handler->player_count(); ++i) {
+		uiplayers.push_back(std::make_unique<UIPlayer>(ptr));
+		uiplayers[i]->set_name(game_handler->name_to_string(i));
+		uiplayers[i]->set_cash(game_handler->initial_money());
+	}
 }
 
-void MainWindow::createPlayerCards(MainWindow* ptr)
-{
-	PlayerCard1.setParent(ptr);
-	PlayerCard1.setScaledContents(true);
-	PlayerCard1.setFixedSize(107, 150);
-	PlayerCard1.move(440, 520);
-
-	PlayerCard2.setParent(ptr);
-	PlayerCard2.setScaledContents(true);
-	PlayerCard2.setFixedSize(107, 150);
-	PlayerCard2.move(560, 520);
-
-	QPixmap card(":/resources/Deck/card_back.png");
-	PlayerCard1.setPixmap(card);
-	PlayerCard2.setPixmap(card);
-}
 void MainWindow::createTableCards(MainWindow* ptr)
 {
 	for (int i = 0; i < 6; i++)
@@ -86,584 +77,229 @@ void MainWindow::createTableCards(MainWindow* ptr)
 	TableCards[5]->move(1000, 225);
 	TableCards[5]->setPixmap(QPixmap(":/resources/Deck/card_back.png"));
 }
-void MainWindow::createOpponentCards(MainWindow* ptr, const unsigned int opponents)
-{
-	QPixmap ocard(":/resources/Deck/card_back.png");
-	QTransform transform;
-	transform.rotate(90);
-	QPixmap ocardr = ocard.transformed(transform);
-
-	if (opponents == 1 || opponents == 3 || opponents == 5)
-	{
-		//Opponent 1
-		Opponent1Card1.setParent(ptr);
-		Opponent1Card1.setScaledContents(true);
-		Opponent1Card1.setFixedSize(80, 110);
-		Opponent1Card1.move(670, -80);
-
-		Opponent1Card2.setParent(ptr);
-		Opponent1Card2.setScaledContents(true);
-		Opponent1Card2.setFixedSize(80, 110);
-		Opponent1Card2.move(700, -80);
-
-
-		Opponent1Card1.setPixmap(ocard);
-		Opponent1Card2.setPixmap(ocard);
-	}
-	if (opponents == 2 || opponents == 4)
-	{
-		//Opponent 1
-		Opponent1Card1.setParent(ptr);
-		Opponent1Card1.setScaledContents(true);
-		Opponent1Card1.setFixedSize(80, 110);
-		Opponent1Card1.move(300, -80);
-
-		Opponent1Card2.setParent(ptr);
-		Opponent1Card2.setScaledContents(true);
-		Opponent1Card2.setFixedSize(80, 110);
-		Opponent1Card2.move(330, -80);
-
-		Opponent1Card1.setPixmap(ocard);
-		Opponent1Card2.setPixmap(ocard);
-		
-
-		//Opponent 2
-		Opponent2Card1.setParent(ptr);
-		Opponent2Card1.setScaledContents(true);
-		Opponent2Card1.setFixedSize(80, 110);
-		Opponent2Card1.move(1010, -80);
-
-		Opponent2Card2.setParent(ptr);
-		Opponent2Card2.setScaledContents(true);
-		Opponent2Card2.setFixedSize(80, 110);
-		Opponent2Card2.move(1040, -80);
-
-		Opponent2Card1.setPixmap(ocard);
-		Opponent2Card2.setPixmap(ocard);
-	}
-	if (opponents == 3 || opponents == 5)
-	{
-		//Opponent 2
-		Opponent2Card1.setParent(ptr);
-		Opponent2Card1.setScaledContents(true);
-		Opponent2Card1.setFixedSize(80, 110);
-		Opponent2Card1.move(-50, 200);
-
-		Opponent2Card2.setParent(ptr);
-		Opponent2Card2.setScaledContents(true);
-		Opponent2Card2.setFixedSize(80, 110);
-		Opponent2Card2.move(-50, 230);
-
-		Opponent2Card1.setPixmap(ocardr);
-		Opponent2Card2.setPixmap(ocardr);
-
-
-		//Opponent 3
-		Opponent3Card1.setParent(ptr);
-		Opponent3Card1.setScaledContents(true);
-		Opponent3Card1.setFixedSize(80, 110);
-		Opponent3Card1.move(1400, 200);
-
-		Opponent3Card2.setParent(ptr);
-		Opponent3Card2.setScaledContents(true);
-		Opponent3Card2.setFixedSize(80, 110);
-		Opponent3Card2.move(1400, 230);
-
-		Opponent3Card1.setPixmap(ocardr);
-		Opponent3Card2.setPixmap(ocardr);
-	}
-	if (opponents == 4) 
-	{
-		//Opponent 3
-		Opponent3Card1.setParent(ptr);
-		Opponent3Card1.setScaledContents(true);
-		Opponent3Card1.setFixedSize(80, 110);
-		Opponent3Card1.move(-50, 200);
-
-		Opponent3Card2.setParent(ptr);
-		Opponent3Card2.setScaledContents(true);
-		Opponent3Card2.setFixedSize(80, 110);
-		Opponent3Card2.move(-50, 230);
-
-		Opponent3Card1.setPixmap(ocardr);
-		Opponent3Card2.setPixmap(ocardr);
-
-		//Opponent 4
-		Opponent4Card1.setParent(ptr);
-		Opponent4Card1.setScaledContents(true);
-		Opponent4Card1.setFixedSize(80, 110);
-		Opponent4Card1.move(1400, 200);
-
-		Opponent4Card2.setParent(ptr);
-		Opponent4Card2.setScaledContents(true);
-		Opponent4Card2.setFixedSize(80, 110);
-		Opponent4Card2.move(1400, 230);
-
-		Opponent4Card1.setPixmap(ocardr);
-		Opponent4Card2.setPixmap(ocardr);
-	}
-	if (opponents == 5)
-	{
-		//Opponent 4
-		Opponent4Card1.setParent(ptr);
-		Opponent4Card1.setScaledContents(true);
-		Opponent4Card1.setFixedSize(80, 110);
-		Opponent4Card1.move(300, -80);
-
-		Opponent4Card2.setParent(ptr);
-		Opponent4Card2.setScaledContents(true);
-		Opponent4Card2.setFixedSize(80, 110);
-		Opponent4Card2.move(330, -80);
-
-		Opponent4Card1.setPixmap(ocard);
-		Opponent4Card2.setPixmap(ocard);
-
-
-		//Opponent 5
-		Opponent5Card1.setParent(ptr);
-		Opponent5Card1.setScaledContents(true);
-		Opponent5Card1.setFixedSize(80, 110);
-		Opponent5Card1.move(1010, -80);
-
-		Opponent5Card2.setParent(ptr);
-		Opponent5Card2.setScaledContents(true);
-		Opponent5Card2.setFixedSize(80, 110);
-		Opponent5Card2.move(1040, -80);
-
-		Opponent5Card1.setPixmap(ocard);
-		Opponent5Card2.setPixmap(ocard);
-	}
-}
-
-void MainWindow::createOpponentLabels(MainWindow* ptr, const unsigned int opponents, const char* initial_money)
-{
-	QFont NameFont("Arial", 14, QFont::Bold);
-	QFont CashFont("Arial", 13, QFont::Bold);
-	QFont StatusFont("Arial", 18, QFont::Bold);
-	QPixmap token(":/resources/token.png");
-
-	if (opponents == 1 || opponents == 3 || opponents == 5)
-	{
-		//Opponent 1
-		Opponent1Name.setParent(ptr);
-		Opponent1Name.setFont(NameFont);
-		Opponent1Name.setStyleSheet("background: transparent;");
-		Opponent1Name.move(800, 5);
-
-		Opponent1Cash.setParent(ptr);
-		Opponent1Cash.setFont(CashFont);
-		Opponent1Cash.move(825, 30);
-
-		Opponent1Status.setParent(ptr);
-		Opponent1Status.setFont(StatusFont);
-		Opponent1Status.move(800, 60);
-
-		Opponent1Bet.setParent(ptr);
-		Opponent1Bet.setFont(CashFont);
-		Opponent1Bet.setStyleSheet("background: transparent;");
-		Opponent1Bet.move(735, 150);
-
-		Opponent1SelfToken.setParent(ptr);
-		Opponent1SelfToken.setScaledContents(true);
-		Opponent1SelfToken.setStyleSheet("background: transparent;");
-		Opponent1SelfToken.setFixedSize(20, 20);
-		Opponent1SelfToken.move(800, 29);
-		Opponent1SelfToken.setPixmap(token);
-
-		Opponent1TableToken.setParent(ptr);
-		Opponent1TableToken.setScaledContents(true);
-		Opponent1TableToken.setStyleSheet("background: transparent;");
-		Opponent1TableToken.setFixedSize(20, 20);
-		Opponent1TableToken.move(710, 149);
-		Opponent1TableToken.setPixmap(token);
-
-		Opponent1Cash.setText(initial_money);
-		Opponent1Name.setText(game_handler->name_to_string(1).c_str());
-
-		
-		//
-		Opponent1Status.setText("SMALL B");
-		Opponent1Cash.setText("10000$");
-		Opponent1Bet.setText("10000$");
-		//
-
-	}
-	if (opponents == 2 || opponents == 4)
-	{
-		//Opponent 1
-		Opponent1Name.setParent(ptr);
-		Opponent1Name.setFont(NameFont);
-		Opponent1Name.setStyleSheet("background: transparent;");
-		Opponent1Name.move(430, 5);
-
-		Opponent1Cash.setParent(ptr);
-		Opponent1Cash.setFont(CashFont);
-		Opponent1Cash.move(455, 30);
-
-		Opponent1Status.setParent(ptr);
-		Opponent1Status.setFont(StatusFont);
-		Opponent1Status.move(430, 60);
-
-		Opponent1Bet.setParent(ptr);
-		Opponent1Bet.setFont(CashFont);
-		Opponent1Bet.setStyleSheet("background: transparent;");
-		Opponent1Bet.move(335, 150);
-
-		Opponent1SelfToken.setParent(ptr);
-		Opponent1SelfToken.setScaledContents(true);
-		Opponent1SelfToken.setStyleSheet("background: transparent;");
-		Opponent1SelfToken.setFixedSize(20, 20);
-		Opponent1SelfToken.move(430, 29);
-		Opponent1SelfToken.setPixmap(token);
-
-		Opponent1TableToken.setParent(ptr);
-		Opponent1TableToken.setScaledContents(true);
-		Opponent1TableToken.setStyleSheet("background: transparent;");
-		Opponent1TableToken.setFixedSize(20, 20);
-		Opponent1TableToken.move(310, 149);
-		Opponent1TableToken.setPixmap(token);
-
-		//Opponent 2
-		Opponent2Name.setParent(ptr);
-		Opponent2Name.setFont(NameFont);
-		Opponent2Name.setStyleSheet("background: transparent;");
-		Opponent2Name.move(1140, 5);
-		
-		Opponent2Cash.setParent(ptr);
-		Opponent2Cash.setFont(CashFont);
-		Opponent2Cash.move(1165, 30);
-
-		Opponent2Status.setParent(ptr);
-		Opponent2Status.setFont(StatusFont);
-		Opponent2Status.move(1140, 60);
-
-		Opponent2Bet.setParent(ptr);
-		Opponent2Bet.setFont(CashFont);
-		Opponent2Bet.setStyleSheet("background: transparent;");
-		Opponent2Bet.move(1085, 150);
-
-		Opponent2SelfToken.setParent(ptr);
-		Opponent2SelfToken.setScaledContents(true);
-		Opponent2SelfToken.setStyleSheet("background: transparent;");
-		Opponent2SelfToken.setFixedSize(20, 20);
-		Opponent2SelfToken.move(1140, 29);
-		Opponent2SelfToken.setPixmap(token);
-
-		Opponent2TableToken.setParent(ptr);
-		Opponent2TableToken.setScaledContents(true);
-		Opponent2TableToken.setStyleSheet("background: transparent;");
-		Opponent2TableToken.setFixedSize(20, 20);
-		Opponent2TableToken.move(1060, 149);
-		Opponent2TableToken.setPixmap(token);
-
-		Opponent1Cash.setText(initial_money);
-		Opponent2Cash.setText(initial_money);
-		Opponent1Name.setText(game_handler->name_to_string(1).c_str());
-		Opponent2Name.setText(game_handler->name_to_string(2).c_str());
-
-		//
-		Opponent1Status.setText("SMALL B");
-		Opponent1Cash.setText("10000$");
-		Opponent1Bet.setText("10000$");
-		Opponent2Status.setText("SMALL B");
-		Opponent2Cash.setText("10000$");
-		Opponent2Bet.setText("10000$");
-		//
-	}
-	if (opponents == 3 || opponents == 5)
-	{
-		//Opponent 2
-		Opponent2Name.setParent(ptr);
-		Opponent2Name.setFont(NameFont);
-		Opponent2Name.setStyleSheet("background: transparent;");
-		Opponent2Name.move(5, 110);
-
-		Opponent2Cash.setParent(ptr);
-		Opponent2Cash.setFont(CashFont);
-		Opponent2Cash.move(30, 135);
-
-		Opponent2Status.setParent(ptr);
-		Opponent2Status.setFont(StatusFont);
-		Opponent2Status.move(5, 165);
-
-		Opponent2Bet.setParent(ptr);
-		Opponent2Bet.setFont(CashFont);
-		Opponent2Bet.setStyleSheet("background: transparent;");
-		Opponent2Bet.move(205, 285);
-
-		Opponent2SelfToken.setParent(ptr);
-		Opponent2SelfToken.setScaledContents(true);
-		Opponent2SelfToken.setStyleSheet("background: transparent;");
-		Opponent2SelfToken.setFixedSize(20, 20);
-		Opponent2SelfToken.move(5, 134);
-		Opponent2SelfToken.setPixmap(token);
-
-		Opponent2TableToken.setParent(ptr);
-		Opponent2TableToken.setScaledContents(true);
-		Opponent2TableToken.setStyleSheet("background: transparent;");
-		Opponent2TableToken.setFixedSize(20, 20);
-		Opponent2TableToken.move(180, 284);
-		Opponent2TableToken.setPixmap(token);
-
-		//Opponent 3
-		Opponent3Name.setParent(ptr);
-		Opponent3Name.setFont(NameFont);
-		Opponent3Name.setStyleSheet("background: transparent;");
-		Opponent3Name.move(1320, 110);
-
-		Opponent3Cash.setParent(ptr);
-		Opponent3Cash.setFont(CashFont);
-		Opponent3Cash.move(1345, 135);
-
-		Opponent3Status.setParent(ptr);
-		Opponent3Status.setFont(StatusFont);
-		Opponent3Status.move(1320, 165);
-
-		Opponent3Bet.setParent(ptr);
-		Opponent3Bet.setFont(CashFont);
-		Opponent3Bet.setStyleSheet("background: transparent;");
-		Opponent3Bet.move(1225, 285);
-
-		Opponent3SelfToken.setParent(ptr);
-		Opponent3SelfToken.setScaledContents(true);
-		Opponent3SelfToken.setStyleSheet("background: transparent;");
-		Opponent3SelfToken.setFixedSize(20, 20);
-		Opponent3SelfToken.move(1320, 134);
-		Opponent3SelfToken.setPixmap(token);
-
-		Opponent3TableToken.setParent(ptr);
-		Opponent3TableToken.setScaledContents(true);
-		Opponent3TableToken.setStyleSheet("background: transparent;");
-		Opponent3TableToken.setFixedSize(20, 20);
-		Opponent3TableToken.move(1205, 284);
-		Opponent3TableToken.setPixmap(token);
-
-		Opponent2Cash.setText(initial_money);
-		Opponent3Cash.setText(initial_money);
-		Opponent2Name.setText(game_handler->name_to_string(2).c_str());
-		Opponent3Name.setText(game_handler->name_to_string(3).c_str());
-
-		//
-		Opponent2Status.setText("SMALL B");
-		Opponent2Cash.setText("10000$");
-		Opponent2Bet.setText("10000$");
-		Opponent3Status.setText("SMALL B");
-		Opponent3Cash.setText("10000$");
-		Opponent3Bet.setText("10000$");
-		//
-	}
-	if (opponents == 4)
-	{
-		//Opponent 3
-		Opponent3Name.setParent(ptr);
-		Opponent3Name.setFont(NameFont);
-		Opponent3Name.setStyleSheet("background: transparent;");
-		Opponent3Name.move(1320, 110);
-
-		Opponent3Cash.setParent(ptr);
-		Opponent3Cash.setFont(CashFont);
-		Opponent3Cash.move(1345, 135);
-
-		Opponent3Status.setParent(ptr);
-		Opponent3Status.setFont(StatusFont);
-		Opponent3Status.move(1320, 165);
-
-		Opponent3Bet.setParent(ptr);
-		Opponent3Bet.setFont(CashFont);
-		Opponent3Bet.setStyleSheet("background: transparent;");
-		Opponent3Bet.move(1225, 285);
-
-		Opponent3SelfToken.setParent(ptr);
-		Opponent3SelfToken.setScaledContents(true);
-		Opponent3SelfToken.setStyleSheet("background: transparent;");
-		Opponent3SelfToken.setFixedSize(20, 20);
-		Opponent3SelfToken.move(1320, 134);
-		Opponent3SelfToken.setPixmap(token);
-
-		Opponent3TableToken.setParent(ptr);
-		Opponent3TableToken.setScaledContents(true);
-		Opponent3TableToken.setStyleSheet("background: transparent;");
-		Opponent3TableToken.setFixedSize(20, 20);
-		Opponent3TableToken.move(1205, 284);
-		Opponent3TableToken.setPixmap(token);
-
-		//Opponent 4
-		Opponent4Name.setParent(ptr);
-		Opponent4Name.setFont(NameFont);
-		Opponent4Name.setStyleSheet("background: transparent;");
-		Opponent4Name.move(5, 110);
-
-		Opponent4Cash.setParent(ptr);
-		Opponent4Cash.setFont(CashFont);
-		Opponent4Cash.move(30, 135);
-
-		Opponent4Status.setParent(ptr);
-		Opponent4Status.setFont(StatusFont);
-		Opponent4Status.move(5, 165);
-
-		Opponent4Bet.setParent(ptr);
-		Opponent4Bet.setFont(CashFont);
-		Opponent4Bet.setStyleSheet("background: transparent;");
-		Opponent4Bet.move(205, 285);
-
-		Opponent4SelfToken.setParent(ptr);
-		Opponent4SelfToken.setScaledContents(true);
-		Opponent4SelfToken.setStyleSheet("background: transparent;");
-		Opponent4SelfToken.setFixedSize(20, 20);
-		Opponent4SelfToken.move(5, 134);
-		Opponent4SelfToken.setPixmap(token);
-
-		Opponent4TableToken.setParent(ptr);
-		Opponent4TableToken.setScaledContents(true);
-		Opponent4TableToken.setStyleSheet("background: transparent;");
-		Opponent4TableToken.setFixedSize(20, 20);
-		Opponent4TableToken.move(180, 284);
-		Opponent4TableToken.setPixmap(token);
-
-		Opponent4Cash.setText(initial_money);
-		Opponent3Cash.setText(initial_money);
-		Opponent3Name.setText(game_handler->name_to_string(3).c_str());
-		Opponent4Name.setText(game_handler->name_to_string(4).c_str());
-
-		//
-		Opponent4Status.setText("SMALL B");
-		Opponent4Cash.setText("10000$");
-		Opponent4Bet.setText("10000$");
-		Opponent3Status.setText("SMALL B");
-		Opponent3Cash.setText("10000$");
-		Opponent3Bet.setText("10000$");
-		//
-	}
-	if (opponents == 5)
-	{
-		//Opponent 4
-		Opponent4Name.setParent(ptr);
-		Opponent4Name.setFont(NameFont);
-		Opponent4Name.setStyleSheet("background: transparent;");
-		Opponent4Name.move(430, 5);
-
-		Opponent4Cash.setParent(ptr);
-		Opponent4Cash.setFont(CashFont);
-		Opponent4Cash.move(455, 30);
-
-		Opponent4Status.setParent(ptr);
-		Opponent4Status.setFont(StatusFont);
-		Opponent4Status.move(430, 60);
-
-		Opponent4Bet.setParent(ptr);
-		Opponent4Bet.setFont(CashFont);
-		Opponent4Bet.setStyleSheet("background: transparent;");
-		Opponent4Bet.move(335, 150);
-
-		Opponent4SelfToken.setParent(ptr);
-		Opponent4SelfToken.setScaledContents(true);
-		Opponent4SelfToken.setStyleSheet("background: transparent;");
-		Opponent4SelfToken.setFixedSize(20, 20);
-		Opponent4SelfToken.move(430, 29);
-		Opponent4SelfToken.setPixmap(token);
-
-		Opponent4TableToken.setParent(ptr);
-		Opponent4TableToken.setScaledContents(true);
-		Opponent4TableToken.setStyleSheet("background: transparent;");
-		Opponent4TableToken.setFixedSize(20, 20);
-		Opponent4TableToken.move(310, 149);
-		Opponent4TableToken.setPixmap(token);
-
-		//Opponent 5
-		Opponent5Name.setParent(ptr);
-		Opponent5Name.setFont(NameFont);
-		Opponent5Name.setStyleSheet("background: transparent;");
-		Opponent5Name.move(1140, 5);
-
-		Opponent5Cash.setParent(ptr);
-		Opponent5Cash.setFont(CashFont);
-		Opponent5Cash.move(1165, 30);
-
-		Opponent5Status.setParent(ptr);
-		Opponent5Status.setFont(StatusFont);
-		Opponent5Status.move(1140, 60);
-
-		Opponent5Bet.setParent(ptr);
-		Opponent5Bet.setFont(CashFont);
-		Opponent5Bet.setStyleSheet("background: transparent;");
-		Opponent5Bet.move(1085, 150);
-
-		Opponent5SelfToken.setParent(ptr);
-		Opponent5SelfToken.setScaledContents(true);
-		Opponent5SelfToken.setStyleSheet("background: transparent;");
-		Opponent5SelfToken.setFixedSize(20, 20);
-		Opponent5SelfToken.move(1140, 29);
-		Opponent5SelfToken.setPixmap(token);
-
-		Opponent5TableToken.setParent(ptr);
-		Opponent5TableToken.setScaledContents(true);
-		Opponent5TableToken.setStyleSheet("background: transparent;");
-		Opponent5TableToken.setFixedSize(20, 20);
-		Opponent5TableToken.move(1060, 149);
-		Opponent5TableToken.setPixmap(token);
-
-		Opponent4Cash.setText(initial_money);
-		Opponent5Cash.setText(initial_money);
-		Opponent4Name.setText(game_handler->name_to_string(4).c_str());
-		Opponent5Name.setText(game_handler->name_to_string(5).c_str());
-
-		//
-		Opponent4Status.setText("SMALL B");
-		Opponent4Cash.setText("10000$");
-		Opponent4Bet.setText("10000$");
-		Opponent5Status.setText("SMALL B");
-		Opponent5Cash.setText("10000$");
-		Opponent5Bet.setText("10000$");
-		//
-	}
-}
-void MainWindow::createPlayerLabels(MainWindow* ptr, const char* name, const char* initial_money)
+void MainWindow::movePlayerLabels()
 {
 	QFont NameFont("Arial", 20, QFont::Bold);
 	QFont CashFont("Arial", 17, QFont::Bold);
 	QFont StatusFont("Arial", 26, QFont::Bold);
-	QPixmap token(":/resources/token.png");
 
-	PlayerName.setParent(ptr);
-	PlayerName.setFont(NameFont);
-	PlayerName.setStyleSheet("background: transparent;");
-	PlayerName.move(280, 520);
+	uiplayers[0]->Cards[0]->move(440, 520);
+	uiplayers[0]->Cards[1]->move(560, 520);
 
-	PlayerCash.setParent(ptr);
-	PlayerCash.setFont(CashFont);
-	PlayerCash.move(315, 555);
+	uiplayers[0]->Name->setFont(NameFont);
+	uiplayers[0]->Name->move(280, 520);
+	uiplayers[0]->Cash->setFont(CashFont);
+	uiplayers[0]->Cash->move(315, 555);
+	uiplayers[0]->Status->setFont(StatusFont);
+	uiplayers[0]->Status->move(280, 600);
+	uiplayers[0]->Bet->setFont(CashFont);
+	uiplayers[0]->Bet->move(495, 415);
 
-	PlayerStatus.setParent(ptr);
-	PlayerStatus.setFont(StatusFont);
-	PlayerStatus.move(280, 600);
+	uiplayers[0]->SelfToken->setFixedSize(30, 30);
+	uiplayers[0]->SelfToken->move(280, 554);
 
-	PlayerBet.setParent(ptr);
-	PlayerBet.setFont(CashFont);
-	PlayerBet.setStyleSheet("background: transparent;");
-	PlayerBet.move(495, 415);
+	uiplayers[0]->TableToken->setFixedSize(30, 30);
+	uiplayers[0]->TableToken->move(460, 415);
+}
+void MainWindow::moveOpponentLabels()
+{
+	QTransform transform;
+	transform.rotate(90);
+	QPixmap ocardr = QPixmap(":/resources/Deck/card_back.png").transformed(transform);
 
-	PlayerSelfToken.setParent(ptr);
-	PlayerSelfToken.setScaledContents(true);
-	PlayerSelfToken.setStyleSheet("background: transparent;");
-	PlayerSelfToken.setFixedSize(30, 30);
-	PlayerSelfToken.move(280, 554);
-	PlayerSelfToken.setPixmap(token);
+	if (game_handler->player_count() == 2)
+	{
+		uiplayers[1]->Cards[0]->move(670, -80);
+		uiplayers[1]->Cards[1]->move(700, -80);
+		uiplayers[1]->Name->move(800, 5);
+		uiplayers[1]->Cash->move(825, 30);
+		uiplayers[1]->Status->move(800, 60);
+		uiplayers[1]->Bet->move(735, 150);
+		uiplayers[1]->SelfToken->move(800, 29);
+		uiplayers[1]->SelfToken->move(710, 149);
 
-	PlayerTableToken.setParent(ptr);
-	PlayerTableToken.setScaledContents(true);
-	PlayerTableToken.setStyleSheet("background: transparent;");
-	PlayerTableToken.setFixedSize(30, 30);
-	PlayerTableToken.move(460, 415);
-	PlayerTableToken.setPixmap(token);
+		uiplayers[1]->set_name(game_handler->name_to_string(1));
+		uiplayers[1]->set_cash(game_handler->initial_money());
+	}
+	if (game_handler->player_count() == 3)
+	{
+		uiplayers[1]->Cards[0]->move(300, -80);
+		uiplayers[1]->Cards[1]->move(330, -80);
+		uiplayers[1]->Name->move(430, 5);
+		uiplayers[1]->Cash->move(455, 30);
+		uiplayers[1]->Status->move(430, 60);
+		uiplayers[1]->Bet->move(335, 150);
+		uiplayers[1]->SelfToken->move(430, 29);
+		uiplayers[1]->SelfToken->move(310, 149);
+		
+		uiplayers[2]->Cards[0]->move(1010, -80);
+		uiplayers[2]->Cards[1]->move(1040, -80);
+		uiplayers[2]->Name->move(1140, 5);
+		uiplayers[2]->Cash->move(1165, 30);
+		uiplayers[2]->Status->move(1140, 60);
+		uiplayers[2]->Bet->move(1085, 150);
+		uiplayers[2]->SelfToken->move(1140, 29);
+		uiplayers[2]->SelfToken->move(1060, 149);
 
-	PlayerName.setText(name);
-	PlayerCash.setText(initial_money);
+		uiplayers[1]->set_name(game_handler->name_to_string(1));
+		uiplayers[1]->set_cash(game_handler->initial_money());
+		uiplayers[2]->set_name(game_handler->name_to_string(2));
+		uiplayers[2]->set_cash(game_handler->initial_money());
+	}
+	if (game_handler->player_count() == 4)
+	{
+		uiplayers[1]->Cards[0]->move(-50, 200);
+		uiplayers[1]->Cards[1]->move(-50, 230);
+		uiplayers[1]->Cards[0]->setPixmap(ocardr);
+		uiplayers[1]->Cards[1]->setPixmap(ocardr);
+		uiplayers[1]->Name->move(5, 110);
+		uiplayers[1]->Cash->move(30, 135);
+		uiplayers[1]->Status->move(5, 165);
+		uiplayers[1]->Bet->move(205, 285);
+		uiplayers[1]->SelfToken->move(5, 134);
+		uiplayers[1]->SelfToken->move(180, 284);
 
-	//
-	PlayerStatus.setText("SMALL B");
-	PlayerBet.setText("10000$");
-	PlayerCash.setText("10000$");
-	//
+		uiplayers[2]->Cards[0]->move(670, -80);
+		uiplayers[2]->Cards[1]->move(700, -80);
+		uiplayers[2]->Name->move(800, 5);
+		uiplayers[2]->Cash->move(825, 30);
+		uiplayers[2]->Status->move(800, 60);
+		uiplayers[2]->Bet->move(735, 150);
+		uiplayers[2]->SelfToken->move(800, 29);
+		uiplayers[2]->SelfToken->move(710, 149);
+
+		uiplayers[3]->Cards[0]->move(1400, 200);
+		uiplayers[3]->Cards[1]->move(1400, 230);
+		uiplayers[3]->Cards[0]->setPixmap(ocardr);
+		uiplayers[3]->Cards[1]->setPixmap(ocardr);
+		uiplayers[3]->Name->move(1320, 110);
+		uiplayers[3]->Cash->move(1345, 135);
+		uiplayers[3]->Status->move(1320, 165);
+		uiplayers[3]->Bet->move(1225, 285);
+		uiplayers[3]->SelfToken->move(1320, 134);
+		uiplayers[3]->SelfToken->move(1205, 284);
+
+		uiplayers[1]->set_name(game_handler->name_to_string(1));
+		uiplayers[1]->set_cash(game_handler->initial_money());
+		uiplayers[2]->set_name(game_handler->name_to_string(2));
+		uiplayers[2]->set_cash(game_handler->initial_money());
+		uiplayers[3]->set_name(game_handler->name_to_string(3));
+		uiplayers[3]->set_cash(game_handler->initial_money());
+
+	}
+	if (game_handler->player_count() == 5) 
+	{
+		uiplayers[1]->Cards[0]->move(-50, 200);
+		uiplayers[1]->Cards[1]->move(-50, 230);
+		uiplayers[1]->Cards[0]->setPixmap(ocardr);
+		uiplayers[1]->Cards[1]->setPixmap(ocardr);
+		uiplayers[1]->Name->move(5, 110);
+		uiplayers[1]->Cash->move(30, 135);
+		uiplayers[1]->Status->move(5, 165);
+		uiplayers[1]->Bet->move(205, 285);
+		uiplayers[1]->SelfToken->move(5, 134);
+		uiplayers[1]->SelfToken->move(180, 284);
+
+		uiplayers[2]->Cards[0]->move(300, -80);
+		uiplayers[2]->Cards[1]->move(330, -80);
+		uiplayers[2]->Name->move(430, 5);
+		uiplayers[2]->Cash->move(455, 30);
+		uiplayers[2]->Status->move(430, 60);
+		uiplayers[2]->Bet->move(335, 150);
+		uiplayers[2]->SelfToken->move(430, 29);
+		uiplayers[2]->SelfToken->move(310, 149);
+
+		uiplayers[3]->Cards[0]->move(1010, -80);
+		uiplayers[3]->Cards[1]->move(1040, -80);
+		uiplayers[3]->Name->move(1140, 5);
+		uiplayers[3]->Cash->move(1165, 30);
+		uiplayers[3]->Status->move(1140, 60);
+		uiplayers[3]->Bet->move(1085, 150);
+		uiplayers[3]->SelfToken->move(1140, 29);
+		uiplayers[3]->SelfToken->move(1060, 149);
+
+		uiplayers[4]->Cards[0]->move(1400, 200);
+		uiplayers[4]->Cards[1]->move(1400, 230);
+		uiplayers[4]->Cards[0]->setPixmap(ocardr);
+		uiplayers[4]->Cards[1]->setPixmap(ocardr);
+		uiplayers[4]->Name->move(1320, 110);
+		uiplayers[4]->Cash->move(1345, 135);
+		uiplayers[4]->Status->move(1320, 165);
+		uiplayers[4]->Bet->move(1225, 285);
+		uiplayers[4]->SelfToken->move(1320, 134);
+		uiplayers[4]->SelfToken->move(1205, 284);
+
+		uiplayers[1]->set_name(game_handler->name_to_string(1));
+		uiplayers[1]->set_cash(game_handler->initial_money());
+		uiplayers[2]->set_name(game_handler->name_to_string(2));
+		uiplayers[2]->set_cash(game_handler->initial_money());
+		uiplayers[3]->set_name(game_handler->name_to_string(3));
+		uiplayers[3]->set_cash(game_handler->initial_money());
+		uiplayers[4]->set_name(game_handler->name_to_string(4));
+		uiplayers[4]->set_cash(game_handler->initial_money());
+	}
+	if (game_handler->player_count() == 6)
+	{
+		uiplayers[1]->Cards[0]->move(-50, 200);
+		uiplayers[1]->Cards[1]->move(-50, 230);
+		uiplayers[1]->Cards[0]->setPixmap(ocardr);
+		uiplayers[1]->Cards[1]->setPixmap(ocardr);
+		uiplayers[1]->Name->move(5, 110);
+		uiplayers[1]->Cash->move(30, 135);
+		uiplayers[1]->Status->move(5, 165);
+		uiplayers[1]->Bet->move(205, 285);
+		uiplayers[1]->SelfToken->move(5, 134);
+		uiplayers[1]->SelfToken->move(180, 284);
+
+		uiplayers[2]->Cards[0]->move(300, -80);
+		uiplayers[2]->Cards[1]->move(330, -80);
+		uiplayers[2]->Name->move(430, 5);
+		uiplayers[2]->Cash->move(455, 30);
+		uiplayers[2]->Status->move(430, 60);
+		uiplayers[2]->Bet->move(335, 150);
+		uiplayers[2]->SelfToken->move(430, 29);
+		uiplayers[2]->SelfToken->move(310, 149);
+
+		uiplayers[3]->Cards[0]->move(670, -80);
+		uiplayers[3]->Cards[1]->move(700, -80);
+		uiplayers[3]->Name->move(800, 5);
+		uiplayers[3]->Cash->move(825, 30);
+		uiplayers[3]->Status->move(800, 60);
+		uiplayers[3]->Bet->move(735, 150);
+		uiplayers[3]->SelfToken->move(800, 29);
+		uiplayers[3]->SelfToken->move(710, 149);
+
+		uiplayers[4]->Cards[0]->move(1010, -80);
+		uiplayers[4]->Cards[1]->move(1040, -80);
+		uiplayers[4]->Name->move(1140, 5);
+		uiplayers[4]->Cash->move(1165, 30);
+		uiplayers[4]->Status->move(1140, 60);
+		uiplayers[4]->Bet->move(1085, 150);
+		uiplayers[4]->SelfToken->move(1140, 29);
+		uiplayers[4]->SelfToken->move(1060, 149);
+
+		uiplayers[5]->Cards[0]->move(1400, 200);
+		uiplayers[5]->Cards[1]->move(1400, 230);
+		uiplayers[5]->Cards[0]->setPixmap(ocardr);
+		uiplayers[5]->Cards[1]->setPixmap(ocardr);
+		uiplayers[5]->Name->move(1320, 110);
+		uiplayers[5]->Cash->move(1345, 135);
+		uiplayers[5]->Status->move(1320, 165);
+		uiplayers[5]->Bet->move(1225, 285);
+		uiplayers[5]->SelfToken->move(1320, 134);
+		uiplayers[5]->SelfToken->move(1205, 284);
+
+		uiplayers[1]->set_name(game_handler->name_to_string(1));
+		uiplayers[1]->set_cash(game_handler->initial_money());
+		uiplayers[2]->set_name(game_handler->name_to_string(2));
+		uiplayers[2]->set_cash(game_handler->initial_money());
+		uiplayers[3]->set_name(game_handler->name_to_string(3));
+		uiplayers[3]->set_cash(game_handler->initial_money());
+		uiplayers[4]->set_name(game_handler->name_to_string(4));
+		uiplayers[4]->set_cash(game_handler->initial_money());
+		uiplayers[5]->set_name(game_handler->name_to_string(5));
+		uiplayers[5]->set_cash(game_handler->initial_money());
+	}
 }
 
 

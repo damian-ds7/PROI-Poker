@@ -5,6 +5,8 @@
 #include <QPixmap>
 #include <QTransform>
 
+class MainWindow;
+
 class UIPlayer
 {
 public:

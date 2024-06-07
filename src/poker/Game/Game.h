@@ -40,6 +40,7 @@ public:
     void next_player();
     int bot_play();
     void make_move(Decision decision, int bet = 0);
+    Decision convert_bot_decision(int bet);
     void find_winner();
     bool check_round_end();
     void delete_broke_players();

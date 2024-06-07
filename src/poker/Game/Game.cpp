@@ -49,6 +49,7 @@ void Game::deal() {
 }
 
 void Game::next_phase() {
+    can_check = true;
     switch (phase) {
         case Phase::PreFlop:
             add_table_card(3);
@@ -102,15 +103,17 @@ int Game::bot_play() {
 }
 
 void Game::make_move(Decision decision, int bet) {
+    if (decision == Decision::Bot) {
+        bet = bot_play();
+        decision = convert_bot_decision(bet);
+    }
     switch (decision) {
-        case Decision::Bot:
-            bot_play();
-            break;
         case Decision::Bet:
             players[current_player]->make_bet(bet);
             break;
         case Decision::Raise:
             players[current_player]->make_raise(bet);
+            can_check = false;
             break;
         case Decision::Call:
             players[current_player]->make_call(bet);
@@ -127,6 +130,26 @@ void Game::make_move(Decision decision, int bet) {
             break;
     }
     next_player();
+}
+
+Decision Game::convert_bot_decision(int bet) {
+    Decision decision;
+    auto previous_bet = players[(current_player - 1) % player_count]->bet();
+    auto current_money = players[current_player]->money();
+    if (bet == 0) {
+        decision = Decision::Check;
+    } else if (players[current_player]->small_blind() || players[current_player]->big_blind()) {
+        decision = Decision::Bet;
+    } else if (bet  > previous_bet && bet < current_money) {
+        decision = Decision::Raise;
+    } else if (bet == current_money) {
+        decision = Decision::AllIn;
+    } else if (bet == previous_bet) {
+        decision = Decision::Call;
+    } else {
+        decision = Decision::Fold;
+    }
+    return decision;
 }
 
 bool Game::check_round_end() {

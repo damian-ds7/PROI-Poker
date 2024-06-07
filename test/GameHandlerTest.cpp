@@ -142,7 +142,8 @@ TEST(GameHandlerTest, GameHandlerStartGame){
     GameInfo game_info("Herkules", 6, 1000);
     game_handler.initialize_game(game_info);
     game_handler.start_game();
-    EXPECT_EQ(game_handler.current_player(), game_handler.dealer() + 1);
+    auto idx = (game_handler.dealer() + 1) % game_info.player_count;
+    EXPECT_EQ(game_handler.current_player(), idx);
     EXPECT_EQ(game_handler.player(0)->money(), 1000);
     EXPECT_EQ(game_handler.player(1)->money(), 1000);
     EXPECT_EQ(game_handler.player(2)->money(), 1000);

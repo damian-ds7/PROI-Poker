@@ -51,6 +51,11 @@ void MainWindow::createWidgets(MainWindow* ptr)
 	ui->ConfirmSmallBlindButton->hide();
 }
 
+void MainWindow::createPlayers(MainWindow* ptr, const unsigned int opponents, const char* initial_money)
+{
+	uiplayers.push_back(std::make_unique<UIPlayer>(ptr));
+}
+
 void MainWindow::createPlayerCards(MainWindow* ptr)
 {
 	PlayerCard1.setParent(ptr);
@@ -659,6 +664,8 @@ void MainWindow::createPlayerLabels(MainWindow* ptr, const char* name, const cha
 	PlayerCash.setText("10000$");
 	//
 }
+
+
 
 
 void MainWindow::createEndLabels(MainWindow* ptr)

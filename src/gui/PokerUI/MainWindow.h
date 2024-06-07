@@ -16,6 +16,8 @@
 #include "CardsTypedef.h"
 #include "menu.h"
 #include "Decision.h"
+#include "UIplayer/UIPlayer.h"
+#include <vector>
 
 
 class GameHandler;
@@ -59,6 +61,8 @@ private:
 
     friend class MenuWindow;
 
+    void createPlayers(MainWindow* ptr, unsigned int opponents, const char* initial_money);
+
     void createPlayerCards(MainWindow* ptr);
     void createTableCards(MainWindow* ptr);
     void createOpponentCards(MainWindow* ptr, unsigned int opponents);
@@ -96,6 +100,8 @@ private:
     void small_blind_confirmed();
 
     void bot_timer_ended();
+
+    std::vector<std::unique_ptr<UIPlayer>> uiplayers;
 
     QLabel PlayerCard1;
     QLabel PlayerCard2;

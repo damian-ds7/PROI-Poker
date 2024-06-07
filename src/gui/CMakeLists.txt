@@ -15,6 +15,8 @@ set(MAIN_WINDOW_SOURCES
         PokerUI/mainwindow.ui
         PokerUI/background.qrc
         PokerUI/cards.qrc
+        PokerUI/UIPlayer/UIPlayer.h
+        PokerUI/UIPlayer/UIPlayer.cpp
 )
 
 set(GAME_HANDLER GameHandler/GameHandler.h GameHandler/GameHandler.cpp)

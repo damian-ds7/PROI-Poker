@@ -52,6 +52,7 @@ void BotPlayer::calc_equity(const std::string& board_cards, int num_of_players){
 int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_players, const std::string& board_cards, bool is_bluffing) {
     if (small_blind()) {
         return money() / 10;
+    }
     calc_equity(board_cards, num_of_players);
     if (money_to_bet == 0 && equity() < 0.4) {
         return 0;

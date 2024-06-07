@@ -73,7 +73,6 @@ void Game::next_phase() {
             break;
     }
     collect_bets();
-    current_player = (dealer + 1) % player_count;
 }
 
 void Game::collect_bets() {
@@ -91,13 +90,17 @@ void Game::next_player() {
 
     if (check_round_end()) {
         next_phase();
-        currently_playing = find_active_player(dealer);
+        current_player = find_active_player(dealer);
         for (auto& player : players) {
+            if (player->folded()) {
+                --currently_playing;
+                continue;
+            }
             player->reset_after_phase();
         }
     }
 
-    current_player = find_active_player(current_player);
+//    current_player = find_active_player(current_player);
 }
 
 int Game::bot_play() {

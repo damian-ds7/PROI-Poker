@@ -68,8 +68,6 @@ private:
     void movePlayerLabels();
     void moveOpponentLabels();
 
-    void createEndLabels(MainWindow* ptr);
-
     void showButtons();
     void showEndScreen(bool visible);
     void showPlayersCards();
@@ -84,7 +82,7 @@ private:
     void setBetButton(bool bet);
     void setCheckButton(bool check);
 
-    void setWinnerScreen();
+    void setEndScreen();
     void reverseCards(bool front);
 
 
@@ -102,12 +100,6 @@ private:
 
     std::vector<std::unique_ptr<UIPlayer>> uiplayers;
     QLabel* TableCards[6];
-
-    QLabel EndBackground;
-    QLabel EndWinner;
-    QLabel EndToken;
-    QLabel EndWinnerName;
-    QLabel EndWinnerCash;
 
     Ui::Widget* ui;
 };

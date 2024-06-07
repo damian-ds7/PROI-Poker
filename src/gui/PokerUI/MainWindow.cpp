@@ -36,10 +36,9 @@ void MainWindow::createWidgets(MainWindow* ptr)
 	createPlayers(ptr);
 	movePlayerLabels();
 	moveOpponentLabels();
-	createEndLabels(ptr);
 
 
-	showEndScreen(false);
+	//showEndScreen(false);
 	ui->lineEdit->hide();
 	ui->ConfirmButton->hide();
 	ui->ConfirmSmallBlindButton->hide();
@@ -298,50 +297,6 @@ void MainWindow::moveOpponentLabels()
 	}
 }
 
-void MainWindow::createEndLabels(MainWindow* ptr)
-{
-	QFont WinnerFont("Arial", 20, QFont::Bold);
-	QFont WinnerNameFont("Arial", 30, QFont::Bold);
-	QFont CashFont("Arial", 20, QFont::Bold);
-	QPixmap token(":/resources/token.png");
-
-	EndBackground.setParent(ptr);
-	EndBackground.setFixedSize(400, 250);
-	EndBackground.move(518, 144);
-	EndBackground.setFrameStyle(QFrame::Panel | QFrame::Raised);
-	EndBackground.setLineWidth(4);
-
-	EndWinner.setParent(ptr);
-	EndWinner.setFont(WinnerFont);
-	EndWinner.setFixedWidth(400);
-	EndWinner.setAlignment(Qt::AlignCenter);
-	EndWinner.move(518, 185);
-	EndWinner.setText("WINNER");
-
-	EndWinnerName.setParent(ptr);
-	EndWinnerName.setFont(WinnerNameFont);
-	EndWinnerName.move(518, 230);
-	EndWinnerName.setFixedWidth(400);
-	EndWinnerName.setAlignment(Qt::AlignCenter);
-	
-	EndToken.setParent(ptr);
-	EndToken.setScaledContents(true);
-	EndToken.setFixedSize(30, 30);
-	EndToken.move(660, 300);
-	EndToken.setPixmap(token);
-
-	EndWinnerCash.setParent(ptr);
-	EndWinnerCash.setFont(CashFont);
-	EndWinnerCash.move(695, 300);
-
-	showEndScreen(false);
-
-	//
-	EndWinnerCash.setText("+1000$");
-	EndWinnerName.setText("Player 1");
-	//
-}
-
 void MainWindow::StartGame()
 {
 	this->show();
@@ -438,11 +393,11 @@ void MainWindow::showButtons()
 }
 void MainWindow::showEndScreen(bool visible)
 {
-	EndBackground.setVisible(visible);
-	EndWinner.setVisible(visible);
-	EndWinnerName.setVisible(visible);
-	EndToken.setVisible(visible);
-	EndWinnerCash.setVisible(visible);
+	ui->EndBackground->setVisible(visible);
+	ui->EndWinnerDescription->setVisible(visible);
+	ui->EndWinnerName->setVisible(visible);
+	ui->EndToken->setVisible(visible);
+	ui->EndWinnerCash->setVisible(visible);
 }
 void MainWindow::showPlayersCards()
 {
@@ -541,10 +496,10 @@ void MainWindow::setButtons()
 	}
 }
 
-void MainWindow::setWinnerScreen()
+void MainWindow::setEndScreen()
 {
 	//set winner name
-	EndWinnerCash.setText(game_handler->cash_to_QString(game_handler->pot()));
+	ui->EndWinnerCash->setText(game_handler->cash_to_QString(game_handler->pot()));
 }
 void MainWindow::reverseCards(bool front)
 {

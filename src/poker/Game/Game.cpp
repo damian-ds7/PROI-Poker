@@ -120,6 +120,7 @@ int Game::bot_play() {
 }
 
 void Game::make_move(Decision decision, int bet) {
+    players[current_player]->reset_after_round();
     if (decision == Decision::Bot) {
         bet = bot_play();
         decision = convert_bot_decision(bet);
@@ -137,8 +138,8 @@ void Game::make_move(Decision decision, int bet) {
                 players[current_player]->make_all_in();
             }else {
                 players[current_player]->make_raise(bet);
-                can_check = false;
             }
+            can_check = false;
             break;
         case Decision::Call:
             players[current_player]->make_call(bet);
@@ -163,7 +164,7 @@ void Game::make_move(Decision decision, int bet) {
 
 Decision Game::convert_bot_decision(int bet) {
     Decision decision;
-    auto previous_bet = players[(current_player - 1) % player_count]->bet();
+    auto previous_bet = get_previous_bet();
     auto current_money = players[current_player]->money();
     if (bet == 0) {
         decision = Decision::Check;
@@ -185,14 +186,14 @@ bool Game::check_round_end() {
     bool equal_bets = true;
     auto current_bet = players[current_player]->bet();
     for (const auto& player : players) {
-//        if (!player->folded() && !player->called()) {
-//            equal_bets = false;
-//            break;
-//        }
-        if ((!player->folded() && player->bet() != current_bet) || !player->all_in()) {
+        if (!player->folded() && !player->called()) {
             equal_bets = false;
             break;
         }
+//        if ((!player->folded() && player->bet() != current_bet) || !player->all_in()) {
+//            equal_bets = false;
+//            break;
+//        }
     }
     return equal_bets;
 }

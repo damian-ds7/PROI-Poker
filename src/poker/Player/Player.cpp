@@ -207,16 +207,21 @@ std::deque<std::unique_ptr<Card>> Player::clear_hand() noexcept {
     return std::move(temp);
 }
 
-void Player::reset_after_phase() noexcept {
-    m_bet = 0;
+void Player::reset_after_round() noexcept {
+//    m_bet = 0;
     set_called(false);
     set_raised(false);
     set_checked(false);
+    m_status = "";
+}
+
+void Player::reset_after_phase() noexcept {
+    reset_after_round();
+    m_bet = 0;
     set_all_in(false);
     set_small_blind(false);
     set_big_blind(false);
     set_dealer(false);
-    m_status = "";
 }
 
 void Player::set_sum_bet(unsigned int sum_bet) {

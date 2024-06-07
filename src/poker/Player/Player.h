@@ -64,6 +64,7 @@ public:
     virtual void make_all_in();
     virtual void make_check();
     virtual unsigned int remove_bet() noexcept;
+    virtual void reset_after_round() noexcept;
     virtual void reset_after_phase() noexcept;
     std::deque<std::unique_ptr<Card>> clear_hand() noexcept;
 protected:

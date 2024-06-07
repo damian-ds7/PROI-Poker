@@ -419,7 +419,7 @@ void MainWindow::bet_confirmed()
 	ui->lineEdit->clear();
 	ui->lineEdit->hide();
 	ui->ConfirmButton->hide();
-	if (game_handler->pot() == 0)
+	if (game_handler->previous_bet() == 0)
 	{
 		emit decisionMade(Decision(6), a);
 	}

@@ -155,12 +155,14 @@ void Player::make_bet(unsigned bet) {
 }
 
 void Player::make_raise(unsigned raise) {
-   make_helper(raise);
+    set_raised(true);
+    make_helper(raise);
 }
 
-void Player::make_call(unsigned call) {
+void Player::make_call(unsigned previous_bet) {
     set_called(true);
-    make_helper(call);
+    previous_bet -= m_bet;
+    make_helper(previous_bet);
 }
 
 void Player::make_fold() {
@@ -173,6 +175,7 @@ void Player::make_all_in() {
 }
 
 void Player::make_check() {
+    set_checked(true);
     // Do nothing.
 }
 

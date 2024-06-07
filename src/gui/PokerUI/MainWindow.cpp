@@ -1117,13 +1117,13 @@ void MainWindow::reverseCards(bool front)
 
 void MainWindow::check()
 {
-	if (game_handler->pot() == 0)
+	if (game_handler->can_check())
 	{
 		emit decisionMade(Decision(2), 0);
 	}
 	else
 	{
-		emit decisionMade(Decision(4), 0);
+		emit decisionMade(Decision(4), game_handler->previous_bet());
 	}
 }
 void MainWindow::bet()

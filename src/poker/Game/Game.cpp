@@ -163,7 +163,7 @@ bool Game::check_round_end() {
     bool equal_bets = true;
     auto current_bet = players[current_player]->bet();
     for (const auto& player : players) {
-        if (!player->folded() && !player->called()) {
+        if (!player->folded() && !player->called() && !player->all_in()) {
             equal_bets = false;
             break;
         }
@@ -249,15 +249,21 @@ void Game::collect_cards() {
     for (auto& card : *discarded) {
         deck->push_back(std::move(card));
     }
+    discarded->clear();
 }
 
 void Game::set_new_dealer() {
-    ++dealer;
-    dealer %= player_count;
-    current_player = (dealer + 1) % player_count;
+    dealer = find_active_player(dealer);
+    current_player = find_active_player(dealer);
     players[dealer]->set_dealer(true);
-    players[(dealer + 1) % player_count]->set_small_blind(true);
-    players[(dealer + 2) % player_count]->set_big_blind(true);
+    players[current_player]->set_small_blind(true);
+    players[find_active_player(current_player)]->set_big_blind(true);
+//    ++dealer;
+//    dealer %= player_count;
+//    current_player = (dealer + 1) % player_count;
+//    players[dealer]->set_dealer(true);
+//    players[(dealer + 1) % player_count]->set_small_blind(true);
+//    players[(dealer + 2) % player_count]->set_big_blind(true);
 }
 
 void Game::reset_phase() {
@@ -268,17 +274,18 @@ void Game::reset_winners() {
     winners.clear();
 }
 
+void Game::reset_players_status() {
+    for (auto& player : players) {
+        player->reset_after_phase();
+    }
+}
+
 void Game::reset_initial_status() {
     players[dealer]->set_dealer(false);
     players[(dealer + 1) % player_count]->set_small_blind(false);
     players[(dealer + 2) % player_count]->set_big_blind(false);
 }
 
-void Game::reset_players_status() {
-    for (auto& player : players) {
-        player->reset_after_phase();
-    }
-}
 void Game::restart_game() {
     reset_players_status();
     collect_cards();

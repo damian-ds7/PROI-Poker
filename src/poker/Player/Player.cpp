@@ -212,6 +212,10 @@ void Player::reset_after_phase() noexcept {
     set_called(false);
     set_raised(false);
     set_checked(false);
+    set_all_in(false);
+    set_small_blind(false);
+    set_big_blind(false);
+    set_dealer(false);
     m_status = "";
 }
 

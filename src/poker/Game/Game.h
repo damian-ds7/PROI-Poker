@@ -49,9 +49,9 @@ public:
     void set_new_dealer();
     void reset_phase();
     void reset_winners();
-    void reset_initial_status();
     void reset_players_status();
+    void reset_initial_status();
     void restart_game();
-    friend class MainWindow;
+//    friend class MainWindow;
     friend class GameHandler;
 };

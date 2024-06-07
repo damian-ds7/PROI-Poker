@@ -75,12 +75,13 @@ void GameHandler::finish_game() {
 }
 
 void GameHandler::play_turn(Decision player_decision, int player_bet) {
+    game->make_move(player_decision, player_bet);
     if (game->phase == Phase::Showdown || game->currently_playing == 1) {
+        game->collect_bets();
         finish_game();
         set_finished(true);
         return;
     }
-    game->make_move(player_decision, player_bet);
 }
 
 void GameHandler::make_big_blind() {

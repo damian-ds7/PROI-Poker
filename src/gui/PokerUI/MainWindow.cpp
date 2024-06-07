@@ -777,7 +777,7 @@ void MainWindow::createEndLabels(MainWindow* ptr)
 
 void MainWindow::StartGame()
 {
-	this->show();
+    game_handler->set_finished(false);
 	setStatus();
 	setCash();
 	setButtons();

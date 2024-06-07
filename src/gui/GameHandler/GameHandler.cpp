@@ -1,5 +1,13 @@
 #include "GameHandler.h"
 
+bool GameHandler::finished() const noexcept {
+    return this->m_finished;
+}
+
+void GameHandler::set_finished(bool finished) noexcept {
+    this->m_finished = finished;
+}
+
 unsigned int GameHandler::player_count() const noexcept {
     return game->player_count;
 }
@@ -69,6 +77,7 @@ void GameHandler::finish_game() {
 void GameHandler::play_turn(Decision player_decision, int player_bet) {
     if (game->phase == Phase::Showdown || game->currently_playing == 1) {
         finish_game();
+        set_finished(true);
         return;
     }
     game->make_move(player_decision, player_bet);

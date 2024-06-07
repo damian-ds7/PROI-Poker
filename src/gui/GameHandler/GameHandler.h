@@ -11,6 +11,9 @@ class GameHandler {
 public:
     GameHandler() = default;
 
+    [[nodiscard]] bool finished() const noexcept;
+    void set_finished(bool finished) noexcept;
+
     [[nodiscard]] unsigned int player_count() const noexcept;
     [[nodiscard]] unsigned int currently_playing() const noexcept;
     [[nodiscard]] unsigned int current_player() const noexcept;
@@ -40,6 +43,7 @@ public:
 private:
     std::unique_ptr<Game> game;
     GameInfo game_info;
+    bool m_finished = false;
 
     friend class MainWindow;
 };

@@ -126,11 +126,19 @@ void Game::make_move(Decision decision, int bet) {
     }
     switch (decision) {
         case Decision::Bet:
-            players[current_player]->make_bet(bet);
-            break;
+            if(anyone_all_in){
+                players[current_player]->make_all_in();
+            }else {
+                players[current_player]->make_bet(bet);
+                break;
+            }
         case Decision::Raise:
-            players[current_player]->make_raise(bet);
-            can_check = false;
+            if(anyone_all_in){
+                players[current_player]->make_all_in();
+            }else {
+                players[current_player]->make_raise(bet);
+                can_check = false;
+            }
             break;
         case Decision::Call:
             players[current_player]->make_call(bet);
@@ -140,10 +148,14 @@ void Game::make_move(Decision decision, int bet) {
             break;
         case Decision::AllIn:
             players[current_player]->make_all_in();
+            anyone_all_in = true;
             break;
         case Decision::Check:
-
-            players[current_player]->make_check();
+            if (anyone_all_in){
+                players[current_player]->make_call(bet);
+            } else {
+                players[current_player]->make_check();
+            }
             break;
     }
     next_player();

@@ -22,6 +22,7 @@ private:
     unsigned int smallest_allin = 0;
     unsigned int dealer;
     bool can_check = false;
+    bool anyone_all_in = false;
     std::vector<unsigned int> winners;
     std::vector<std::unique_ptr<Player>> players;
     Cards table = std::make_unique<Table<std::unique_ptr<Card>>>();

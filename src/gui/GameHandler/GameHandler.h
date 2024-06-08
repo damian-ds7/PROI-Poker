@@ -8,10 +8,14 @@
 
 
 class GameHandler {
+signals:
+    void winners(std::vector<unsigned int> winners);
+
 public:
     GameHandler() = default;
 
-    bool finished() const noexcept;
+    [[nodiscard]] bool finished() const noexcept;
+
     void set_finished(bool finished) noexcept;
 
     [[nodiscard]] unsigned int player_count() const noexcept;

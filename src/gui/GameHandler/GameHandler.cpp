@@ -4,8 +4,16 @@ bool GameHandler::finished() const noexcept {
     return this->m_finished;
 }
 
+bool GameHandler::one_player() const noexcept {
+    return this->m_one_player;
+}
+
 void GameHandler::set_finished(bool finished) noexcept {
     this->m_finished = finished;
+}
+
+void GameHandler::set_one_player(bool one_player) noexcept {
+    this->m_one_player = one_player;
 }
 
 unsigned int GameHandler::player_count() const noexcept {
@@ -85,7 +93,7 @@ void GameHandler::play_turn(Decision player_decision, int player_bet) {
         finish_game();
         set_finished(true);
         if (game->currently_playing == 1) {
-            initialize_game(game_info);
+            set_one_player(true);
         }
         return;
     }

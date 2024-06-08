@@ -87,7 +87,6 @@ void GameHandler::play_turn(Decision player_decision, int player_bet) {
         if (game->currently_playing == 1) {
             initialize_game(game_info);
         }
-        emit winners(game->winners);
         return;
     }
 }

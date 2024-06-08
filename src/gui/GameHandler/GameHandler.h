@@ -8,9 +8,6 @@
 
 
 class GameHandler {
-signals:
-    void winners(std::vector<unsigned int> winners);
-
 public:
     GameHandler() = default;
 

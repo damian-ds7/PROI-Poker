@@ -11,7 +11,7 @@ class GameHandler {
 public:
     GameHandler() = default;
 
-    [[nodiscard]] bool finished() const noexcept;
+    bool finished() const noexcept;
     void set_finished(bool finished) noexcept;
 
     [[nodiscard]] unsigned int player_count() const noexcept;

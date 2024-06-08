@@ -59,13 +59,21 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
     }
     calc_equity(board_cards, num_of_players);
     if(money_to_bet == 0 && can_check){
-        return 0;
+        auto random_number = dist(engine);
+        if(random_number % 2 == 0) {
+            return 0;
+        } else {
+            auto rand = dist(engine) % 10 + 4;
+            int money_divided_by_rand = static_cast<int>(money() / rand);
+            int floored_to_closest_10 = (money_divided_by_rand / 10) * 10;
+            return floored_to_closest_10;
+        }
     } else if ( equity() < 0.5 / static_cast<double>(num_of_players)){ //fold
         result = -1;
         return result;
-    } else if (equity() > 1.2 / static_cast<double>(num_of_players)) { // raise or call
+    } else if (equity() > 1.0 / static_cast<double>(num_of_players)) { // raise or call
         auto random_number = dist(engine);
-        if (random_number % 13 == 0) { // raise
+        if (random_number % 3 == 0) { // raise has to be changed
             result = (has_enough_money(money_to_bet - bet())) ? money_to_bet + static_cast<int>(((money() - money_to_bet) * equity())) : money();
         }
         else{ // call
@@ -76,8 +84,10 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
         result = (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
         return result;
     }
-    if (result > money_to_bet + 50){
-        result = money_to_bet + 50;
+    if (result > money_to_bet && result < money()){
+        auto percent_of_money = (money() - money_to_bet) / 100;
+        auto random_number = dist(engine) % 30 + 5;
+        result = (has_enough_money(money_to_bet - bet())) ? ((money_to_bet + percent_of_money * random_number) / 10 * 10) : money();
     }
     else {
         result = (result < money()) ? result : money();

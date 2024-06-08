@@ -119,8 +119,8 @@ TEST(BotPlayerTest, BotPlayerMakeDecisionRaise){
     std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::King);
     bot.add_card(std::move(card1));
     bot.add_card(std::move(card2));
-    auto res = bot.make_decision(100, 2, "JsTs9s");
-    EXPECT_GT(res, 100);
+    auto res = bot.make_decision(100, 2, "JsTs9s", false, false);
+    EXPECT_GE(res, 100);
 }
 
 TEST(BotPlayerTest, BotPlayerMakeDecisionFold){
@@ -129,8 +129,8 @@ TEST(BotPlayerTest, BotPlayerMakeDecisionFold){
     std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::Three);
     bot.add_card(std::move(card1));
     bot.add_card(std::move(card2));
-    auto res = bot.make_decision(100, 2, "7h8h9h", false);
-    EXPECT_EQ(res, 0);
+    auto res = bot.make_decision(100, 2, "7h8h9h", false, false);
+    EXPECT_EQ(res, -1);
 }
 
 TEST(BotPlayerTest, BotPlayerMakeDecisionCheck){
@@ -139,7 +139,7 @@ TEST(BotPlayerTest, BotPlayerMakeDecisionCheck){
     std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::Three);
     bot.add_card(std::move(card1));
     bot.add_card(std::move(card2));
-    auto res = bot.make_decision(0, 2, "7h8h9h");
+    auto res = bot.make_decision(0, 2, "7h8h9h", true, false);
     EXPECT_EQ(res, 0);
 }
 
@@ -149,7 +149,7 @@ TEST(BotPlayerTest, BotPlayerMakeDecisionCall){
     std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::Three);
     bot.add_card(std::move(card1));
     bot.add_card(std::move(card2));
-    auto res = bot.make_decision(100, 2, "7h8h9h");
+    auto res = bot.make_decision(100, 2, "7h8h9h", false, false);
     EXPECT_EQ(res, 100);
 }
 

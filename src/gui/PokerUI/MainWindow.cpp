@@ -392,7 +392,7 @@ void MainWindow::bet_confirmed()
     std::string message;
 	try {
 		bool ok = true;
-		if (ui->lineEdit->text().toInt(&ok) >= game_handler->player(0)->money())
+		if (ui->lineEdit->text().toInt(&ok) - game_handler->previous_bet() >= game_handler->player(0)->money())
 		{
 			throw 1;
 		}

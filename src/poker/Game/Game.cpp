@@ -28,7 +28,7 @@ unsigned int Game::find_active_player(unsigned int index) {
     unsigned int active_player = index;
     do {
         active_player = (active_player + 1) % player_count;
-    } while (players[active_player]->folded() && players[active_player]->all_in());
+    } while (players[active_player]->folded());
     return active_player;
 }
 
@@ -100,14 +100,13 @@ void Game::next_player() {
         }
         return;
     }
-
     current_player = find_active_player(current_player);
 }
 
 unsigned int Game::get_previous_bet() {
     int idx = current_player - 1;
     if (idx < 0) idx += player_count;
-    while (players[idx]->folded() || (players[idx]->all_in() && players[idx]->bet() == 0)) {
+    while (players[idx]->folded()) {
         --idx;
         if (idx < 0) idx += player_count;
     }
@@ -148,8 +147,12 @@ void Game::make_move(Decision decision, int bet) {
             players[current_player]->make_fold();
             break;
         case Decision::AllIn:
-            players[current_player]->make_all_in();
-            anyone_all_in = true;
+            if (players[current_player]->all_in()) {
+                players[current_player]->make_call(get_previous_bet());
+            } else {
+                players[current_player]->make_all_in();
+                anyone_all_in = true;
+            }
             break;
         case Decision::Check:
             if (anyone_all_in){
@@ -157,6 +160,7 @@ void Game::make_move(Decision decision, int bet) {
             } else {
                 players[current_player]->make_check();
             }
+            players[current_player]->make_check();
             break;
     }
     next_player();
@@ -172,7 +176,7 @@ Decision Game::convert_bot_decision(int bet) {
         decision = Decision::Bet;
     } else if (bet  > previous_bet && bet < current_money) {
         decision = Decision::Raise;
-    } else if (bet == current_money) {
+    } else if (bet >= current_money) {
         decision = Decision::AllIn;
     } else if (bet == previous_bet) {
         decision = Decision::Call;
@@ -304,6 +308,7 @@ void Game::reset_winners() {
 void Game::reset_players_status() {
     for (auto& player : players) {
         player->reset_after_phase();
+        player->set_all_in(false);
         player->set_sum_bet(0);
     }
 }

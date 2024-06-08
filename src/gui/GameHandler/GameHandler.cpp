@@ -75,6 +75,10 @@ void GameHandler::finish_game() {
 }
 
 void GameHandler::play_turn(Decision player_decision, int player_bet) {
+//    if (game->players[current_player()]->all_in() && player_decision != Decision::Fold) {
+//        player_decision = Decision::Call;
+//        player_bet = previous_bet();
+//    }
     game->make_move(player_decision, player_bet);
     if (game->phase == Phase::Showdown || game->currently_playing == 1) {
         game->collect_bets();

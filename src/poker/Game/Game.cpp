@@ -92,10 +92,6 @@ void Game::next_player() {
         next_phase();
         current_player = find_active_player(dealer);
         for (auto& player : players) {
-            if (player->folded()) {
-                --currently_playing;
-                continue;
-            }
             player->reset_after_phase();
         }
         return;
@@ -126,6 +122,7 @@ void Game::make_move(Decision decision, int bet) {
     }
     switch (decision) {
         case Decision::Bet:
+            can_check = false;
             if(anyone_all_in){
                 players[current_player]->make_all_in();
             }else {
@@ -138,7 +135,6 @@ void Game::make_move(Decision decision, int bet) {
             }else {
                 players[current_player]->make_raise(bet);
             }
-            can_check = false;
             break;
         case Decision::Call:
             players[current_player]->make_call(bet);
@@ -172,7 +168,7 @@ Decision Game::convert_bot_decision(int bet) {
     int current_money = players[current_player]->money();
     if (bet == 0) {
         decision = Decision::Check;
-    } else if (players[current_player]->small_blind() || players[current_player]->big_blind()) {
+    } else if (players[current_player]->small_blind() || players[current_player]->big_blind() || can_check) {
         decision = Decision::Bet;
     } else if (bet  > previous_bet && bet < current_money) {
         decision = Decision::Raise;
@@ -208,7 +204,6 @@ void Game::delete_broke_players() {
         if (it != players.end()) {
             players.erase(it);
             --player_count;
-            --currently_playing;
         }
         else {
             break;
@@ -310,6 +305,7 @@ void Game::reset_players_status() {
         player->reset_after_phase();
         player->set_all_in(false);
         player->set_sum_bet(0);
+        player->set_folded(false);
     }
 }
 

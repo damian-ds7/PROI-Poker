@@ -45,3 +45,18 @@ TEST(GameTest, GameSharePot){
     game.find_winner();
     game.share_pot();
 }
+
+TEST(GameTest, GameConvertDecision) {
+    Game game("Herkules", 6, 1000);
+    ASSERT_EQ(game.convert_bot_decision(0), Decision::Check);
+    game.make_move(Decision::Bet, 100);
+    game.make_move(Decision::Bet, 200);
+    ASSERT_EQ(game.convert_bot_decision(200), Decision::Call);
+    ASSERT_EQ(game.convert_bot_decision(400), Decision::Raise);
+    ASSERT_EQ(game.convert_bot_decision(-1), Decision::Fold);
+    ASSERT_EQ(game.convert_bot_decision(1000), Decision::AllIn);
+}
+
+
+
+

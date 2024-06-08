@@ -326,7 +326,7 @@ void MainWindow::setCheckButton(bool check)
 }
 void MainWindow::setButtons()
 {
-	if (game_handler->previous_bet() == 0)
+	if (game_handler->can_check())
 	{
 		setBetButton(true);
 		setCheckButton(true);

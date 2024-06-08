@@ -168,8 +168,8 @@ void Game::make_move(Decision decision, int bet) {
 
 Decision Game::convert_bot_decision(int bet) {
     Decision decision;
-    auto previous_bet = get_previous_bet();
-    auto current_money = players[current_player]->money();
+    int previous_bet = get_previous_bet();
+    int current_money = players[current_player]->money();
     if (bet == 0) {
         decision = Decision::Check;
     } else if (players[current_player]->small_blind() || players[current_player]->big_blind()) {

@@ -84,6 +84,9 @@ void GameHandler::play_turn(Decision player_decision, int player_bet) {
         game->collect_bets();
         finish_game();
         set_finished(true);
+        if (game->currently_playing == 1) {
+            initialize_game(game_info);
+        }
         return;
     }
 }

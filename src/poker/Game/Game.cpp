@@ -92,10 +92,6 @@ void Game::next_player() {
         next_phase();
         current_player = find_active_player(dealer);
         for (auto& player : players) {
-            if (player->folded()) {
-                --currently_playing;
-                continue;
-            }
             player->reset_after_phase();
         }
         return;
@@ -208,7 +204,6 @@ void Game::delete_broke_players() {
         if (it != players.end()) {
             players.erase(it);
             --player_count;
-            --currently_playing;
         }
         else {
             break;

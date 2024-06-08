@@ -83,7 +83,7 @@ private:
     void setBetButton(bool bet);
     void setCheckButton(bool check);
 
-    void setEndScreen();
+    void setEndScreen(std::vector<unsigned int> winners);
     void reverseCards(bool front);
 
 
@@ -100,6 +100,8 @@ private:
     void next_round();
 
     void bot_timer_ended();
+
+    //void game_finished(std::vector<unsigned int> winners);
 
     std::vector<std::unique_ptr<UIPlayer>> uiplayers;
     QLabel* TableCards[6];

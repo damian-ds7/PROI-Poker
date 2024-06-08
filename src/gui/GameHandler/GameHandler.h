@@ -42,8 +42,6 @@ public:
     std::string status_to_string(int index);
     QString cash_to_QString(unsigned int cash);
     unsigned int previous_bet();
-
-    //static QString cash_to_QString(unsigned int cash);
 private:
     std::unique_ptr<Game> game;
     GameInfo game_info;

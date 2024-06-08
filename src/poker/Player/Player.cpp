@@ -205,6 +205,7 @@ std::deque<std::unique_ptr<Card>> Player::clear_hand() noexcept {
         temp.push_back(std::move(card));
         m_hand->pop_front();
     }
+    card_eval = omp::Hand::empty();
     return std::move(temp);
 }
 

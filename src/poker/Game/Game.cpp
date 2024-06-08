@@ -310,6 +310,7 @@ void Game::reset_players_status() {
         player->reset_after_phase();
         player->set_all_in(false);
         player->set_sum_bet(0);
+        player->set_folded(false);
     }
 }
 

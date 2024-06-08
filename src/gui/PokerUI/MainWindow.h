@@ -48,6 +48,8 @@ public:
     void playerMakeSmallBlind(int bet);
     void botMakeMove();
 
+    void reverseCards(bool front);
+
 signals:
     void decisionMade(Decision decision, int bet);
 signals:
@@ -84,7 +86,6 @@ private:
     void setCheckButton(bool check);
 
     void setEndScreen(std::vector<unsigned int> winners);
-    void reverseCards(bool front);
 
 
 

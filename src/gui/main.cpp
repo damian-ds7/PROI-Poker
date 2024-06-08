@@ -30,7 +30,8 @@ void handleSmallBlind(int bet, MainWindow* ptr) {
 
 void handleNextRound(MainWindow* ptr) {
 	qDebug() << "Next round";
-	ptr->PlayGame();
+    //ptr->reverseCards(false);
+	ptr->StartGame();
 }
 
 void handleBotMove(MainWindow* ptr) {

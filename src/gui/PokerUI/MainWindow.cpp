@@ -150,7 +150,7 @@ void MainWindow::StartGame()
 	showButtons();
 	setCurrentPlayer();
 	showEndScreen(false);
-	reverseCards(false);
+	//reverseCards(false);
 	if (game_handler->current_player() == 0)
 	{
 		setButtons();
@@ -177,11 +177,11 @@ void MainWindow::PlayGame()
 
 	qDebug() << "Player turn: " << game_handler->current_player();
 
-	if (false) //finish game
+	if (game_handler->finished()) //finish game
 	{
 
 		showEndScreen(true);
-		//setEndScreen(winners); // winners
+		setEndScreen(game_handler->winners()); // winners
 		reverseCards(true);
 		return;
 	}

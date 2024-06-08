@@ -389,9 +389,10 @@ void MainWindow::all_in()
 void MainWindow::bet_confirmed()
 {
 	// int < player money
+    std::string message;
 	try {
 		bool ok = true;
-		if (ui->lineEdit->text().toInt(&ok) >= game_handler->player(0)->money())
+		if (ui->lineEdit->text().toInt(&ok) - game_handler->previous_bet() >= game_handler->player(0)->money())
 		{
 			throw 1;
 		}
@@ -399,18 +400,26 @@ void MainWindow::bet_confirmed()
 		{
 			throw 2;
 		}
+        if (ui->lineEdit->text().toInt() <= game_handler->previous_bet())
+        {
+            throw 3;
+        }
 	}
 	catch (int x) {
-		QMessageBox::warning(this, "Input Error", "Too much!");
+        if (x < 3) {
+            message = "You don't have enough money!";
+        } else {
+            message = "You must bet more than previous bet!";
+        }
+		QMessageBox::warning(this, "Input Error", message.c_str());
 		ui->lineEdit->clear();
 		return;
 	}
-
 	int a = ui->lineEdit->text().toInt();
 	ui->lineEdit->clear();
 	ui->lineEdit->hide();
 	ui->ConfirmButton->hide();
-	if (game_handler->pot() == 0)
+	if (game_handler->previous_bet() == 0)
 	{
 		emit decisionMade(Decision(6), a);
 	}

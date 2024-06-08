@@ -22,6 +22,7 @@ private:
     unsigned int smallest_allin = 0;
     unsigned int dealer;
     bool can_check = false;
+    bool anyone_all_in = false;
     std::vector<unsigned int> winners;
     std::vector<std::unique_ptr<Player>> players;
     Cards table = std::make_unique<Table<std::unique_ptr<Card>>>();
@@ -38,6 +39,7 @@ public:
     void next_phase();
     void collect_bets();
     void next_player();
+    unsigned int get_previous_bet();
     int bot_play();
     void make_move(Decision decision, int bet = 0);
     Decision convert_bot_decision(int bet);
@@ -49,9 +51,9 @@ public:
     void set_new_dealer();
     void reset_phase();
     void reset_winners();
-    void reset_initial_status();
     void reset_players_status();
+    void reset_initial_status();
     void restart_game();
-    friend class MainWindow;
+//    friend class MainWindow;
     friend class GameHandler;
 };

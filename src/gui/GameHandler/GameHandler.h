@@ -8,10 +8,14 @@
 
 
 class GameHandler {
+signals:
+    void winners(std::vector<unsigned int> winners);
+
 public:
     GameHandler() = default;
 
     [[nodiscard]] bool finished() const noexcept;
+
     void set_finished(bool finished) noexcept;
 
     [[nodiscard]] unsigned int player_count() const noexcept;
@@ -37,7 +41,7 @@ public:
     std::string name_to_string(int index);
     std::string status_to_string(int index);
     QString cash_to_QString(unsigned int cash);
-    int previous_bet();
+    unsigned int previous_bet();
 
     //static QString cash_to_QString(unsigned int cash);
 private:

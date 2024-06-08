@@ -46,6 +46,7 @@ public:
     virtual void set_name(std::string name);
     virtual void set_money(unsigned int money);
     virtual void set_bet(unsigned int bet);
+    virtual void set_sum_bet(unsigned int sum_bet);
     virtual void set_folded(bool folded);
     virtual void set_all_in(bool all_in);
     virtual void set_big_blind(bool big_blind);
@@ -63,6 +64,7 @@ public:
     virtual void make_all_in();
     virtual void make_check();
     virtual unsigned int remove_bet() noexcept;
+    virtual void reset_after_round() noexcept;
     virtual void reset_after_phase() noexcept;
     std::deque<std::unique_ptr<Card>> clear_hand() noexcept;
 protected:

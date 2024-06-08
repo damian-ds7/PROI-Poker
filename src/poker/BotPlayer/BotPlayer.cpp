@@ -58,14 +58,14 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
         return money_to_bet * 2;
     }
     calc_equity(board_cards, num_of_players);
-    if(money_to_bet == 0 and can_check){
+    if(money_to_bet == 0 && can_check){
         return 0;
     } else if ( equity() < 0.5 / static_cast<double>(num_of_players)){ //fold
         result = -1;
         return result;
     } else if (equity() > 1.2 / static_cast<double>(num_of_players)) { // raise or call
         auto random_number = dist(engine);
-        if (random_number % 17) { // raise
+        if (random_number % 13 == 0) { // raise
             result = (has_enough_money(money_to_bet - bet())) ? money_to_bet + static_cast<int>(((money() - money_to_bet) * equity())) : money();
         }
         else{ // call

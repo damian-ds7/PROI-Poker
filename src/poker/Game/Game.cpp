@@ -100,26 +100,44 @@ void Game::next_player() {
         }
         return;
     }
-
     current_player = find_active_player(current_player);
 }
 
+unsigned int Game::get_previous_bet() {
+    int idx = current_player - 1;
+    if (idx < 0) idx += player_count;
+    while (players[idx]->folded()) {
+        --idx;
+        if (idx < 0) idx += player_count;
+    }
+    return players[idx]->bet();
+}
+
 int Game::bot_play() {
-    unsigned int previous_bet = players[(current_player - 1) % player_count]->bet();
+    unsigned int previous_bet = get_previous_bet();
     return dynamic_cast<BotPlayer&>(*players[current_player]).make_decision(previous_bet, player_count    , table->to_string(), can_check, false);
 }
 
 void Game::make_move(Decision decision, int bet) {
+    players[current_player]->reset_after_round();
     if (decision == Decision::Bot) {
         bet = bot_play();
         decision = convert_bot_decision(bet);
     }
     switch (decision) {
         case Decision::Bet:
-            players[current_player]->make_bet(bet);
-            break;
+            if(anyone_all_in){
+                players[current_player]->make_all_in();
+            }else {
+                players[current_player]->make_bet(bet);
+                break;
+            }
         case Decision::Raise:
-            players[current_player]->make_raise(bet);
+            if(anyone_all_in){
+                players[current_player]->make_all_in();
+            }else {
+                players[current_player]->make_raise(bet);
+            }
             can_check = false;
             break;
         case Decision::Call:
@@ -129,10 +147,19 @@ void Game::make_move(Decision decision, int bet) {
             players[current_player]->make_fold();
             break;
         case Decision::AllIn:
-            players[current_player]->make_all_in();
+            if (players[current_player]->all_in()) {
+                players[current_player]->make_call(get_previous_bet());
+            } else {
+                players[current_player]->make_all_in();
+                anyone_all_in = true;
+            }
             break;
         case Decision::Check:
-
+            if (anyone_all_in){
+                players[current_player]->make_call(bet);
+            } else {
+                players[current_player]->make_check();
+            }
             players[current_player]->make_check();
             break;
     }
@@ -141,15 +168,15 @@ void Game::make_move(Decision decision, int bet) {
 
 Decision Game::convert_bot_decision(int bet) {
     Decision decision;
-    auto previous_bet = players[(current_player - 1) % player_count]->bet();
-    auto current_money = players[current_player]->money();
+    int previous_bet = get_previous_bet();
+    int current_money = players[current_player]->money();
     if (bet == 0) {
         decision = Decision::Check;
     } else if (players[current_player]->small_blind() || players[current_player]->big_blind()) {
         decision = Decision::Bet;
     } else if (bet  > previous_bet && bet < current_money) {
         decision = Decision::Raise;
-    } else if (bet == current_money) {
+    } else if (bet >= current_money) {
         decision = Decision::AllIn;
     } else if (bet == previous_bet) {
         decision = Decision::Call;
@@ -167,6 +194,10 @@ bool Game::check_round_end() {
             equal_bets = false;
             break;
         }
+//        if ((!player->folded() && player->bet() != current_bet) || !player->all_in()) {
+//            equal_bets = false;
+//            break;
+//        }
     }
     return equal_bets;
 }
@@ -249,15 +280,21 @@ void Game::collect_cards() {
     for (auto& card : *discarded) {
         deck->push_back(std::move(card));
     }
+    discarded->clear();
 }
 
 void Game::set_new_dealer() {
-    ++dealer;
-    dealer %= player_count;
-    current_player = (dealer + 1) % player_count;
+    dealer = find_active_player(dealer);
+    current_player = find_active_player(dealer);
     players[dealer]->set_dealer(true);
-    players[(dealer + 1) % player_count]->set_small_blind(true);
-    players[(dealer + 2) % player_count]->set_big_blind(true);
+    players[current_player]->set_small_blind(true);
+    players[find_active_player(current_player)]->set_big_blind(true);
+//    ++dealer;
+//    dealer %= player_count;
+//    current_player = (dealer + 1) % player_count;
+//    players[dealer]->set_dealer(true);
+//    players[(dealer + 1) % player_count]->set_small_blind(true);
+//    players[(dealer + 2) % player_count]->set_big_blind(true);
 }
 
 void Game::reset_phase() {
@@ -268,17 +305,20 @@ void Game::reset_winners() {
     winners.clear();
 }
 
+void Game::reset_players_status() {
+    for (auto& player : players) {
+        player->reset_after_phase();
+        player->set_all_in(false);
+        player->set_sum_bet(0);
+    }
+}
+
 void Game::reset_initial_status() {
     players[dealer]->set_dealer(false);
     players[(dealer + 1) % player_count]->set_small_blind(false);
     players[(dealer + 2) % player_count]->set_big_blind(false);
 }
 
-void Game::reset_players_status() {
-    for (auto& player : players) {
-        player->reset_after_phase();
-    }
-}
 void Game::restart_game() {
     reset_players_status();
     collect_cards();

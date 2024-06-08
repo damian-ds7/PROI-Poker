@@ -75,12 +75,21 @@ void GameHandler::finish_game() {
 }
 
 void GameHandler::play_turn(Decision player_decision, int player_bet) {
+//    if (game->players[current_player()]->all_in() && player_decision != Decision::Fold) {
+//        player_decision = Decision::Call;
+//        player_bet = previous_bet();
+//    }
+    game->make_move(player_decision, player_bet);
     if (game->phase == Phase::Showdown || game->currently_playing == 1) {
+        game->collect_bets();
         finish_game();
         set_finished(true);
+        if (game->currently_playing == 1) {
+            initialize_game(game_info);
+        }
+        emit winners(game->winners);
         return;
     }
-    game->make_move(player_decision, player_bet);
 }
 
 void GameHandler::make_big_blind() {
@@ -108,8 +117,6 @@ QString GameHandler::cash_to_QString(unsigned int cash) {
 	return QString(std::to_string(cash).append("$").c_str());
 }
 
-int GameHandler::previous_bet() {
-    int idx = current_player() - 1;
-    if (idx < 0) idx += player_count();
-	return game->players[idx]->bet();
+unsigned int GameHandler::previous_bet() {
+    return game->get_previous_bet();
 }

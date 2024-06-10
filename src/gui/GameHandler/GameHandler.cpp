@@ -32,6 +32,10 @@ unsigned int GameHandler::pot() const noexcept {
     return game->pot;
 }
 
+std::vector<unsigned int> GameHandler::winners() const noexcept {
+	return game->winners;
+}
+
 unsigned int GameHandler::initial_money() const noexcept {
     return game_info.initial_money;
 }

@@ -21,6 +21,7 @@ public:
     [[nodiscard]] unsigned int currently_playing() const noexcept;
     [[nodiscard]] unsigned int current_player() const noexcept;
     [[nodiscard]] unsigned int pot() const noexcept;
+    [[nodiscard]] std::vector<unsigned int> winners() const noexcept;
     [[nodiscard]] unsigned int initial_money() const noexcept;
     [[nodiscard]] unsigned int previous_bet() const noexcept;
     [[nodiscard]] std::string player_name() const noexcept;
@@ -41,8 +42,6 @@ public:
     std::string status_to_string(int index);
     QString cash_to_QString(unsigned int cash);
     unsigned int previous_bet();
-
-    //static QString cash_to_QString(unsigned int cash);
 private:
     std::unique_ptr<Game> game;
     GameInfo game_info;

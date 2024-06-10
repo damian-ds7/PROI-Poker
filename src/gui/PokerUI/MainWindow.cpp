@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(ui->ConfirmSmallBlindButton, &QPushButton::clicked, this, &MainWindow::small_blind_confirmed);
 	connect(ui->NextRoundButton, &QPushButton::clicked, this, &MainWindow::next_round);
 	connect(bot_cooldown, &QTimer::timeout, this, &MainWindow::bot_timer_ended);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -147,6 +149,8 @@ void MainWindow::StartGame()
 	setTableCards();
 	showButtons();
 	setCurrentPlayer();
+	showEndScreen(false);
+	//reverseCards(false);
 	if (game_handler->current_player() == 0)
 	{
 		setButtons();
@@ -173,18 +177,29 @@ void MainWindow::PlayGame()
 
 	qDebug() << "Player turn: " << game_handler->current_player();
 
-	//bot delay
-	int time = 0;
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<unsigned int> dist(1000, 3000);
+	if (game_handler->finished()) //finish game
+	{
 
-	time = dist(gen);
-	bot_cooldown->start(time);
-	qDebug() << "Bot timer started at: " << time << "ms";
+		showEndScreen(true);
+		setEndScreen(game_handler->winners()); // winners
+		reverseCards(true);
+		return;
+	}
+	else
+	{
+		//bot delay
+		int time = 0;
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<unsigned int> dist(1000, 3000);
+
+		time = dist(gen);
+		bot_cooldown->start(time);
+		qDebug() << "Bot timer started at: " << time << "ms";
 
 
-	return;
+		return;
+	}
 }
 
 void MainWindow::playerMakeDecision(Decision decision, int bet)
@@ -234,11 +249,15 @@ void MainWindow::showButtons()
 }
 void MainWindow::showEndScreen(bool visible)
 {
+	if (visible) {
+		ui->EndBackground->raise();
+		ui->EndWinnerDescription->raise();
+		ui->EndWinnerName->raise();
+		ui->NextRoundButton->raise();
+	}
 	ui->EndBackground->setVisible(visible);
 	ui->EndWinnerDescription->setVisible(visible);
 	ui->EndWinnerName->setVisible(visible);
-	ui->EndToken->setVisible(visible);
-	ui->EndWinnerCash->setVisible(visible);
 	ui->NextRoundButton->setVisible(visible);
 }
 void MainWindow::showPlayersCards()
@@ -338,10 +357,27 @@ void MainWindow::setButtons()
 	}
 }
 
-void MainWindow::setEndScreen()
+void MainWindow::setEndScreen(std::vector<unsigned int> winners)
 {
-	//set winner name
-	ui->EndWinnerCash->setText(game_handler->cash_to_QString(game_handler->pot()));
+	if (winners.size() == 1)
+	{
+		ui->EndWinnerDescription->setText("Winner:");
+		ui->EndWinnerName->setText(game_handler->name_to_string(winners[0]).c_str());
+	}
+	else
+	{
+		ui->EndWinnerDescription->setText("Winners:");
+		std::string winners_string;
+		for (unsigned int i = 0; i < winners.size(); i++)
+		{
+			winners_string += game_handler->name_to_string(winners[i]);
+			if (i != winners.size() - 1)
+			{
+				winners_string += ", ";
+			}
+		}
+		ui->EndWinnerName->setText(winners_string.c_str());
+	}
 }
 void MainWindow::reverseCards(bool front)
 {
@@ -471,6 +507,14 @@ void MainWindow::bot_timer_ended()
 {
 	emit botMove();
 }
+
+//void MainWindow::game_finished(std::vector<unsigned int> winners)
+//{
+//	bot_cooldown->stop();
+//	showEndScreen(true);
+//	setEndScreen(winners);
+//	reverseCards(true);
+//}
 
 
 

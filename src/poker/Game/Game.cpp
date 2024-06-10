@@ -320,5 +320,4 @@ void Game::restart_game() {
     pot = 0;
     reset_phase();
     smallest_allin = 0;
-    reset_winners();
 }

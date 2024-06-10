@@ -249,6 +249,14 @@ void MainWindow::showButtons()
 }
 void MainWindow::showEndScreen(bool visible)
 {
+	if (visible) {
+		ui->EndBackground->raise();
+		ui->EndWinnerDescription->raise();
+		ui->EndWinnerName->raise();
+		ui->EndToken->raise();
+		ui->EndWinnerCash->raise();
+		ui->NextRoundButton->raise();
+	}
 	ui->EndBackground->setVisible(visible);
 	ui->EndWinnerDescription->setVisible(visible);
 	ui->EndWinnerName->setVisible(visible);

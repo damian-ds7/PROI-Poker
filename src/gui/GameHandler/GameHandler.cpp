@@ -94,7 +94,7 @@ void GameHandler::play_turn(Decision player_decision, int player_bet) {
     game->make_move(player_decision, player_bet);
     if (game->phase == Phase::Showdown || game->currently_playing == 1) {
         game->collect_bets();
-        finish_game();
+        //finish_game();
         set_finished(true);
         if (game->currently_playing == 1) {
             set_one_player(true);

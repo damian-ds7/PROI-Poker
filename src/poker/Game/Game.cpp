@@ -184,15 +184,12 @@ Decision Game::convert_bot_decision(int bet) {
 
 bool Game::check_round_end() {
     bool equal_bets = true;
-    auto current_bet = players[current_player]->bet();
     for (const auto& player : players) {
-        if (!player->folded() && !player->called()) {
+        if (!player->folded() && !player->called() && !player->checked()) {
             equal_bets = false;
-            break;
         }
-//        if ((!player->folded() && player->bet() != current_bet) || !player->all_in()) {
-//            equal_bets = false;
-//            break;
+//        if (!player->checked() && !player->folded()) {
+//            all_checked = false;
 //        }
     }
     return equal_bets;
@@ -209,6 +206,7 @@ void Game::delete_broke_players() {
             break;
         }
     }
+    currently_playing = player_count;
 }
 
 void Game::share_pot() {

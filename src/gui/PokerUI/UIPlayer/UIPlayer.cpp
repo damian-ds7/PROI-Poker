@@ -67,6 +67,7 @@ UIPlayer::~UIPlayer() {
 
 void UIPlayer::set_name(std::string name) {
 	Name->setText(QString::fromStdString(name));
+    Name->adjustSize();
 }
 
 void UIPlayer::set_cash(unsigned int cash) {

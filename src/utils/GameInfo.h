@@ -5,6 +5,6 @@ struct GameInfo {
     GameInfo(std::string name, int count, int money);
     GameInfo() = default;
     std::string player_name;
-    int player_count;
-    int initial_money;
+    int player_count = 0;
+    int initial_money = 0;
 };

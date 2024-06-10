@@ -86,7 +86,7 @@ void GameHandler::finish_game() {
 
 void GameHandler::play_turn(Decision player_decision, int player_bet) {
     game->make_move(player_decision, player_bet);
-    if (game->phase == Phase::Showdown || game->currently_playing == 1 || game->players[0]->money() == 0) {
+    if (game->phase == Phase::Showdown || game->currently_playing == 1 || (game->players[0]->money() == 0 && !game->players[0]->all_in())) {
         game->collect_bets();
         game->delete_broke_players();
         game->find_winner();

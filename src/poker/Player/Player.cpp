@@ -199,14 +199,25 @@ unsigned int Player::remove_bet() noexcept {
     return bet;
 }
 
-std::deque<std::unique_ptr<Card>> Player::clear_hand() noexcept {
-    std::deque<std::unique_ptr<Card>> temp;
-    for (auto& card : *m_hand) {
-        temp.push_back(std::move(card));
-        m_hand->pop_front();
-    }
+//std::deque<std::unique_ptr<Card>> Player::clear_hand() noexcept {
+//    std::deque<std::unique_ptr<Card>> temp;
+//    for (auto& card : *m_hand) {
+//        temp.push_back(std::move(card));
+//        m_hand->pop_front();
+//    }
+//    card_eval = omp::Hand::empty();
+//    return std::move(temp);
+//}
+
+int Player::hand_size() const noexcept {
+    return m_hand->size();
+}
+
+Cards Player::clear_hand() noexcept {
+    Cards temp = std::move(m_hand);
+    m_hand = std::make_unique<Hand<std::unique_ptr<Card>>>();
     card_eval = omp::Hand::empty();
-    return std::move(temp);
+    return temp;
 }
 
 void Player::reset_after_round() noexcept {

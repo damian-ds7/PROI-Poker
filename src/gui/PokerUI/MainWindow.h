@@ -80,6 +80,7 @@ private:
     void setCash();
     void setStatus();
     void setCurrentPlayer();
+    void setNames();
 
     void setButtons();
     void setBetButton(bool bet);

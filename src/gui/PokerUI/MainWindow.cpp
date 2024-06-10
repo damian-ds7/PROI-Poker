@@ -26,7 +26,7 @@ MainWindow::~MainWindow()
 {
 	delete bot_cooldown;
     delete ui;
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < game_handler->game_info.player_count; i++)
 	{
 		delete TableCards[i];
 	}
@@ -147,6 +147,7 @@ void MainWindow::StartGame()
     game_handler->set_one_player(false);
 	setStatus();
 	setCash();
+    setNames();
 	setButtons();
 	setTableCards();
 	showButtons();
@@ -174,10 +175,6 @@ void MainWindow::PlayGame()
 	setTableCards();
 	showButtons();
 	showPlayersCards();
-
-	if (game_handler->current_player() == 0) return;
-
-	qDebug() << "Player turn: " << game_handler->current_player();
 
 	if (game_handler->finished()) //finish game
 	{
@@ -323,6 +320,14 @@ void MainWindow::setStatus()
 void MainWindow::setCurrentPlayer()
 {
 	ui->CurrentPlayerName->setText(game_handler->name_to_string(game_handler->current_player()).c_str());
+}
+
+void MainWindow::setNames()
+{
+    for (unsigned int i = 0; i < game_handler->player_count(); ++i)
+    {
+        uiplayers[i]->set_name(game_handler->name_to_string(i));
+    }
 }
 
 void MainWindow::setBetButton(bool bet)

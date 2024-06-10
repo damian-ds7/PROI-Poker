@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+	<class>Widget</class>
+	<widget class="QWidget" name="Widget">
+		<property name="geometry">
+			<rect>
+				<x>0</x>
+				<y>0</y>
+				<width>1435</width>
+				<height>689</height>
+			</rect>
+		</property>
+		<property name="windowTitle">
+			<string>Poker</string>
+		</property>
+		<property name="styleSheet">
+			<string notr="true">background-color: rgb(0, 120, 0);</string>
+		</property>
+		<widget class="QLabel" name="label">
+			<property name="geometry">
+				<rect>
+					<x>120</x>
+					<y>100</y>
+					<width>1201</width>
+					<height>401</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string/>
+			</property>
+			<property name="pixmap">
+				<pixmap resource="background.qrc">:/background/background_table.png</pixmap>
+			</property>
+			<property name="scaledContents">
+				<bool>true</bool>
+			</property>
+		</widget>
+		<widget class="QWidget" name="verticalLayoutWidget">
+			<property name="geometry">
+				<rect>
+					<x>960</x>
+					<y>505</y>
+					<width>471</width>
+					<height>179</height>
+				</rect>
+			</property>
+			<layout class="QVBoxLayout" name="verticalLayout">
+				<property name="spacing">
+					<number>3</number>
+				</property>
+				<item>
+					<layout class="QHBoxLayout" name="horizontalLayout_4">
+						<property name="spacing">
+							<number>3</number>
+						</property>
+						<item>
+							<widget class="QPushButton" name="CheckButton">
+								<property name="sizePolicy">
+									<sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+										<horstretch>0</horstretch>
+										<verstretch>0</verstretch>
+									</sizepolicy>
+								</property>
+								<property name="autoFillBackground">
+									<bool>false</bool>
+								</property>
+								<property name="styleSheet">
+									<string notr="true">background-color: rgb(240, 240, 240);</string>
+								</property>
+								<property name="text">
+									<string/>
+								</property>
+								<property name="iconSize">
+									<size>
+										<width>20</width>
+										<height>20</height>
+									</size>
+								</property>
+								<property name="checkable">
+									<bool>false</bool>
+								</property>
+							</widget>
+						</item>
+						<item>
+							<widget class="QPushButton" name="BetButton">
+								<property name="sizePolicy">
+									<sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+										<horstretch>0</horstretch>
+										<verstretch>0</verstretch>
+									</sizepolicy>
+								</property>
+								<property name="autoFillBackground">
+									<bool>false</bool>
+								</property>
+								<property name="styleSheet">
+									<string notr="true">background-color: rgb(240, 240, 240);</string>
+								</property>
+								<property name="text">
+									<string/>
+								</property>
+							</widget>
+						</item>
+						<item>
+							<widget class="QPushButton" name="SmallBlindButton">
+								<property name="sizePolicy">
+									<sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+										<horstretch>0</horstretch>
+										<verstretch>0</verstretch>
+									</sizepolicy>
+								</property>
+								<property name="autoFillBackground">
+									<bool>false</bool>
+								</property>
+								<property name="styleSheet">
+									<string notr="true">background-color: rgb(240, 240, 240);</string>
+								</property>
+								<property name="text">
+									<string>Small Blind</string>
+								</property>
+							</widget>
+						</item>
+					</layout>
+				</item>
+				<item>
+					<layout class="QHBoxLayout" name="horizontalLayout_3">
+						<property name="spacing">
+							<number>3</number>
+						</property>
+						<item>
+							<widget class="QPushButton" name="FoldButton">
+								<property name="sizePolicy">
+									<sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+										<horstretch>0</horstretch>
+										<verstretch>0</verstretch>
+									</sizepolicy>
+								</property>
+								<property name="styleSheet">
+									<string notr="true">background-color: rgb(240, 240, 240);</string>
+								</property>
+								<property name="text">
+									<string>Fold</string>
+								</property>
+							</widget>
+						</item>
+						<item>
+							<widget class="QPushButton" name="AllInButton">
+								<property name="sizePolicy">
+									<sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+										<horstretch>0</horstretch>
+										<verstretch>0</verstretch>
+									</sizepolicy>
+								</property>
+								<property name="autoFillBackground">
+									<bool>false</bool>
+								</property>
+								<property name="styleSheet">
+									<string notr="true">background-color: rgb(240, 240, 240);</string>
+								</property>
+								<property name="text">
+									<string>All In</string>
+								</property>
+							</widget>
+						</item>
+					</layout>
+				</item>
+				<item>
+					<layout class="QHBoxLayout" name="horizontalLayout_2">
+						<property name="spacing">
+							<number>3</number>
+						</property>
+						<item>
+							<widget class="QLineEdit" name="lineEdit">
+								<property name="sizePolicy">
+									<sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+										<horstretch>0</horstretch>
+										<verstretch>0</verstretch>
+									</sizepolicy>
+								</property>
+								<property name="styleSheet">
+									<string notr="true">background-color: rgb(184, 184, 184);</string>
+								</property>
+								<property name="inputMask">
+									<string/>
+								</property>
+								<property name="text">
+									<string/>
+								</property>
+								<property name="placeholderText">
+									<string/>
+								</property>
+							</widget>
+						</item>
+						<item>
+							<widget class="QPushButton" name="ConfirmButton">
+								<property name="sizePolicy">
+									<sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+										<horstretch>0</horstretch>
+										<verstretch>0</verstretch>
+									</sizepolicy>
+								</property>
+								<property name="styleSheet">
+									<string notr="true">background-color: rgb(240, 240, 240);</string>
+								</property>
+								<property name="text">
+									<string>Confirm</string>
+								</property>
+							</widget>
+						</item>
+						<item>
+							<widget class="QPushButton" name="ConfirmSmallBlindButton">
+								<property name="sizePolicy">
+									<sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+										<horstretch>0</horstretch>
+										<verstretch>0</verstretch>
+									</sizepolicy>
+								</property>
+								<property name="styleSheet">
+									<string notr="true">background-color: rgb(240, 240, 240);</string>
+								</property>
+								<property name="text">
+									<string>Confirm</string>
+								</property>
+							</widget>
+						</item>
+					</layout>
+				</item>
+			</layout>
+		</widget>
+		<widget class="QLabel" name="CurrentPotDescription">
+			<property name="geometry">
+				<rect>
+					<x>860</x>
+					<y>415</y>
+					<width>200</width>
+					<height>25</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<family>Arial</family>
+					<pointsize>17</pointsize>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">background: transparent;</string>
+			</property>
+			<property name="text">
+				<string>Current pot:</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="CurrentPlayerDescription">
+			<property name="geometry">
+				<rect>
+					<x>10</x>
+					<y>620</y>
+					<width>200</width>
+					<height>25</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<family>Arial</family>
+					<pointsize>17</pointsize>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">background: transparent;</string>
+			</property>
+			<property name="text">
+				<string>Current player:</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="CurrentPlayerName">
+			<property name="geometry">
+				<rect>
+					<x>10</x>
+					<y>650</y>
+					<width>300</width>
+					<height>25</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<family>Arial</family>
+					<pointsize>17</pointsize>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">background: transparent;</string>
+			</property>
+			<property name="text">
+				<string>Long Initial Name</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="PotToken">
+			<property name="geometry">
+				<rect>
+					<x>1000</x>
+					<y>414</y>
+					<width>30</width>
+					<height>30</height>
+				</rect>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">background: transparent;</string>
+			</property>
+			<property name="scaledContents">
+				<bool>true</bool>
+			</property>
+			<property name="pixmap">
+				<pixmap resource="cards.qrc">:/resources/token.png</pixmap>
+			</property>
+		</widget>
+		<widget class="QLabel" name="Pot">
+			<property name="geometry">
+				<rect>
+					<x>1035</x>
+					<y>415</y>
+					<width>200</width>
+					<height>25</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<family>Arial</family>
+					<pointsize>17</pointsize>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">background: transparent;</string>
+			</property>
+			<property name="text">
+				<string>10000$</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="EndBackground">
+			<property name="geometry">
+				<rect>
+					<x>518</x>
+					<y>144</y>
+					<width>400</width>
+					<height>300</height>
+				</rect>
+			</property>
+			<property name="lineWidth">
+				<number>4</number>
+			</property>
+			<property name="frameShape">
+				<enum>QFrame::Panel</enum>
+			</property>
+			<property name="frameShadow">
+				<enum>QFrame::Raised</enum>
+			</property>
+		</widget>
+		<widget class="QLabel" name="EndWinnerDescription">
+			<property name="geometry">
+				<rect>
+					<x>518</x>
+					<y>185</y>
+					<width>400</width>
+					<height>35</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<family>Arial</family>
+					<pointsize>20</pointsize>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="alignment">
+				<set>Qt::AlignCenter</set>
+			</property>
+			<property name="text">
+				<string>WINNER</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="EndWinnerName">
+			<property name="geometry">
+				<rect>
+					<x>518</x>
+					<y>230</y>
+					<width>400</width>
+					<height>50</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<family>Arial</family>
+					<pointsize>30</pointsize>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">background: transparent;</string>
+			</property>
+			<property name="alignment">
+				<set>Qt::AlignCenter</set>
+			</property>
+			<property name="text">
+				<string>LongInitialName</string>
+			</property>
+		</widget>
+		<widget class="QPushButton" name="NextRoundButton">
+			<property name="geometry">
+				<rect>
+					<x>618</x>
+					<y>350</y>
+					<width>200</width>
+					<height>50</height>
+				</rect>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">background-color: rgb(240, 240, 240);</string>
+			</property>
+			<property name="text">
+				<string>Next round</string>
+			</property>
+		</widget>
+	</widget>
+	<resources>
+		<include location="background.qrc"/>
+	</resources>
+	<connections/>
+</ui>

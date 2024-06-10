@@ -268,7 +268,8 @@ void Game::find_winner() {
 
 void Game::collect_cards() {
     for (auto& player : players) {
-        discarded->add_cards(player->clear_hand());
+        if (player->hand_size() == 2)
+            discarded->add_cards(player->clear_hand());
     }
     for (auto& card : *table) {
         discarded->add_card(std::move(card));
@@ -325,4 +326,5 @@ void Game::restart_game() {
     pot = 0;
     reset_phase();
     smallest_allin = 0;
+    winners.clear();
 }

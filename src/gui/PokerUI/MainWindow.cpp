@@ -143,6 +143,8 @@ void MainWindow::initPlayersInfo()
 
 void MainWindow::StartGame()
 {
+    game_handler->set_finished(false);
+    game_handler->set_one_player(false);
 	setStatus();
 	setCash();
 	setButtons();
@@ -150,7 +152,7 @@ void MainWindow::StartGame()
 	showButtons();
 	setCurrentPlayer();
 	showEndScreen(false);
-	//reverseCards(false);
+	reverseCards(false);
 	if (game_handler->current_player() == 0)
 	{
 		setButtons();
@@ -185,21 +187,23 @@ void MainWindow::PlayGame()
 		reverseCards(true);
 		return;
 	}
-	else
-	{
-		//bot delay
-		int time = 0;
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<unsigned int> dist(1000, 3000);
 
-		time = dist(gen);
-		bot_cooldown->start(time);
-		qDebug() << "Bot timer started at: " << time << "ms";
+    if (game_handler->current_player() == 0) return;
+
+    qDebug() << "Player turn: " << game_handler->current_player();
+
+    //bot delay
+    int time = 0;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<unsigned int> dist(1000, 3000);
+
+    time = dist(gen);
+    bot_cooldown->start(time);
+    qDebug() << "Bot timer started at: " << time << "ms";
 
 
-		return;
-	}
+    return;
 }
 
 void MainWindow::playerMakeDecision(Decision decision, int bet)
@@ -385,6 +389,7 @@ void MainWindow::reverseCards(bool front)
 	{
 		for (int i = 0; i < game_handler->player_count(); i++)
 		{
+            if (game_handler->player(i)->folded()) continue;
 			uiplayers[i]->set_cards(game_handler->get_player_hand(i, 0)->get_file_path(), game_handler->get_player_hand(i, 1)->get_file_path());
 		}
 	}
@@ -500,6 +505,11 @@ void MainWindow::small_blind_confirmed()
 
 void MainWindow::next_round()
 {
+    if (game_handler->one_player())
+    {
+        game_handler->initialize_game(game_handler->game_info);
+    }
+    game_handler->finish_game();
 	emit nextRound();
 }
 

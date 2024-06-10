@@ -64,7 +64,7 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
             return 0;
         } else {
             auto rand = dist(engine) % 10 + 4;
-            int money_divided_by_rand = static_cast<int>(money() / rand);
+            int money_divided_by_rand = money() / rand;
             int floored_to_closest_10 = (money_divided_by_rand / 10) * 10;
             return floored_to_closest_10;
         }
@@ -73,7 +73,7 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
         return result;
     } else if (equity() > 1.0 / static_cast<double>(num_of_players)) { // raise or call
         auto random_number = dist(engine);
-        if (random_number % 3 == 0) { // raise has to be changed
+        if (random_number % 4 == 0) { // raise
             result = (has_enough_money(money_to_bet - bet())) ? money_to_bet + static_cast<int>(((money() - money_to_bet) * equity())) : money();
         }
         else{ // call
@@ -94,38 +94,6 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
     }
     return result;
 }
-//    if (small_blind()) {
-//        return money() / 10;
-//    }
-//    calc_equity(board_cards, num_of_players);
-//    if ((money_to_bet - bet()) == 0 && equity() < 0.4) {
-//        return 0;
-//    } else if (equity() > 1.5 / static_cast<double>(num_of_players)) {
-//        auto random_number = dist(engine);
-//        if (random_number % 17) {
-//            return (has_enough_money(money_to_bet - bet())) ? money_to_bet + static_cast<int>(((money() - money_to_bet) * equity())) : money();
-//        }
-//        else{
-//            return (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
-//        }
-//
-//    } else if (equity() < 0.5 / static_cast<double>(num_of_players)) {
-//        if (is_bluffing) {
-//            auto random_number = dist(engine);
-//            if (random_number % 17) {
-//                return has_enough_money(money_to_bet - bet()) ? make_bluff(money_to_bet, num_of_players, board_cards) : money();
-//            } else if (random_number % 13) {
-//                return (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
-//            } else return 0; // make fold
-//        }
-//        else{
-//            return -1; //make fold
-//        }
-//    } else {
-//        //(has_enough_money(money_to_bet)) ? make_call(money_to_bet) : make_all_in();
-//        return (has_enough_money(money_to_bet - bet())) ? money_to_bet : money();
-//    }
-//}
 
 unsigned int BotPlayer::make_bluff(unsigned int money_to_bet, unsigned int num_of_players, const std::string&) {
     //make_raise(money_to_bet + static_cast<int>((money() - money_to_bet) * 0.5));

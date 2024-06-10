@@ -19,8 +19,14 @@ public:
         std::deque<Ptr>::push_back(std::move(card));
     }
 
-    virtual void add_cards(std::deque<Ptr> cards) {
-        for (auto& card : cards) {
+//    virtual void add_cards(std::deque<Ptr> cards) {
+//        for (auto& card : cards) {
+//            std::deque<Ptr>::push_back(std::move(card));
+//        }
+//    }
+
+    virtual void add_cards(std::unique_ptr<CardCollection<Ptr>> cards) {
+        for (auto& card : *cards) {
             std::deque<Ptr>::push_back(std::move(card));
         }
     }

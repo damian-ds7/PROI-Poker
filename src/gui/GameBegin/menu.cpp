@@ -4,9 +4,9 @@
 #include <QFile>
 #include <utility>
 
-MenuWindow::MenuWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent)
+MenuWindow::MenuWindow(MainWindow* main_window, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MenuWindow), game_handler(std::move(Igame))
+    , ui(new Ui::MenuWindow), main_window(main_window)
 {
     ui->setupUi(this);
 
@@ -27,9 +27,18 @@ MenuWindow::MenuWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent)
     connect(ui->playerSlider, &QSlider::valueChanged, this, &MenuWindow::updatePlayerCount);
     connect(ui->moneySlider, &QSlider::valueChanged, this, &MenuWindow::updateStartMoney);
 
+
     // Set the initial value
     updatePlayerCount(ui->playerSlider->value());
     updateStartMoney(ui->moneySlider->value());
+}
+
+void MenuWindow::keyPressEvent(QKeyEvent *event) {
+    if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return){
+        startGame();
+    } else{
+        QMainWindow::keyPressEvent(event);
+    }
 }
 
 MenuWindow::~MenuWindow()
@@ -50,12 +59,12 @@ void MenuWindow::startGame() {
     // Create the GameInfo object
     GameInfo gameInfo(playerName.toStdString(), numberOfPlayers, initialMoney);
     game_handler->initialize_game(gameInfo);
-
+    main_window->game_handler = std::move(game_handler);
     // Emit the signal with the game info
     emit gameInfoReady(gameInfo);
 
     // Close the window
-    this->close();
+    this->hide();
 }
 
 void MenuWindow::updatePlayerCount(int count){

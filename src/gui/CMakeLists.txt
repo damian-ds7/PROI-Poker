@@ -15,9 +15,11 @@ set(MAIN_WINDOW_SOURCES
         PokerUI/mainwindow.ui
         PokerUI/background.qrc
         PokerUI/cards.qrc
+        PokerUI/UIPlayer/UIPlayer.h
+        PokerUI/UIPlayer/UIPlayer.cpp
 )
 
 set(GAME_HANDLER GameHandler/GameHandler.h GameHandler/GameHandler.cpp)
 
-add_executable(Poker main.cpp ${MAIN_WINDOW_SOURCES} ${MENU_SOURCES} ${GAME_HANDLER})
+add_executable(Poker WIN32 main.cpp ${MAIN_WINDOW_SOURCES} ${MENU_SOURCES} ${GAME_HANDLER})
 target_link_libraries(Poker PRIVATE poker_lib Qt::Widgets Qt::Core Qt::Gui)

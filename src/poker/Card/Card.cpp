@@ -125,7 +125,7 @@ std::string Card::to_string() const noexcept {
 }
 
 std::string Card::get_file_path() const noexcept{
-    std::string file_name = "resources/deck/";
+    std::string file_name = ":/resources/Deck/";
     switch(m_suit){
         case Suit::Hearts:
             file_name += "hearts_";

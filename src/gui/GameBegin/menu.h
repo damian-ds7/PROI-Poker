@@ -1,11 +1,18 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include <string>
+#include <memory>
+#include <QMainWindow>
+#include <QKeyEvent>
 #include "GameInfo.h"
 #include "GameHandler.h"
-#include <memory>
+#include "MainWindow.h"
+
+
+
+class GameHandler;
+class MainWindow;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MenuWindow; }
@@ -14,10 +21,13 @@ QT_END_NAMESPACE
 class MenuWindow : public QMainWindow
 {
     Q_OBJECT
-    std::shared_ptr<GameHandler> game_handler;
+    std::unique_ptr<GameHandler> game_handler = std::make_unique<GameHandler>();
+    MainWindow* main_window;
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
 
 public:
-    MenuWindow(std::shared_ptr<GameHandler> Igame, QWidget *parent = nullptr);
+    MenuWindow(MainWindow* main_window, QWidget *parent = nullptr);
     ~MenuWindow();
 
 signals:

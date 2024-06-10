@@ -1,15 +1,27 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include "GameInfo.h"
+#include "GameHandler.h"
 #include <QPixmap>
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
 #include <QTransform>
 #include <QFont>
-#include <QGridLayout>
 #include <QLineEdit>
-#include <QVBoxLayout>
+#include <QMessageBox>
+#include <QTimer>
+#include "GameHandler.h"
+#include "CardsTypedef.h"
+#include "menu.h"
+#include "Decision.h"
+#include "UIPlayer/UIPlayer.h"
+#include <vector>
+
+
+class GameHandler;
+class UIPlayer;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,87 +32,85 @@ QT_END_NAMESPACE
 class MainWindow : public QWidget
 {
     Q_OBJECT
+    std::unique_ptr<GameHandler> game_handler;
 
 public:
-    MainWindow(QWidget* parent = nullptr, const short opponents = 2);
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
     
-    void showPlayerCards(bool visible);
     void InputNames(std::vector<std::string> names);
     void createWidgets(MainWindow* ptr);
 
+    void StartGame();
+    void PlayGame();
+    void RestartGame();
+
+    void playerMakeDecision(Decision decision, int bet);
+    void playerMakeSmallBlind(int bet);
+    void botMakeMove();
+
+    void reverseCards(bool front);
+
+signals:
+    void decisionMade(Decision decision, int bet);
+signals:
+    void smallBlindMade(int bet);
+signals:
+    void botMove();
+signals:
+	void nextRound();
+
 private:
-    const short opponents;
+    void BigBlind();
 
-    void createPlayerCards(MainWindow* ptr);
+    friend class MenuWindow;
+
+    void createPlayers(MainWindow* ptr);
+
     void createTableCards(MainWindow* ptr);
-    void createOpponentCards(MainWindow* ptr);
-    void createOpponentLabels(MainWindow* ptr);
-    void createPlayerLabels(MainWindow* ptr);
-    void createTableLabels(MainWindow* ptr);
+    void movePlayerLabels();
+    void moveOpponentLabels();
+    void initPlayersInfo();
 
-    QLabel PlayerCard1;
-    QLabel PlayerCard2;
-    QLabel TableCard1;
-    QLabel TableCard2;
-    QLabel TableCard3;
-    QLabel TableCard4;
-    QLabel TableCard5;
-    QLabel TableCardBack;
-    QLabel Opponent1Card1;
-    QLabel Opponent1Card2;
-    QLabel Opponent2Card1;
-    QLabel Opponent2Card2;
-    QLabel Opponent3Card1;
-    QLabel Opponent3Card2;
-    QLabel Opponent4Card1;
-    QLabel Opponent4Card2;
-    QLabel Opponent5Card1;
-    QLabel Opponent5Card2;
+    void showButtons();
+    void showEndScreen(bool visible);
+    void showPlayersCards();
 
-    QLabel PlayerName;
-    QLabel Opponent1Name;
-    QLabel Opponent2Name;
-    QLabel Opponent3Name;
-    QLabel Opponent4Name;
-    QLabel Opponent5Name;
-    QLabel PlayerCash;
-    QLabel Opponent1Cash;
-    QLabel Opponent2Cash;
-    QLabel Opponent3Cash;
-    QLabel Opponent4Cash;
-    QLabel Opponent5Cash;
-    QLabel Pot;
-    QLabel PlayerBet;
-    QLabel Opponent1Bet;
-    QLabel Opponent2Bet;
-    QLabel Opponent3Bet;
-    QLabel Opponent4Bet;
-    QLabel Opponent5Bet;
-    QLabel PlayerStatus;
-    QLabel Opponent1Status;
-    QLabel Opponent2Status;
-    QLabel Opponent3Status;
-    QLabel Opponent4Status;
-    QLabel Opponent5Status;
+    void setPlayerCards();
+    void setTableCards();
+    void setCash();
+    void setStatus();
+    void setCurrentPlayer();
+    void setNames();
 
-    QLabel PlayerSelfToken;
-    QLabel Opponent1SelfToken;
-    QLabel Opponent2SelfToken;
-    QLabel Opponent3SelfToken;
-    QLabel Opponent4SelfToken;
-    QLabel Opponent5SelfToken;
-    QLabel PlayerTableToken;
-    QLabel Opponent1TableToken;
-    QLabel Opponent2TableToken;
-    QLabel Opponent3TableToken;
-    QLabel Opponent4TableToken;
-    QLabel Opponent5TableToken;
-    QLabel PotToken;
+    void setButtons();
+    void setBetButton(bool bet);
+    void setCheckButton(bool check);
 
-    QLabel CurrentPotDecsription;
+    void setEndScreen(std::vector<unsigned int> winners);
+
+
+
+    //buttons signals
+    void check();
+    void bet();
+    void fold();
+    void all_in();
+    void bet_confirmed();
+    void small_blind();
+    void small_blind_confirmed();
+
+    void next_round();
+
+    void bot_timer_ended();
+
+    //void game_finished(std::vector<unsigned int> winners);
+
+    std::vector<std::unique_ptr<UIPlayer>> uiplayers;
+    QLabel* TableCards[6];
+
+    QTimer* bot_cooldown;
 
     Ui::Widget* ui;
 };
 #endif // WIDGET_H
-

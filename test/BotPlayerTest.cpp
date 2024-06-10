@@ -113,45 +113,52 @@ TEST(BotPlayerTest, BotPlayerCalcEquityRiver){
     EXPECT_GT(bot.equity(), 0.0);
 }
 
-TEST(BotPlayerTest, BotPlayerMakeDecisionFold){
-    BotPlayer bot("Bot", 1000, 0);
-    bot.set_equity(0.2);
-    bot.make_decision(100, 2);
-    EXPECT_TRUE(bot.folded());
-}
-
-TEST(BotPlayerTest, BotPlayerMakeDecisionCall){
-    BotPlayer bot("Bot", 1000, 0);
-    bot.set_equity(0.4);
-    bot.make_decision(100, 2);
-    EXPECT_EQ(bot.bet(), 100);
-}
-
 TEST(BotPlayerTest, BotPlayerMakeDecisionRaise){
     BotPlayer bot("Bot", 1000, 0);
-    bot.set_equity(0.6);
-    bot.make_decision(100, 2);
-    EXPECT_GT(bot.bet(), 100);
+    std::unique_ptr<Card> card1 = std::make_unique<Card>(Suit::Spades, Value::Ace);
+    std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::King);
+    bot.add_card(std::move(card1));
+    bot.add_card(std::move(card2));
+    auto res = bot.make_decision(100, 2, "JsTs9s", false, false);
+    EXPECT_GE(res, 100);
 }
 
-TEST(BotPlayerTest, BotPlayerMakeDecisionRaiseNotEnoughMoney){
-    BotPlayer bot("Bot", 100, 0);
-    bot.set_equity(0.6);
-    bot.make_decision(100, 2);
-    EXPECT_EQ(bot.bet(), 100);
-}
-
-TEST(BotPlayerTest, BotPlayerMakeDecisionCallNotEnoughMoney){
-    BotPlayer bot("Bot", 100, 0);
-    bot.set_equity(0.4);
-    bot.make_decision(100, 2);
-    EXPECT_EQ(bot.bet(), 100);
+TEST(BotPlayerTest, BotPlayerMakeDecisionFold){
+    BotPlayer bot("Bot", 1000, 0);
+    std::unique_ptr<Card> card1 = std::make_unique<Card>(Suit::Spades, Value::Two);
+    std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::Three);
+    bot.add_card(std::move(card1));
+    bot.add_card(std::move(card2));
+    auto res = bot.make_decision(100, 2, "7h8h9h", false, false);
+    EXPECT_EQ(res, -1);
 }
 
 TEST(BotPlayerTest, BotPlayerMakeDecisionCheck){
     BotPlayer bot("Bot", 1000, 0);
-    bot.set_equity(0.3);
-    bot.make_decision(0, 2);
-    EXPECT_EQ(bot.bet(), 0);
+    std::unique_ptr<Card> card1 = std::make_unique<Card>(Suit::Spades, Value::Two);
+    std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::Three);
+    bot.add_card(std::move(card1));
+    bot.add_card(std::move(card2));
+    auto res = bot.make_decision(0, 2, "7h8h9h", true, false);
+    EXPECT_EQ(res, 0);
 }
 
+TEST(BotPlayerTest, BotPlayerMakeDecisionCall){
+    BotPlayer bot("Bot", 1000, 0);
+    std::unique_ptr<Card> card1 = std::make_unique<Card>(Suit::Hearts, Value::Two);
+    std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::Three);
+    bot.add_card(std::move(card1));
+    bot.add_card(std::move(card2));
+    auto res = bot.make_decision(100, 2, "7h8h9h", false, false);
+    EXPECT_EQ(res, 100);
+}
+
+TEST(BotPlayerTest, BotPlayerMakeBluff){
+    BotPlayer bot("Bot", 1000, 0);
+    std::unique_ptr<Card> card1 = std::make_unique<Card>(Suit::Hearts, Value::Two);
+    std::unique_ptr<Card> card2 = std::make_unique<Card>(Suit::Spades, Value::Three);
+    bot.add_card(std::move(card1));
+    bot.add_card(std::move(card2));
+    auto res = bot.make_bluff(100, 2, "7h8h9h");
+    EXPECT_GT(res, 100);
+}

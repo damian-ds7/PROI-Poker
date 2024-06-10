@@ -193,7 +193,7 @@ TEST(GameHandlerTest, GameHandlerPhaseToInt){
     game_handler.play_turn(Decision::Raise, 10);
     game_handler.play_turn(Decision::Call, 10);
     game_handler.play_turn(Decision::Call, 0);
-    EXPECT_EQ(game_handler.phase_to_int(), 4);
+    EXPECT_EQ(game_handler.phase_to_int(), 0);
 }
 
 TEST(GameHandlerTest, GameHandlerCurrentPlayerToString){

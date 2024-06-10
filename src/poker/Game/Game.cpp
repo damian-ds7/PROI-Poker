@@ -124,27 +124,32 @@ void Game::make_move(Decision decision, int bet) {
         case Decision::Bet:
             can_check = false;
             if(anyone_all_in){
-                players[current_player]->make_all_in();
+                players[current_player]->make_call(get_previous_bet());
             }else {
                 players[current_player]->make_bet(bet);
                 break;
             }
         case Decision::Raise:
+            can_check = false;
             if(anyone_all_in){
-                players[current_player]->make_all_in();
+                players[current_player]->make_call(get_previous_bet());
             }else {
                 players[current_player]->make_raise(bet);
             }
             break;
         case Decision::Call:
-            players[current_player]->make_call(bet);
+            if (players[current_player]->money() == bet) {
+                players[current_player]->make_all_in();
+            } else {
+                players[current_player]->make_call(bet);
+            }
             break;
         case Decision::Fold:
             players[current_player]->make_fold();
             break;
         case Decision::AllIn:
             if (players[current_player]->all_in()) {
-                players[current_player]->make_call(get_previous_bet());
+                players[current_player]->make_call(0);
             } else {
                 players[current_player]->make_all_in();
                 anyone_all_in = true;
@@ -168,7 +173,7 @@ Decision Game::convert_bot_decision(int bet) {
     int current_money = players[current_player]->money();
     if (bet == 0) {
         decision = Decision::Check;
-    } else if (players[current_player]->small_blind() || players[current_player]->big_blind() || can_check) {
+    } else if (players[current_player]->small_blind() || players[current_player]->big_blind()) {
         decision = Decision::Bet;
     } else if (bet  > previous_bet && bet < current_money) {
         decision = Decision::Raise;

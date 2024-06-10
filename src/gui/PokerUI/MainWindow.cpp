@@ -253,15 +253,11 @@ void MainWindow::showEndScreen(bool visible)
 		ui->EndBackground->raise();
 		ui->EndWinnerDescription->raise();
 		ui->EndWinnerName->raise();
-		ui->EndToken->raise();
-		ui->EndWinnerCash->raise();
 		ui->NextRoundButton->raise();
 	}
 	ui->EndBackground->setVisible(visible);
 	ui->EndWinnerDescription->setVisible(visible);
 	ui->EndWinnerName->setVisible(visible);
-	ui->EndToken->setVisible(visible);
-	ui->EndWinnerCash->setVisible(visible);
 	ui->NextRoundButton->setVisible(visible);
 }
 void MainWindow::showPlayersCards()

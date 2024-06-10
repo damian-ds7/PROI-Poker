@@ -248,7 +248,6 @@ void Game::share_pot() {
     }
 }
 void Game::find_winner() {
-    reset_winners();
     unsigned int max = 0;
     for (unsigned int i = 0; i < player_count; ++i) {
         auto eval = players[i]->evaluate();

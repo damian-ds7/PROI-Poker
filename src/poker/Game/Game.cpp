@@ -202,7 +202,7 @@ bool Game::check_round_end() {
 
 void Game::delete_broke_players() {
     while (true) {
-        auto it = std::find_if(players.begin(), players.end(), [](const auto &player) { return player->money() == 0; });
+        auto it = std::find_if(players.begin() + 1, players.end(), [](const auto &player) { return player->money() == 0; });
         if (it != players.end()) {
             players.erase(it);
             --player_count;
@@ -210,6 +210,9 @@ void Game::delete_broke_players() {
         else {
             break;
         }
+    }
+    if (players[0]->money() == 0) {
+        players[0].reset();
     }
     currently_playing = player_count;
 }

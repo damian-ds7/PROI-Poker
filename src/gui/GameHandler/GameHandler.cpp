@@ -85,10 +85,6 @@ void GameHandler::finish_game() {
 }
 
 void GameHandler::play_turn(Decision player_decision, int player_bet) {
-//    if (game->players[current_player()]->all_in() && player_decision != Decision::Fold) {
-//        player_decision = Decision::Call;
-//        player_bet = previous_bet();
-//    }
     game->make_move(player_decision, player_bet);
     if (game->phase == Phase::Showdown || game->currently_playing == 1) {
         game->collect_bets();
@@ -96,7 +92,7 @@ void GameHandler::play_turn(Decision player_decision, int player_bet) {
         game->find_winner();
         //finish_game();
         set_finished(true);
-        if (game->player_count == 1) {
+        if (game->player_count == 1 || !game->players[0] || game->players[0]->folded()) { // Check if only one player remains, Human player has $0 or Human player folded
             set_one_player(true);
         }
         return;

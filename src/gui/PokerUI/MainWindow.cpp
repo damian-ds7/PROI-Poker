@@ -203,6 +203,12 @@ void MainWindow::PlayGame()
     return;
 }
 
+void MainWindow::RestartGame()
+{
+	game_handler->finish_game();
+	StartGame();
+}
+
 void MainWindow::playerMakeDecision(Decision decision, int bet)
 {
 	game_handler->play_turn(decision, bet);

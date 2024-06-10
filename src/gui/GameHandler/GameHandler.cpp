@@ -94,7 +94,7 @@ void GameHandler::play_turn(Decision player_decision, int player_bet) {
         game->collect_bets();
         game->delete_broke_players();
         game->find_winner();
-//        finish_game();
+        //finish_game();
         set_finished(true);
         if (game->player_count == 1) {
             set_one_player(true);

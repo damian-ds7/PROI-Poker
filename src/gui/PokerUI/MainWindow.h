@@ -43,6 +43,7 @@ public:
 
     void StartGame();
     void PlayGame();
+    void RestartGame();
 
     void playerMakeDecision(Decision decision, int bet);
     void playerMakeSmallBlind(int bet);

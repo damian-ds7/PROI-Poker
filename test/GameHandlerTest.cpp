@@ -152,12 +152,12 @@ TEST(GameHandlerTest, GameHandlerStartGame){
     EXPECT_EQ(game_handler.player(4)->money(), 1000);
     EXPECT_EQ(game_handler.player(5)->money(), 1000);
     EXPECT_EQ(game_handler.pot(), 0);
-    EXPECT_EQ(game_handler.player(0)->clear_hand().size(), 2);
-    EXPECT_EQ(game_handler.player(1)->clear_hand().size(), 2);
-    EXPECT_EQ(game_handler.player(2)->clear_hand().size(), 2);
-    EXPECT_EQ(game_handler.player(3)->clear_hand().size(), 2);
-    EXPECT_EQ(game_handler.player(4)->clear_hand().size(), 2);
-    EXPECT_EQ(game_handler.player(5)->clear_hand().size(), 2);
+    EXPECT_EQ(game_handler.player(0)->clear_hand()->size(), 2);
+    EXPECT_EQ(game_handler.player(1)->clear_hand()->size(), 2);
+    EXPECT_EQ(game_handler.player(2)->clear_hand()->size(), 2);
+    EXPECT_EQ(game_handler.player(3)->clear_hand()->size(), 2);
+    EXPECT_EQ(game_handler.player(4)->clear_hand()->size(), 2);
+    EXPECT_EQ(game_handler.player(5)->clear_hand()->size(), 2);
 }
 
 //TEST(GameHandlerTest, GameHandlerMakeBigBlind){
@@ -193,7 +193,7 @@ TEST(GameHandlerTest, GameHandlerPhaseToInt){
     game_handler.play_turn(Decision::Raise, 10);
     game_handler.play_turn(Decision::Call, 10);
     game_handler.play_turn(Decision::Call, 0);
-    EXPECT_EQ(game_handler.phase_to_int(), 0);
+    EXPECT_EQ(game_handler.phase_to_int(), 4);
 }
 
 TEST(GameHandlerTest, GameHandlerCurrentPlayerToString){

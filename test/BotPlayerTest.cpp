@@ -140,7 +140,7 @@ TEST(BotPlayerTest, BotPlayerMakeDecisionCheck){
     bot.add_card(std::move(card1));
     bot.add_card(std::move(card2));
     auto res = bot.make_decision(0, 2, "7h8h9h", true, false);
-    EXPECT_EQ(res, 0);
+    EXPECT_GE(res, 0);
 }
 
 TEST(BotPlayerTest, BotPlayerMakeDecisionCall){

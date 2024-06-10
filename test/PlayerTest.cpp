@@ -74,15 +74,15 @@ TEST(PlayerTest, AddCard) {
     Player player("Player", 1000, 0);
     player.add_card(std::move(std::make_unique<Card>(Suit::Hearts, Value::Ace)));
     auto removed = player.clear_hand();
-    EXPECT_EQ(removed.front()->value(), Value::Ace);
+    EXPECT_EQ(removed->front()->value(), Value::Ace);
 }
 
 TEST(PlayerTest, PopCard) {
     Player player("Player", 1000, 0);
     player.add_card(std::move(std::make_unique<Card>(Suit::Hearts, Value::Ace)));
     auto removed = player.clear_hand();
-    EXPECT_EQ(removed.front()->value(), Value::Ace);
-    EXPECT_EQ(removed.front()->suit(), Suit::Hearts);
+    EXPECT_EQ(removed->front()->value(), Value::Ace);
+    EXPECT_EQ(removed->front()->suit(), Suit::Hearts);
 }
 
 TEST(PlayerTest, MakeBet) {

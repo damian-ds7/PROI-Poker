@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget* parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    QIcon icon(":/resources/app.ico");
+    this->setWindowIcon(icon);
 	bot_cooldown = new QTimer(this);
 	bot_cooldown->setSingleShot(true);
 	connect(ui->CheckButton, &QPushButton::clicked, this, &MainWindow::check);

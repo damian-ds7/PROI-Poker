@@ -10,7 +10,7 @@ MenuWindow::MenuWindow(MainWindow* main_window, QWidget *parent)
 {
     ui->setupUi(this);
 
-    this->setWindowTitle("Poker Texas Holdem");
+    this->setWindowTitle("Poker");
     this->setFixedSize(800, 600);
     QIcon icon(":/resources/app.ico");
     this->setWindowIcon(icon);

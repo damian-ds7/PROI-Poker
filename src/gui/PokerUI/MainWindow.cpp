@@ -26,6 +26,8 @@ MainWindow::~MainWindow()
 {
 	delete bot_cooldown;
     delete ui;
+    if (!game_handler)
+        return;
 	for (int i = 0; i < game_handler->game_info.player_count; i++)
 	{
 		delete TableCards[i];
@@ -527,19 +529,4 @@ void MainWindow::next_round()
 void MainWindow::bot_timer_ended()
 {
 	emit botMove();
-}
-
-//void MainWindow::game_finished(std::vector<unsigned int> winners)
-//{
-//	bot_cooldown->stop();
-//	showEndScreen(true);
-//	setEndScreen(winners);
-//	reverseCards(true);
-//}
-
-
-
-void MainWindow::InputNames(std::vector<std::string> names)
-{
-	//TODO
 }

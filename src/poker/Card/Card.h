@@ -13,18 +13,6 @@ public:
     [[nodiscard]] unsigned int card_index() const noexcept;
     Card(Suit suit, Value value);
     ~Card() = default;
-    bool operator==(const Card& other) const noexcept;
-    bool operator!=(const Card& other) const noexcept;
-    bool operator<(const Card& other) const noexcept;
-    bool operator>(const Card& other) const noexcept;
-    bool operator<=(const Card& other) const noexcept;
-    bool operator>=(const Card& other) const noexcept;
-    bool operator==(const Value& other) const noexcept;
-    bool operator!=(const Value& other) const noexcept;
-    bool operator<(const Value& other) const noexcept;
-    bool operator>(const Value& other) const noexcept;
-    bool operator<=(const Value& other) const noexcept;
-    bool operator>=(const Value& other) const noexcept;
     std::string to_string() const noexcept;
     std::string get_file_path() const noexcept;
 };

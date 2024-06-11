@@ -96,6 +96,5 @@ int BotPlayer::make_decision(unsigned int money_to_bet, unsigned int num_of_play
 }
 
 unsigned int BotPlayer::make_bluff(unsigned int money_to_bet, unsigned int num_of_players, const std::string&) {
-    //make_raise(money_to_bet + static_cast<int>((money() - money_to_bet) * 0.5));
     return money_to_bet + static_cast<int>((money() - money_to_bet) * 0.5);
 }

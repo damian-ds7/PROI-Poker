@@ -14,54 +14,6 @@ unsigned int Card::card_index() const noexcept {
 
 Card::Card(Suit suit, Value value) : m_suit(suit), m_value(value) {
     index = 4 * static_cast<int>(value) + static_cast<int>(suit);
-};
-
-bool Card::operator==(const Card& other) const noexcept {
-    return m_value == other.m_value;
-}
-
-bool Card::operator!=(const Card& other) const noexcept {
-    return !(*this == other);
-}
-
-bool Card::operator<(const Card& other) const noexcept {
-    return m_value < other.m_value;
-}
-
-bool Card::operator>(const Card& other) const noexcept {
-    return m_value > other.m_value;
-}
-
-bool Card::operator<=(const Card& other) const noexcept {
-    return m_value <= other.m_value;
-}
-
-bool Card::operator>=(const Card& other) const noexcept {
-    return m_value >= other.m_value;
-}
-
-bool Card::operator==(const Value& other) const noexcept {
-    return m_value == other;
-}
-
-bool Card::operator!=(const Value& other) const noexcept {
-    return m_value != other;
-}
-
-bool Card::operator<(const Value& other) const noexcept {
-    return m_value < other;
-}
-
-bool Card::operator>(const Value& other) const noexcept {
-    return m_value > other;
-}
-
-bool Card::operator<=(const Value& other) const noexcept {
-    return m_value <= other;
-}
-
-bool Card::operator>=(const Value& other) const noexcept {
-    return m_value >= other;
 }
 
 std::string Card::to_string() const noexcept {

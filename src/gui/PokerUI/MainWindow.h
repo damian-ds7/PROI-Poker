@@ -104,8 +104,6 @@ private:
 
     void bot_timer_ended();
 
-    //void game_finished(std::vector<unsigned int> winners);
-
     std::vector<std::unique_ptr<UIPlayer>> uiplayers;
     QLabel* TableCards[6];
 

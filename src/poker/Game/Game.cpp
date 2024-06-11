@@ -233,7 +233,7 @@ void Game::share_pot() {
             players[winner]->set_money(players[winner]->money() + pot / winners.size());
         }
         pot = 0;
-    } else{
+    } else {
         std::sort(allin_bets.begin(), allin_bets.end(), [&](unsigned int a, unsigned int b) {
             return players[a]->sum_bet() < players[b]->sum_bet();
         });
@@ -318,8 +318,8 @@ void Game::restart_game() {
     reset_players_status();
     collect_cards();
     set_new_dealer();
+    reset_winners();
     pot = 0;
     reset_phase();
     smallest_allin = 0;
-    winners.clear();
 }

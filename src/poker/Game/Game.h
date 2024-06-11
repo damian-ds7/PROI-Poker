@@ -54,6 +54,6 @@ public:
     void reset_players_status();
     void reset_initial_status();
     void restart_game();
-//    friend class MainWindow;
+
     friend class GameHandler;
 };

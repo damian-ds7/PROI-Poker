@@ -65,11 +65,10 @@ public:
     virtual unsigned int remove_bet() noexcept;
     virtual void reset_after_round() noexcept;
     virtual void reset_after_phase() noexcept;
-//    std::deque<std::unique_ptr<Card>> clear_hand() noexcept;
+
     virtual int hand_size() const noexcept;
     virtual Cards clear_hand() noexcept;
 protected:
     static omp::HandEvaluator eval;
-//    friend class MainWindow;
 };
 

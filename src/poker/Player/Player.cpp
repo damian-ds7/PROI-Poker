@@ -134,13 +134,6 @@ void Player::set_checked(bool checked) {
     }
 }
 
-//void Player::reset_status() {
-//    m_status = "";
-//    set_small_blind(false);
-//    set_big_blind(false);
-//    set_dealer(false);
-//}
-
 void Player::make_helper(unsigned money) {
     m_money -= money;
     m_bet += money;
@@ -192,16 +185,6 @@ unsigned int Player::remove_bet() noexcept {
     return bet;
 }
 
-//std::deque<std::unique_ptr<Card>> Player::clear_hand() noexcept {
-//    std::deque<std::unique_ptr<Card>> temp;
-//    for (auto& card : *m_hand) {
-//        temp.push_back(std::move(card));
-//        m_hand->pop_front();
-//    }
-//    card_eval = omp::Hand::empty();
-//    return std::move(temp);
-//}
-
 int Player::hand_size() const noexcept {
     return m_hand->size();
 }
@@ -214,7 +197,6 @@ Cards Player::clear_hand() noexcept {
 }
 
 void Player::reset_after_round() noexcept {
-//    m_bet = 0;
     set_called(false);
     set_raised(false);
     set_checked(false);
@@ -224,10 +206,6 @@ void Player::reset_after_round() noexcept {
 void Player::reset_after_phase() noexcept {
     reset_after_round();
     m_bet = 0;
-//    set_all_in(false);
-    set_small_blind(false);
-    set_big_blind(false);
-    set_dealer(false);
 }
 
 void Player::set_sum_bet(unsigned int sum_bet) {

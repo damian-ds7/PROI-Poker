@@ -115,7 +115,10 @@ int Game::bot_play() {
 }
 
 void Game::make_move(Decision decision, int bet) {
-    players[current_player]->reset_after_round();
+    // do not reset status if player is big or small blind to preserve status description until next play
+    if (!players[current_player]->big_blind() && !players[current_player]->small_blind()) {
+        players[current_player]->reset_after_round();
+    }
     if (decision == Decision::Bot) {
         bet = bot_play();
         decision = convert_bot_decision(bet);
@@ -192,9 +195,6 @@ bool Game::check_round_end() {
         if (!player->folded() && !player->called() && !player->checked()) {
             equal_bets = false;
         }
-//        if (!player->checked() && !player->folded()) {
-//            all_checked = false;
-//        }
     }
     return equal_bets;
 }
@@ -289,14 +289,7 @@ void Game::set_new_dealer() {
     current_player = find_active_player(dealer);
     players[dealer]->set_dealer(true);
     players[current_player]->set_small_blind(true);
-    players[find_active_player(current_player)]->set_big_blind(true);
-//    ++dealer;
-//    dealer %= player_count;
-//    current_player = (dealer + 1) % player_count;
-//    players[dealer]->set_dealer(true);
-//    players[(dealer + 1) % player_count]->set_small_blind(true);
-//    players[(dealer + 2) % player_count]->set_big_blind(true);
-}
+    players[find_active_player(current_player)]->set_big_blind(true);}
 
 void Game::reset_phase() {
     phase = Phase::PreFlop;

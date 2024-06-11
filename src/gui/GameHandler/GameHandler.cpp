@@ -90,7 +90,6 @@ void GameHandler::play_turn(Decision player_decision, int player_bet) {
         game->collect_bets();
         game->delete_broke_players();
         game->find_winner();
-        //finish_game();
         set_finished(true);
         if (game->player_count == 1 || !game->players[0] || game->players[0]->folded()) { // Check if only one player remains, Human player has $0 or Human player folded
             set_one_player(true);

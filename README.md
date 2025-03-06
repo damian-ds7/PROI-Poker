@@ -10,5 +10,3 @@ We implemented the most popular poker game - **Poker Texas Hold'em**. For the gr
 
 ## Instructions
 To build the project, you need to install Qt. After building, you have to run `poker.exe`.
-
-
